@@ -21,7 +21,7 @@ create Table `project`.`location`(
   `member_id` INT NOT NULL,
   `title` VARCHAR(60) NOT NULL,
   `textarea` TEXT NOT NULL,
-  `photo` BLOB NULL,
+  `photo` TEXT NULL,
   `upload_date` DATE NOT NULL,
   `loc_id` INT NULL,
   PRIMARY KEY (`board_id`),

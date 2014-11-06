@@ -1,3 +1,6 @@
+CREATE SCHEMA `project` DEFAULT CHARACTER SET euckr COLLATE euckr_korean_ci ;
+
+
 /*테이블 생성*/
 CREATE TABLE `project`.`member` (
   `member_id` INT NOT NULL AUTO_INCREMENT,
@@ -53,7 +56,7 @@ CREATE TABLE project.reply (
     REFERENCES project.board (board_id)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
-    )
+    );
 
  CREATE TABLE project.evaluation (
   loc_id INT NOT NULL,
@@ -66,7 +69,7 @@ CREATE TABLE project.reply (
     REFERENCES project.location (loc_id)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
-)
+);
 
 CREATE TABLE project.friends (
   member_id INT NOT NULL,
@@ -98,7 +101,7 @@ CREATE TABLE project.message (
     REFERENCES project.member (member_id)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
-)    
+);
     
     
 
@@ -107,7 +110,7 @@ CREATE TABLE project.message (
 /*멤버*/
 INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `password`) VALUES ('keispacce.kyj@gmail.com', '김영준', '01047874352', '141010', '1234');
 
-INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","김영준", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"1234") 
+INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","김영준", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"1234"); 
 
 /*친구*/
 INSERT INTO friends VALUES(1, 2);
@@ -122,7 +125,7 @@ INSERT INTO board(member_id,title, textarea,upload_date)
  VALUES(1,"공지입니다","관리잡니다. 관리자용 공지 테스트입니다.",DATE_FORMAT("14.10.11","%y%m%d"));
 
 INSERT INTO board(member_id,title, textarea,upload_date,loc_id) 
- VALUES(1,"테스트","내용 무",DATE_FORMAT("14.10.12","%y%m%d"),1)
+ VALUES(1,"테스트","내용 무",DATE_FORMAT("14.10.12","%y%m%d"),1);
 
 /*평가*/
 INSERT INTO evaluation VALUES(1,"분위기",1,"조용함",5);
@@ -138,7 +141,7 @@ INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"테스트 공진데 리플 
 
 INSERT INTO reply VALUES(2,1,DATE_FORMAT("141013","%y%m%d"),"넹~");
 
-INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"-__-;;");
+INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"-__-\;\;");
 
 /*쪽지*/
 INSERT INTO message VALUES(1,2,"널 믿었던 만큼 난 내 친구도 믿었기에",DATE_FORMAT("141010","%y%m%d"));

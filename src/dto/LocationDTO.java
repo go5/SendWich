@@ -1,6 +1,6 @@
 package dto;
 
-public class LocationDto {
+public class LocationDTO {
 	private int loc_id;
 	private String loc_name;
 	public int getLoc_id() {

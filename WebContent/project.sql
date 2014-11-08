@@ -1,3 +1,4 @@
+/*1108 버전.*/
 /*테이블 생성*/
 CREATE SCHEMA `project` DEFAULT CHARACTER SET euckr COLLATE euckr_korean_ci ;
 

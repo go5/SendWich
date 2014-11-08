@@ -141,7 +141,7 @@ public class msgDAO {
 	public void DeleteMessage(String msg_ids) {
 		// 메세지dto를 받아서 전송.
 		String sql = "DELETE FROM message WHERE msg_id IN (" + msg_ids + ")";
-		System.out.println(sql);
+		//System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			stmt = con.createStatement();

@@ -18,9 +18,9 @@
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memberDTO");
 	%>
 	<form name="body" style="width: 650px">
-		<!-- 머릿말 부분.  -->
 		<div style="width: 90%;">
-			<h1>${memberDTO.name}님의MSG board입니다.</h1>
+			<!-- 머릿말 부분.  -->
+			<h1>${memberDTO.name}님의MSGboard입니다.</h1>
 		</div>
 
 		<div style="width: 90%;" name="msgList" id="msgList">
@@ -28,7 +28,8 @@
 				<!-- 제목 부분.  -->
 				<tr>
 					<td bgcolor=#CCCCCC width="5%"><input type="checkbox"
-						id="msg_chk_all" name="msg_chk_all" onchange="fnchkall(this.form)" /></td>
+						id="msg_chk_all" name="msg_chk_all" value=" "
+						onchange="fnchkall(this.form)" /></td>
 					<td bgcolor=#CCCCCC width="45%">
 						<p align=center>메세지</p>
 					</td>
@@ -39,23 +40,8 @@
 						<p align=center>보낸 날짜</p>
 					</td>
 				</tr>
-				<!-- 예제 부분. 일단 주석으로 남겨둠.
-				<tr>
-					<td width="5%"><input type="checkbox" id="msg_chk"
-						name="msg_chk" /></td>
-					<td width="45%"><span>내용 test</span></td>
 
-
-					<td width="20%">
-						<p align=center>보낸 이 테스트</p>
-					</td>
-
-					<td width="30%">
-						<p align=center>날짜</p>
-					</td>
-
-				</tr>
-  -->
+				<!--  메시지 목록.  -->
 				<%
 					//받은 쪽지 정보 조회
 					Vector msgList = (Vector) session.getAttribute("msgList");
@@ -105,24 +91,19 @@
 		}
 		//전체 체크해제 함수
 		function fnchkall(f) {
-			//alert("1");
 			if (f.msg_chk_all.checked) {
-				//alert("2")
-				alert(f.getElementsByTagName("input").length);
-				alert(f.msg_chk.length);
-				//전체 체크. 전체체크,버튼2개 뺀 인풋갯수로 확인.
-				//for (var i = 0; i < f.getElementsByTagName("input").length ; i++) {
-				for (var i = 0; i < f.msg_chk.length ; i++) {
-						alert(i);
-						alert(f.msg_chk[i].value);
-					f.msg_chk[i].checked = true;
+				//태그네임으로 체크걸면 항목1개 일때 못찾음,
+				//체크박스 이름으로는 아예 못찾음
+				//엘레먼츠로 해야 인식함?!
+				//Dom 시르다. ㅠㅠ
+				for (var i = 0; i < f.getElementsByTagName("input").length; i++) {
+					//alert(i);
+					f.elements[i].checked = true;
 				}
 			} else {
-				//alert("3")
 				//전체 체크 해제
-				//for (var i = 0; i < f.getElementsByTagName("input").length; i++) {
-				for (var i = 0; i < f.msg_chk.length ; i++) {
-					f.msg_chk[i].checked = false;
+				for (var i = 0; i < f.getElementsByTagName("input").length; i++) {
+					f.elements[i].checked = false;
 				}
 			}
 
@@ -131,21 +112,18 @@
 		function fndelmsg(f) {
 			var ids = new Array();
 			var j = 0;
-//			for (var i = 0; i < f.getElementsByTagName("input").length ; i++) {
-				for (var i = 0; i < f.msg_chk.length ; i++) {
-				//alert(i);
-				alert(f.msg_chk[i].value);
-				if (f.msg_chk[i].checked) {
-					//alert(document.body.msg_chk[i].value);
-					ids[j] = f.msg_chk[i].value;
+			//alert(f.elements.length);
+			for (var i = 1; i < f.getElementsByTagName("input").length - 2; i++) {
+				if (f.elements[i].checked) {
+					//alert(f.elements[i].value);
+					ids[j] = f.elements[i].value;
 					j += 1;
 				}
 			}
 			ids.sort();
-			var ids2 = ids.join(", ");
+			var ids2 = ids.join(", ").trim();
 			url = "/SendWich/msg?cmd=MSGDELETE&msg_ids=" + ids2;
 			//alert(url);
-			//window.open("msgdel.jsp?msg_id="+ids2);
 			location.href = url;
 
 		}

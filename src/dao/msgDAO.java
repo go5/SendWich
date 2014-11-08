@@ -29,15 +29,17 @@ public class msgDAO {
 		}
 	}
 
-	public MemberDTO MemberInfo(String member_id) {
-		// 멤버 아이디를 받아서 회원 정보를 dto에 담아 반환
-		String sql = "SELECT * FROM member WHERE member_id = ? ";
+	public MemberDTO MemberInfo(int member_id) {
+		// 멤버 아이디를 받아서 회원 정보를 dto에 담아 반환.
+		//이건 memberDAO가 할 일.;;
+		String sql=null;
 		MemberDTO dto=null;
 		try {
-			dto = new MemberDTO();
+			dto=new MemberDTO();
+			sql = "SELECT * FROM member WHERE member_id = ? ";
 			con = pool.getConnection();// 성능을 위해서. 늦게 연결.
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member_id);
+			pstmt.setInt(1, member_id);
 			rs = pstmt.executeQuery();
 			rs.next();
 
@@ -47,6 +49,8 @@ public class msgDAO {
 			dto.setJoin_date(rs.getString("join_date"));
 			dto.setPhone_number(rs.getString("phone_number"));
 			dto.setPassword(rs.getString("password"));
+			//System.out.println(dto.getMember_id());
+
 		} catch (Exception err) {
 			err.printStackTrace();
 		} finally {
@@ -57,12 +61,14 @@ public class msgDAO {
 
 	public Vector msgList(int member_id) {
 		// 멤버 아이디를 받아서 메세지dto 묶음 벡터를 반환.
-		String sql = "SELECT * FROM message WHERE member_id = ? ";
+		//System.out.println("list"+member_id);
+		String sql = "SELECT * FROM message WHERE reciever_id = ? ";
 		Vector vMsgList = new Vector();
 		try {
+			//System.out.println(sql);
 			con = pool.getConnection();// 성능을 위해서. 늦게 연결.
 			pstmt = con.prepareStatement(sql);
-			pstmt.executeQuery();
+			pstmt.setInt(1, member_id);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				MessageDTO dto = new MessageDTO();
@@ -82,26 +88,25 @@ public class msgDAO {
 		return vMsgList;
 	}
 
-	public Vector<MemberDTO> FriendsInfo(String member_id) {
+	public Vector FriendsInfo(int member_id) {
 		// 멤버 아이디를 받아서 친구 정보를 dto에 담고 복수개의 정보를 벡터에 담아 반환
-		String sql = "SELECT * FROM member WHERE member_id IN (SELECT friend_id FROM friends WHERE friend_id="
-				+ member_id;
+		String sql = "SELECT * FROM member WHERE member_id IN (SELECT friend_id FROM friends WHERE member_id = " + member_id+")";
+		//System.out.println(sql);
 		MemberDTO dto = new MemberDTO();
-		Vector<MemberDTO> v = new Vector<MemberDTO>();
+		Vector v = new Vector();
 		try {
 			con = pool.getConnection();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-
 				dto.setMember_id(rs.getInt("member_id"));
 				dto.setName(rs.getString("name"));
 				dto.setEmail(rs.getString("email"));
 				dto.setJoin_date(rs.getString("join_date"));
 				dto.setPhone_number(rs.getString("phone_number"));
 				dto.setPassword(rs.getString("password"));
+				System.out.println(dto.getMember_id());
 				v.add(dto);
-
 			}
 		} catch (Exception err) {
 			err.printStackTrace();
@@ -111,15 +116,14 @@ public class msgDAO {
 		return v;
 	}
 
-	public void SendMessage(MessageDTO dto) {
+	public void SendMessage(int friend_id, String msg_text, int member_id) {
 		// 메세지dto를 받아서 전송.
-		String sql = "";
+		String sql = "INSERT INTO message(sender_id,reciever_id,textarea,send_date) VALUES("+member_id+", "+friend_id+", '"+msg_text+"', CURDATE())";
+		//System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "0");
 			pstmt.executeUpdate();
-
 		} catch (Exception err) {
 			err.printStackTrace();
 		} finally {

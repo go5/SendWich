@@ -12,13 +12,15 @@
 </head>
 <body>
 <%
+request.setCharacterEncoding("euc-kr");
+response.setCharacterEncoding("euc-kr");
 	msgDAO msgDAO = new msgDAO();
 MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 %>
 	<form name="body" style="width: 650px">
 		<!-- 머릿말 부분.  -->
 		<div style="width: 90%;">
-			<h1><%=memberDTO.getName()%>님의 MSG board입니다.
+			<h1>${memberDTO.name}님의 MSG board입니다.
 			</h1>
 		</div>
 
@@ -58,20 +60,21 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 				<%
 					//받은 쪽지 정보 조회
 					Vector msgList = (Vector)session.getAttribute("msgList");
-
+				
 					//받은 글 게시판으로 출력.
 					for(int i=0;i<msgList.size();i++){
 						MessageDTO dto = (MessageDTO)msgList.get(i);
+						MemberDTO friends = msgDAO.MemberInfo(dto.getSender_id());
 				%>
-
 				<tr>
 					<td width="5%"><input type="checkbox" id="msg_chk"
 						name="msg_chk" value="<%=dto.getMsg_id()%>" /></td>
-					<td width="45%"><div><%=dto.getTextarea()%></div></td>
-
+					<td width="45%"><div><%=dto.getTextarea()%></div>
+					</td>
+				
 
 					<td width="20%">
-						<p align=center><%=dto.getSender_id()%></p>
+						<p align=center><%=friends.getName()%></p>
 					</td>
 
 					<td width="30%">
@@ -100,7 +103,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	<script>
 		//메세지 작성
 		function fnWrite() {
-			window.open("write.jsp", "", "width=520, height=320");
+			window.open("/SendWich/msg?cmd=MSGWRITE", "", "width=520, height=320");
 		}
 		//전체 체크해제 함수
 		function fnchkall() {

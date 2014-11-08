@@ -1,7 +1,6 @@
+/*테이블 생성*/
 CREATE SCHEMA `project` DEFAULT CHARACTER SET euckr COLLATE euckr_korean_ci ;
 
-
-/*테이블 생성*/
 CREATE TABLE `project`.`member` (
   `member_id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(50) NOT NULL,
@@ -16,7 +15,7 @@ COMMENT = 'member infomation. ';
 create Table `project`.`location`(
  `loc_id` INT NOT NULL auto_increment,
  `loc_name` varchar(50) not null,
- PRIMARY KEY (`loc_id`))
+ PRIMARY KEY (`loc_id`));
  
  CREATE TABLE `project`.`board` (
   `board_id` INT NOT NULL AUTO_INCREMENT,
@@ -85,12 +84,14 @@ CREATE TABLE project.friends (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
     );
-
+   
 CREATE TABLE project.message (
+  msg_id integer NOT NULL AUTO_INCREMENT,
   sender_id INTEGER UNSIGNED NOT NULL,
   reciever_id INTEGER UNSIGNED NOT NULL,
   textarea TEXT NOT NULL,
   send_date DATE NOT NULL,
+   PRIMARY KEY (msg_id),
   CONSTRAINT FK_message_1
 	FOREIGN KEY (sender_id)
     REFERENCES prooject.member (member_id)
@@ -101,7 +102,7 @@ CREATE TABLE project.message (
     REFERENCES project.member (member_id)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
-);
+);    
     
     
 
@@ -141,11 +142,10 @@ INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"테스트 공진데 리플 
 
 INSERT INTO reply VALUES(2,1,DATE_FORMAT("141013","%y%m%d"),"넹~");
 
-INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"-__-\;\;");
+INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"-__-;;");
 
 /*쪽지*/
-INSERT INTO message VALUES(1,2,"널 믿었던 만큼 난 내 친구도 믿었기에",DATE_FORMAT("141010","%y%m%d"));
+INSERT INTO message(sender_id, reciever_id, textarea, send_date) VALUES(1,2,"널 믿었던 만큼 난 내 친구도 믿었기에",DATE_FORMAT("141010","%y%m%d"));
 
-INSERT INTO message VALUES(2,1,"남들보다 빠르게 난 남들보다 다르게",DATE_FORMAT("141010","%y%m%d"));
-
+INSERT INTO message(sender_id, reciever_id, textarea, send_date) VALUES(2,1,"남들보다 빠르게 난 남들보다 다르게",DATE_FORMAT("141010","%y%m%d"));
 

@@ -49,12 +49,12 @@ public class msgController extends HttpServlet {
 		Vector fList = null;// 친구목록
 		String cmd = req.getParameter("cmd");
 
-		url = "/message/msglist.jsp";
 
 		// 접근 조건 판별
 		if (cmd.equals("MSGLIST")) {
 			vList = msgDAO.msgList(memberDTO.getMember_id());
 			session.setAttribute("msgList", vList);
+			url = "/message/msglist.jsp";
 		} else if (cmd.equals("MSGWRITE")) {
 			fList = msgDAO.FriendsInfo(memberDTO.getMember_id());
 			// System.out.println(fList.size());
@@ -66,7 +66,14 @@ public class msgController extends HttpServlet {
 			msgDAO.SendMessage(Integer.parseInt(req.getParameter("friend_id")),
 					(req.getParameter("msg_text")), memberDTO.getMember_id());
 			url = "/message/writeProc.jsp"; // 외부창에서 닫히므로 이동할 필요 없음.
+		}else if (cmd.equals("MSGDELETE")) {
+			System.out.println("deletemsg");
+			msgDAO.DeleteMessage(req.getParameter("msg_ids"));
+			url = "/message/deleteProc.jsp";
+		}else{
+			//비정상접근 메세지.
 		}
+		
 		System.out.println(url);
 		RequestDispatcher view = req.getRequestDispatcher(url);
 		view.forward(req, resp);

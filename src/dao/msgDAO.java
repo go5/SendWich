@@ -31,11 +31,11 @@ public class msgDAO {
 
 	public MemberDTO MemberInfo(int member_id) {
 		// 멤버 아이디를 받아서 회원 정보를 dto에 담아 반환.
-		//이건 memberDAO가 할 일.;;
-		String sql=null;
-		MemberDTO dto=null;
+		// 이건 memberDAO가 할 일.;;
+		String sql = null;
+		MemberDTO dto = null;
 		try {
-			dto=new MemberDTO();
+			dto = new MemberDTO();
 			sql = "SELECT * FROM member WHERE member_id = ? ";
 			con = pool.getConnection();// 성능을 위해서. 늦게 연결.
 			pstmt = con.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class msgDAO {
 			dto.setJoin_date(rs.getString("join_date"));
 			dto.setPhone_number(rs.getString("phone_number"));
 			dto.setPassword(rs.getString("password"));
-			//System.out.println(dto.getMember_id());
+			// System.out.println(dto.getMember_id());
 
 		} catch (Exception err) {
 			err.printStackTrace();
@@ -61,11 +61,11 @@ public class msgDAO {
 
 	public Vector msgList(int member_id) {
 		// 멤버 아이디를 받아서 메세지dto 묶음 벡터를 반환.
-		//System.out.println("list"+member_id);
-		String sql = "SELECT * FROM message WHERE reciever_id = ? ";
+		// System.out.println("list"+member_id);
+		String sql = "SELECT * FROM message WHERE reciever_id = ? ORDER BY send_date desc ";
 		Vector vMsgList = new Vector();
 		try {
-			//System.out.println(sql);
+			// System.out.println(sql);
 			con = pool.getConnection();// 성능을 위해서. 늦게 연결.
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, member_id);
@@ -90,8 +90,9 @@ public class msgDAO {
 
 	public Vector FriendsInfo(int member_id) {
 		// 멤버 아이디를 받아서 친구 정보를 dto에 담고 복수개의 정보를 벡터에 담아 반환
-		String sql = "SELECT * FROM member WHERE member_id IN (SELECT friend_id FROM friends WHERE member_id = " + member_id+")";
-		//System.out.println(sql);
+		String sql = "SELECT * FROM member WHERE member_id IN (SELECT friend_id FROM friends WHERE member_id = "
+				+ member_id + ")";
+		// System.out.println(sql);
 		MemberDTO dto = new MemberDTO();
 		Vector v = new Vector();
 		try {
@@ -118,8 +119,14 @@ public class msgDAO {
 
 	public void SendMessage(int friend_id, String msg_text, int member_id) {
 		// 메세지dto를 받아서 전송.
-		String sql = "INSERT INTO message(sender_id,reciever_id,textarea,send_date) VALUES("+member_id+", "+friend_id+", '"+msg_text+"', CURDATE())";
-		//System.out.println(sql);
+		String sql = "INSERT INTO message(sender_id,reciever_id,textarea,send_date) VALUES("
+				+ member_id
+				+ ", "
+				+ friend_id
+				+ ", '"
+				+ msg_text
+				+ "', CURDATE())";
+		// System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -131,4 +138,18 @@ public class msgDAO {
 		}
 	}
 
+	public void DeleteMessage(String msg_ids) {
+		// 메세지dto를 받아서 전송.
+		String sql = "DELETE FROM message WHERE msg_id IN (" + msg_ids + ")";
+		System.out.println(sql);
+		try {
+			con = pool.getConnection();
+			stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (Exception err) {
+			err.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+	}
 }

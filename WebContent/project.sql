@@ -1,6 +1,11 @@
 /*1108 버전.*/
 /*테이블 생성*/
-CREATE SCHEMA `project` DEFAULT CHARACTER SET euckr COLLATE euckr_korean_ci ;
+CREATE SCHEMA `project`;
+set character_set_client=euckr;
+set character_set_connection=euckr;  
+set character_set_results=euckr;
+set character_set_server=euckr;
+alter database project default character set euckr;
 
 CREATE TABLE `project`.`member` (
   `member_id` INT NOT NULL AUTO_INCREMENT,
@@ -13,10 +18,10 @@ CREATE TABLE `project`.`member` (
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 COMMENT = 'member infomation. ';
 
-create Table `project`.`location`(
- `loc_id` INT NOT NULL auto_increment,
- `loc_name` varchar(50) not null,
- PRIMARY KEY (`loc_id`));
+CREATE TABLE `project`.`location` (
+  `loc_id` INT NOT NULL AUTO_INCREMENT,
+  `loc_name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`loc_id`));
  
  CREATE TABLE `project`.`board` (
   `board_id` INT NOT NULL AUTO_INCREMENT,
@@ -143,7 +148,7 @@ INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"테스트 공진데 리플 
 
 INSERT INTO reply VALUES(2,1,DATE_FORMAT("141013","%y%m%d"),"넹~");
 
-INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"-__-;;");
+INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"-__-");
 
 /*쪽지*/
 INSERT INTO message(sender_id, reciever_id, textarea, send_date) VALUES(1,2,"널 믿었던 만큼 난 내 친구도 믿었기에",DATE_FORMAT("141010","%y%m%d"));

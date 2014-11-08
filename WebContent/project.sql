@@ -1,11 +1,4 @@
-/*1108 버전.*/
-/*테이블 생성*/
 CREATE SCHEMA `project`;
-set character_set_client=euckr;
-set character_set_connection=euckr;  
-set character_set_results=euckr;
-set character_set_server=euckr;
-alter database project default character set euckr;
 
 CREATE TABLE `project`.`member` (
   `member_id` INT NOT NULL AUTO_INCREMENT,
@@ -120,38 +113,38 @@ INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `p
 INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","김영준", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"1234"); 
 
 /*친구*/
-INSERT INTO friends VALUES(1, 2);
+INSERT INTO project.friends VALUES(1, 2);
 
-INSERT INTO friends VALUES(2, 1);
+INSERT INTO project.friends VALUES(2, 1);
 
 /*지역*/
-INSERT INTO location(loc_name) VALUES("종묘");
-
+INSERT INTO project.location(loc_name) VALUES("종묘");
+select * from project.location;
 /*글*/
-INSERT INTO board(member_id,title, textarea,upload_date) 
+INSERT INTO project.board(member_id,title, textarea,upload_date) 
  VALUES(1,"공지입니다","관리잡니다. 관리자용 공지 테스트입니다.",DATE_FORMAT("14.10.11","%y%m%d"));
 
-INSERT INTO board(member_id,title, textarea,upload_date,loc_id) 
+INSERT INTO project.board(member_id,title, textarea,upload_date,loc_id) 
  VALUES(1,"테스트","내용 무",DATE_FORMAT("14.10.12","%y%m%d"),1);
 
 /*평가*/
-INSERT INTO evaluation VALUES(1,"분위기",1,"조용함",5);
+INSERT INTO project.evaluation VALUES(1,"분위기",1,"조용함",5);
 
-INSERT INTO evaluation VALUES(1,"분위기",2,"엄숙함",3);
+INSERT INTO project.evaluation VALUES(1,"분위기",2,"엄숙함",3);
 
-INSERT INTO evaluation VALUES(1,"분위기",3,"아즈넉함",7);
+INSERT INTO project.evaluation VALUES(1,"분위기",3,"아즈넉함",7);
 
 /*댓글*/
-INSERT INTO reply VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"넹");
+INSERT INTO project.reply VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"넹");
 
-INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"테스트 공진데 리플 ㄴㄴ");
+INSERT INTO project.reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"테스트 공진데 리플 ㄴㄴ");
 
-INSERT INTO reply VALUES(2,1,DATE_FORMAT("141013","%y%m%d"),"넹~");
+INSERT INTO project.reply VALUES(2,1,DATE_FORMAT("141013","%y%m%d"),"넹~");
 
-INSERT INTO reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"-__-");
+INSERT INTO project.reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"-__-");
 
 /*쪽지*/
-INSERT INTO message(sender_id, reciever_id, textarea, send_date) VALUES(1,2,"널 믿었던 만큼 난 내 친구도 믿었기에",DATE_FORMAT("141010","%y%m%d"));
+INSERT INTO project.message(sender_id, reciever_id, textarea, send_date) VALUES(1,2,"널 믿었던 만큼 난 내 친구도 믿었기에",DATE_FORMAT("141010","%y%m%d"));
 
-INSERT INTO message(sender_id, reciever_id, textarea, send_date) VALUES(2,1,"남들보다 빠르게 난 남들보다 다르게",DATE_FORMAT("141010","%y%m%d"));
+INSERT INTO project.message(sender_id, reciever_id, textarea, send_date) VALUES(2,1,"남들보다 빠르게 난 남들보다 다르게",DATE_FORMAT("141010","%y%m%d"));
 

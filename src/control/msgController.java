@@ -24,8 +24,8 @@ public class msgController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.setCharacterEncoding("euc-kr");
-		resp.setCharacterEncoding("euc-kr");
+		req.setCharacterEncoding("utf-8");
+		resp.setCharacterEncoding("utf-8");
 		//System.out.println("entercontroller");
 		msgDAO msgDAO = new msgDAO();
 		HttpSession session = req.getSession();

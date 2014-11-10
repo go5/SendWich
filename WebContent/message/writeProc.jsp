@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.sql.*"
-	contentType="text/html; charset=euc-kr"%>
+	contentType="text/html; charset=utf-8"%>
 <script>
-	alert("Àü¼Û ¿Ï·á!");
+	alert("ì „ì†¡ ì™„ë£Œ!");
 	window.close();
 </script>

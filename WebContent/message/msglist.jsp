@@ -3,7 +3,7 @@
 <%@page import="dto.MemberDTO"%>
 <%@page import="dao.msgDAO"%>
 <%@ page language="java" import="java.sql.*"
-	contentType="text/html; charset=euc-kr"%>
+	contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -12,41 +12,41 @@
 </head>
 <body>
 	<%
-		request.setCharacterEncoding("euc-kr");
-		response.setCharacterEncoding("euc-kr");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		msgDAO msgDAO = new msgDAO();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memberDTO");
 	%>
 	<form name="body" style="width: 650px">
 		<div style="width: 90%;">
-			<!-- ¸Ó¸´¸» ºÎºÐ.  -->
-			<h1>${memberDTO.name}´ÔÀÇMSGboardÀÔ´Ï´Ù.</h1>
+			<!-- ë¨¸ë¦¿ë§ ë¶€ë¶„.  -->
+			<h1>${memberDTO.name}ë‹˜ì˜MSGboardìž…ë‹ˆë‹¤.</h1>
 		</div>
 
 		<div style="width: 90%;" name="msgList" id="msgList">
 			<table style="border: 1px solid #559955; padding: 1px;">
-				<!-- Á¦¸ñ ºÎºÐ.  -->
+				<!-- ì œëª© ë¶€ë¶„.  -->
 				<tr>
 					<td bgcolor=#CCCCCC width="5%"><input type="checkbox"
 						id="msg_chk_all" name="msg_chk_all" value=" "
 						onchange="fnchkall(this.form)" /></td>
 					<td bgcolor=#CCCCCC width="45%">
-						<p align=center>¸Þ¼¼Áö</p>
+						<p align=center>ë©”ì„¸ì§€</p>
 					</td>
 					<td width="20%" bgcolor=#CCCCCC>
-						<p align=center>º¸³½ Ä£±¸</p>
+						<p align=center>ë³´ë‚¸ ì¹œêµ¬</p>
 					</td>
 					<td width="30%" bgcolor=#CCCCCC>
-						<p align=center>º¸³½ ³¯Â¥</p>
+						<p align=center>ë³´ë‚¸ ë‚ ì§œ</p>
 					</td>
 				</tr>
 
-				<!--  ¸Þ½ÃÁö ¸ñ·Ï.  -->
+				<!--  ë©”ì‹œì§€ ëª©ë¡.  -->
 				<%
-					//¹ÞÀº ÂÊÁö Á¤º¸ Á¶È¸
+					//ë°›ì€ ìª½ì§€ ì •ë³´ ì¡°íšŒ
 					Vector msgList = (Vector) session.getAttribute("msgList");
 
-					//¹ÞÀº ±Û °Ô½ÃÆÇÀ¸·Î Ãâ·Â.
+					//ë°›ì€ ê¸€ ê²Œì‹œíŒìœ¼ë¡œ ì¶œë ¥.
 					for (int i = 0; i < msgList.size(); i++) {
 						MessageDTO dto = (MessageDTO) msgList.get(i);
 						MemberDTO friends = msgDAO.MemberInfo(dto.getSender_id());
@@ -74,41 +74,41 @@
 		<br />
 		<div style="width: 90%;">
 			<div style="float: left;">
-				<input type="button" id="msgdel" name="msgdel" value="¼±ÅÃÇ×¸ñ »èÁ¦"
+				<input type="button" id="msgdel" name="msgdel" value="ì„ íƒí•­ëª© ì‚­ì œ"
 					onclick="fndelmsg(this.form)" />
 			</div>
 			<div align="right">
-				<input type="button" value="Ä£±¸¿¡°Ô ¸Þ¼¼Áö º¸³»±â" onclick="fnWrite()" />
+				<input type="button" value="ì¹œêµ¬ì—ê²Œ ë©”ì„¸ì§€ ë³´ë‚´ê¸°" onclick="fnWrite()" />
 			</div>
 		</div>
 	</form>
 
 	<script>
-		//¸Þ¼¼Áö ÀÛ¼º
+		//ë©”ì„¸ì§€ ìž‘ì„±
 		function fnWrite() {
 			window.open("/SendWich/msg?cmd=MSGWRITE", "",
 					"width=520, height=320");
 		}
-		//ÀüÃ¼ Ã¼Å©ÇØÁ¦ ÇÔ¼ö
+		//ì „ì²´ ì²´í¬í•´ì œ í•¨ìˆ˜
 		function fnchkall(f) {
 			if (f.msg_chk_all.checked) {
-				//ÅÂ±×³×ÀÓÀ¸·Î Ã¼Å©°É¸é Ç×¸ñ1°³ ÀÏ¶§ ¸øÃ£À½,
-				//Ã¼Å©¹Ú½º ÀÌ¸§À¸·Î´Â ¾Æ¿¹ ¸øÃ£À½
-				//¿¤·¹¸ÕÃ÷·Î ÇØ¾ß ÀÎ½ÄÇÔ?!
-				//Dom ½Ã¸£´Ù. ¤Ð¤Ð
+				//íƒœê·¸ë„¤ìž„ìœ¼ë¡œ ì²´í¬ê±¸ë©´ í•­ëª©1ê°œ ì¼ë•Œ ëª»ì°¾ìŒ,
+				//ì²´í¬ë°•ìŠ¤ ì´ë¦„ìœ¼ë¡œëŠ” ì•„ì˜ˆ ëª»ì°¾ìŒ
+				//ì—˜ë ˆë¨¼ì¸ ë¡œ í•´ì•¼ ì¸ì‹í•¨?!
+				//Dom ì‹œë¥´ë‹¤. ã… ã… 
 				for (var i = 0; i < f.getElementsByTagName("input").length; i++) {
 					//alert(i);
 					f.elements[i].checked = true;
 				}
 			} else {
-				//ÀüÃ¼ Ã¼Å© ÇØÁ¦
+				//ì „ì²´ ì²´í¬ í•´ì œ
 				for (var i = 0; i < f.getElementsByTagName("input").length; i++) {
 					f.elements[i].checked = false;
 				}
 			}
 
 		}
-		//Ã¼Å© ¸Þ¼¼Áö »èÁ¦
+		//ì²´í¬ ë©”ì„¸ì§€ ì‚­ì œ
 		function fndelmsg(f) {
 			var ids = new Array();
 			var j = 0;

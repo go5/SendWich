@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=euc-kr"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <script>
-alert("»èÁ¦ ¿Ï·á!")
+alert("ì‚­ì œ ì™„ë£Œ!")
 location.href = "/SendWich/msg?cmd=MSGLIST";
 </script>

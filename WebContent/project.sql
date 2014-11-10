@@ -1,5 +1,5 @@
 CREATE SCHEMA `project`;
-
+ALTER SCHEMA `project`  DEFAULT CHARACTER SET utf8 ;
 CREATE TABLE `project`.`member` (
   `member_id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(50) NOT NULL,
@@ -105,46 +105,46 @@ CREATE TABLE project.message (
     
     
 
-/*Å×½ºÆ®¿ë °ª »ğÀÔ*/
+/*í…ŒìŠ¤íŠ¸ìš© ê°’ ì‚½ì…*/
 
-/*¸â¹ö*/
-INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `password`) VALUES ('keispacce.kyj@gmail.com', '±è¿µÁØ', '01047874352', '141010', '1234');
+/*ë©¤ë²„*/
+INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `password`) VALUES ('keispacce.kyj@gmail.com', 'ê¹€ì˜ì¤€', '01047874352', '141010', '1234');
 
-INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","±è¿µÁØ", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"1234"); 
+INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","ê¹€ì˜ì¤€", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"1234"); 
 
-/*Ä£±¸*/
+/*ì¹œêµ¬*/
 INSERT INTO project.friends VALUES(1, 2);
 
 INSERT INTO project.friends VALUES(2, 1);
 
-/*Áö¿ª*/
-INSERT INTO project.location(loc_name) VALUES("Á¾¹¦");
+/*ì§€ì—­*/
+INSERT INTO project.location(loc_name) VALUES("ì¢…ë¬˜");
 select * from project.location;
-/*±Û*/
+/*ê¸€*/
 INSERT INTO project.board(member_id,title, textarea,upload_date) 
- VALUES(1,"°øÁöÀÔ´Ï´Ù","°ü¸®Àâ´Ï´Ù. °ü¸®ÀÚ¿ë °øÁö Å×½ºÆ®ÀÔ´Ï´Ù.",DATE_FORMAT("14.10.11","%y%m%d"));
+ VALUES(1,"ê³µì§€ì…ë‹ˆë‹¤","ê´€ë¦¬ì¡ë‹ˆë‹¤. ê´€ë¦¬ììš© ê³µì§€ í…ŒìŠ¤íŠ¸ì…ë‹ˆë‹¤.",DATE_FORMAT("14.10.11","%y%m%d"));
 
 INSERT INTO project.board(member_id,title, textarea,upload_date,loc_id) 
- VALUES(1,"Å×½ºÆ®","³»¿ë ¹«",DATE_FORMAT("14.10.12","%y%m%d"),1);
+ VALUES(1,"í…ŒìŠ¤íŠ¸","ë‚´ìš© ë¬´",DATE_FORMAT("14.10.12","%y%m%d"),1);
 
-/*Æò°¡*/
-INSERT INTO project.evaluation VALUES(1,"ºĞÀ§±â",1,"Á¶¿ëÇÔ",5);
+/*í‰ê°€*/
+INSERT INTO project.evaluation VALUES(1,"ë¶„ìœ„ê¸°",1,"ì¡°ìš©í•¨",5);
 
-INSERT INTO project.evaluation VALUES(1,"ºĞÀ§±â",2,"¾ö¼÷ÇÔ",3);
+INSERT INTO project.evaluation VALUES(1,"ë¶„ìœ„ê¸°",2,"ì—„ìˆ™í•¨",3);
 
-INSERT INTO project.evaluation VALUES(1,"ºĞÀ§±â",3,"¾ÆÁî³ËÇÔ",7);
+INSERT INTO project.evaluation VALUES(1,"ë¶„ìœ„ê¸°",3,"ì•„ì¦ˆë„‰í•¨",7);
 
-/*´ñ±Û*/
-INSERT INTO project.reply VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"³ß");
+/*ëŒ“ê¸€*/
+INSERT INTO project.reply VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"ë„¹");
 
-INSERT INTO project.reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"Å×½ºÆ® °øÁøµ¥ ¸®ÇÃ ¤¤¤¤");
+INSERT INTO project.reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"í…ŒìŠ¤íŠ¸ ê³µì§„ë° ë¦¬í”Œ ã„´ã„´");
 
-INSERT INTO project.reply VALUES(2,1,DATE_FORMAT("141013","%y%m%d"),"³ß~");
+INSERT INTO project.reply VALUES(2,1,DATE_FORMAT("141013","%y%m%d"),"ë„¹~");
 
 INSERT INTO project.reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"-__-");
 
-/*ÂÊÁö*/
-INSERT INTO project.message(sender_id, reciever_id, textarea, send_date) VALUES(1,2,"³Î ¹Ï¾ú´ø ¸¸Å­ ³­ ³» Ä£±¸µµ ¹Ï¾ú±â¿¡",DATE_FORMAT("141010","%y%m%d"));
+/*ìª½ì§€*/
+INSERT INTO project.message(sender_id, reciever_id, textarea, send_date) VALUES(1,2,"ë„ ë¯¿ì—ˆë˜ ë§Œí¼ ë‚œ ë‚´ ì¹œêµ¬ë„ ë¯¿ì—ˆê¸°ì—",DATE_FORMAT("141010","%y%m%d"));
 
-INSERT INTO project.message(sender_id, reciever_id, textarea, send_date) VALUES(2,1,"³²µéº¸´Ù ºü¸£°Ô ³­ ³²µéº¸´Ù ´Ù¸£°Ô",DATE_FORMAT("141010","%y%m%d"));
+INSERT INTO project.message(sender_id, reciever_id, textarea, send_date) VALUES(2,1,"ë‚¨ë“¤ë³´ë‹¤ ë¹ ë¥´ê²Œ ë‚œ ë‚¨ë“¤ë³´ë‹¤ ë‹¤ë¥´ê²Œ",DATE_FORMAT("141010","%y%m%d"));
 

@@ -1,12 +1,12 @@
 <%@page import="java.util.Vector"%>
 <%@page import="dto.MemberDTO"%>
 <%@ page language="java" import="java.sql.*"
-	contentType="text/html; charset=euc-kr"%>
+	contentType="text/html; charset=utf-8"%>
 
 <html>
 <head>
-<meta charset="euc-kr" />
-<title>¸Þ¼¼Áö º¸³»±â</title>
+<meta charset="utf-8" />
+<title>ë©”ì„¸ì§€ ë³´ë‚´ê¸°</title>
 </head>
 
 <body>
@@ -16,20 +16,20 @@
 			action="/SendWich/msg?cmd=MSGSEND">
 			<input type="hidden" id="friend_id" name="friend_id" value="" />
 			<div>
-				<h2>ÂÊÁö º¸³»±â</h2>
+				<h2>ìª½ì§€ ë³´ë‚´ê¸°</h2>
 			</div>
 			<hr />
 			<hr />
 
 			<div>
-				<div>¹Þ´Â »ç¶÷(ÀÌ¸ÞÀÏ)</div>
+				<div>ë°›ëŠ” ì‚¬ëžŒ(ì´ë©”ì¼)</div>
 				<div>
 					<input type="text" id="reciever_name" name="reciever_name"
 						readonly="readonly">
 				</div>
 				<div>
 					<select id="friends" name="friends" onchange="fnfriends()">
-						<option value="">Ä£±¸ ¸ñ·Ï</option>
+						<option value="">ì¹œêµ¬ ëª©ë¡</option>
 						<%
 							Vector v = (Vector) session.getAttribute("FriendsList");
 							for (int i = 0; i < v.size(); i++) {
@@ -41,20 +41,20 @@
 							<%=MemberDTO.getName()%>&nbsp;(<%=MemberDTO.getEmail()%>)
 						</option>
 						<%
-							}//for¹®
+							}//forë¬¸
 						%>
 					</select>
 				</div>
 			</div>
 			<br />
 			<div>
-				<div>¸Þ¼¼Áö</div>
+				<div>ë©”ì„¸ì§€</div>
 				<div>
 					<textarea id="msg_text" name="msg_text" cols=50 rows=5
-						placeholder="º¸³¾ ¸Þ¼¼Áö"></textarea>
+						placeholder="ë³´ë‚¼ ë©”ì„¸ì§€"></textarea>
 				</div>
 			</div>
-			<input type="submit" value="ÂÊÁö º¸³»±â" />
+			<input type="submit" value="ìª½ì§€ ë³´ë‚´ê¸°" />
 		</form>
 	</div>
 

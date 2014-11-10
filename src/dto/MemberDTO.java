@@ -3,6 +3,7 @@ package dto;
 public class MemberDTO {
 	private int member_id;
 	private String email, name, phone_number, join_date, password;
+	
 	public int getMember_id() {
 		return member_id;
 	}

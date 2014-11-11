@@ -11,7 +11,10 @@ login.html 시작.
 회원가입 기능 : join_Proc.jsp
 
 회원 가입 후 login.html로 이동 
+
+
 로그인이 되면 index.jsp로 이동됨.
+
 세션으로 아이디 갖고옴. 
 
 로그인 되면 수정 및 삭제 가능. 

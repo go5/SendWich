@@ -17,7 +17,7 @@ MemberDTO mdto = new MemberDTO();
 
 
 
-msql = "select * from teamtable where email='"+email+"' AND password='"+password+"'";
+msql = "select * from member where email='"+email+"' AND password='"+password+"'";
 rs= stmt.executeQuery(msql);
 if(rs.next()==true){
 	member_id=rs.getString("member_id");
@@ -34,7 +34,7 @@ if(rs.next()==true){
 	session.setAttribute("memberDTO", mdto);
 	
 	
-	out.println("<script>alert('로그인 되셨습니다.');location.replace('index.jsp');</script>");
+	out.println("<script>alert('로그인 되셨습니다.');window.close();</script>");
 	
 	
 	

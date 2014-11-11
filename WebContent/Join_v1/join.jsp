@@ -45,12 +45,12 @@
 			document.join.submit();
 		}
 	}
+</script>
 	
 	<% 	request.setCharacterEncoding("utf-8");
 	response.setCharacterEncoding("utf-8");
 	String email = (String)session.getAttribute("email");%>
 	
-</script>
 
 </head>
 <body>

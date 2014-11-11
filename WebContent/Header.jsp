@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 	<div class="header">
 		<div class="wrap">
 			<div class="logo">
@@ -31,6 +31,24 @@
 				</div>
 			</div>
 			<div class="userinfo">
+
+<%--
+분기문으로  바꿔줘야함. 
+ --%>				
+ 
+	 <c:choose>
+	 	<c:when test="${!empty memberDTO}">
+				<div class="user">
+					<ul>
+						<li><a href="javascript:fnLogin()"><img src="images/user-pic.png"
+								title="user-name" /><span>Log-out</span></a></li>
+						<li><span>&nbsp;|</span></li>
+						<li><a href="main?cmd=JOIN"><span>로그인됨</span></a></li>
+					</ul>
+				</div>
+	 	</c:when>
+
+	 	<c:when test="${empty memberDTO}">
 				<div class="user">
 					<ul>
 						<li><a href="javascript:fnLogin()"><img src="images/user-pic.png"
@@ -39,6 +57,10 @@
 						<li><a href="main?cmd=JOIN"><span>JoinUs</span></a></li>
 					</ul>
 				</div>
+	 	</c:when>
+
+	</c:choose>
+				
 			</div>
 			<div class="clear"></div>
 		</div>

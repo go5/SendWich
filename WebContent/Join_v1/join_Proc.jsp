@@ -3,7 +3,7 @@
 	contentType="text/html; charset=utf-8"%>
 <%@ include file="conn_db.jsp"%>
 <%
-	
+System.out.println("가입 프로세스");	
 	String msql; //sql 문.
 	//String member_id, member_email, member_name, member_join_date, member_phone_number; //자신의 정보
 
@@ -17,7 +17,7 @@
 	
 
 	
-	msql  = "INSERT INTO teamtable(email,password,name,phone_number,join_date) VALUES(?,?,?,?,now())";
+	msql  = "INSERT INTO member(email,password,name,phone_number,join_date) VALUES(?,?,?,?,now())";
 	pstmt = Conn.prepareStatement(msql);
 	pstmt.setString(1, email);
 	pstmt.setString(2, password);
@@ -29,6 +29,6 @@
 
 <script>
 alert("회원가입되셨습니다. 환영합니다! ^^");
-location.href="login.html"
+location.href="main?cmd=INDEX"
 
 </script>

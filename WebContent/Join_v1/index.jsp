@@ -1,3 +1,4 @@
+<%@page import="dto.MemberDTO"%>
 <%@ page  contentType="text/html; charset=utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -10,12 +11,17 @@
 <a href="editmember.jsp">정보수정</a>
 
 <%
-String member_id = (String)session.getAttribute("member_id");
-String email = (String)session.getAttribute("email");
 
-out.println(member_id);
+
+MemberDTO dto = (MemberDTO)session.getAttribute("memberDTO");
+int member_id = dto.getMember_id();
+String email = dto.getEmail();
+
+
+
 %>
 <br/>
+로그인한 멤버 id는: <%=member_id %><br>
 로그인 한 이메일는 :<%=email %>
 
 <a href="editmember.jsp?email=<%=email%>">수 정</a>

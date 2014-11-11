@@ -5,13 +5,13 @@
 
 	<%
 		String msql; //sql 문.
-		request.setCharacterEncoding("euc-kr");
-		response.setCharacterEncoding("euc-kr");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		String email = request.getParameter("email");
 		
 		session.setAttribute("email", email);
 
-		msql = "SELECT email FROM teamtable WHERE email='" + email + "'"; // 중복된 id관련 쿼리문
+		msql = "SELECT email FROM member WHERE email='" + email + "'"; // 중복된 id관련 쿼리문
 		rs = stmt.executeQuery(msql);
 
 		if (rs.next() == true) { // 아이디가 있으면.
@@ -19,7 +19,7 @@
 		} else {
 			//없는 거임. 넘어강
 			//System.out.println("없음");
-			response.sendRedirect("join.jsp");// 중복된 아이디 없으면 회원가입 페이지로 이동.
+			response.sendRedirect("main?cmd=CONJOIN");// 중복된 아이디 없으면 회원가입 페이지로 이동.
 		}
 	%>
 

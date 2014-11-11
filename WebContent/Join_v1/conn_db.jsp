@@ -5,9 +5,9 @@
 <%
 	String drivers2 = "org.gjt.mm.mysql.Driver";
 	String drivers = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/prtest";
-	String db_user = "system";
-	String db_passwd = "1111";
+	String url = "jdbc:mysql://localhost:3306/project";
+	String db_user = "root";
+	String db_passwd = "0000";
 	
 
 	try {

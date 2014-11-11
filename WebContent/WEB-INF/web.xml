@@ -22,5 +22,14 @@
 		<url-pattern>/msg</url-pattern>
 	</servlet-mapping>
 
+<!-- main -->
+	<servlet>
+		<servlet-name>main</servlet-name>
+		<servlet-class>control.MainController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>main</servlet-name>
+		<url-pattern>/main</url-pattern>
+	</servlet-mapping>
 	
 </web-app>

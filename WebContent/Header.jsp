@@ -32,22 +32,20 @@
 			</div>
 			<div class="userinfo">
 
-<%--
-분기문으로  바꿔줘야함. 
- --%>				
- 
+<%--로그인에 따른 분기 --%>			
 	 <c:choose>
+	 <%-- 로그인 시 --%>
 	 	<c:when test="${!empty memberDTO}">
 				<div class="user">
 					<ul>
-						<li><a href="javascript:fnLogin()"><img src="images/user-pic.png"
-								title="user-name" /><span>Log-out</span></a></li>
+						<li><form id="logout"><a href="javascript:fnLogout()"><img src="images/user-pic.png"
+								title="user-name" /><span>Log-out</span></a></form></li>
 						<li><span>&nbsp;|</span></li>
-						<li><a href="main?cmd=JOIN"><span>로그인됨</span></a></li>
+						<li><a href="main?cmd=MEMINFO"><span>로그인됨</span></a></li>
 					</ul>
 				</div>
 	 	</c:when>
-
+<%-- 비 로그인 --%>
 	 	<c:when test="${empty memberDTO}">
 				<div class="user">
 					<ul>
@@ -86,9 +84,13 @@
 				});
 			});
 <!----//End-dropdown--->
-<!-- //Start-login page -->
+<!-- //login page -->
 	function fnLogin(){
-		window.open("main?cmd=LOGIN", "",	"width=520, height=320");
+		window.open("main?cmd=LOGIN", "",	"width=520, height=320" , false);
 	}
-<!-- //End-login page -->
+<!-- //logout page -->
+	function fnLogout(){
+		window.open("main?cmd=LOGOUT", "",	"width=100, height=100 top=200px left=200px ", false);
+	}
+
 	</script>

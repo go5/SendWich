@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,11 +31,17 @@ public class MainController extends HttpServlet {
 		
 		if (cmd == null || cmd.equals("INDEX")) {
 			url = "/index.jsp";
-
 		} else if (cmd.equals("LOGIN")) {
 			url = "/Join_v1/login.html";
 		}else if (cmd.equals("LOGINPROC")) {
 			url = "/Join_v1/login_Proc.jsp";
+		}else if (cmd.equals("MEMINFO")) {
+			url = "/index.jsp";
+			System.out.println(mdto.getEmail());
+		} else if (cmd.equals("LOGOUT")) {
+			//session.removeAttribute("memberDTO");
+			url = "/Join_v1/logout_Proc.jsp";
+			//url = "main?cmd=INDEX";
 		} else if (cmd.equals("JOIN")) {
 			url = "/Join_v1/emaildup.jsp";
 		} else if (cmd.equals("VALIDEMAIL")) {

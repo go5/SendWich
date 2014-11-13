@@ -11,7 +11,7 @@
 				<div>
 					<dl>
 						<dt>
-							<strong>SendWich가 잃게 되는 것</strong>
+							<b>SendWich가 잃게 되는 것</b>
 						</dt>
 						<dd>가입시 입력하신 모든 정보</dd>
 						<dd>올리신 모든 글</dd>
@@ -19,7 +19,7 @@
 					</dl>
 					<dl>
 						<dt>
-							<strong>SendWich가 잃지 않는 것</strong>
+							<b>SendWich가 잃지 않는 것</b>
 						</dt>
 						<dd>입력하신 평가점수.</dd>
 					</dl>

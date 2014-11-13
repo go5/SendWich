@@ -37,8 +37,12 @@ public class msgController extends HttpServlet {
 		// 즉, 세션에 올라온 멤버 정보 호출.
 		memberDTO = (MemberDTO) session.getAttribute("memberDTO");
 
+		//세션에 없는 경우 세션없음 에러 창으로 이동.
 		if (memberDTO == null) {
-			// 비정상 접속 메세지 내놔야 함.
+			url="/error/NeedLogin.html";
+			RequestDispatcher view = req.getRequestDispatcher(url);
+			view.forward(req, resp);
+			return;
 		}
 
 		Vector vList = null;// 글목록
@@ -53,24 +57,18 @@ public class msgController extends HttpServlet {
 			url = "/message/msglist.jsp";
 		} else if (cmd.equals("MSGWRITE")) {
 			fList = msgDAO.FriendsInfo(memberDTO.getMember_id());
-			// System.out.println(fList.size());
 			session.setAttribute("FriendsList", fList);
 			url = "/message/write.jsp";
 		} else if (cmd.equals("MSGSEND")) {
-			//System.out.println("sendmsg");
-
 			msgDAO.SendMessage(Integer.parseInt(req.getParameter("friend_id")),
 					(req.getParameter("msg_text")), memberDTO.getMember_id());
 			url = "/message/writeProc.jsp"; // 외부창에서 닫히므로 이동할 필요 없음.
 		}else if (cmd.equals("MSGDELETE")) {
-			//System.out.println("deletemsg");
 			msgDAO.DeleteMessage(req.getParameter("msg_ids"));
 			url = "/message/deleteProc.jsp";
 		}else{
 			//비정상접근 메세지.
 		}
-		
-		//System.out.println(url);
 		RequestDispatcher view = req.getRequestDispatcher(url);
 		view.forward(req, resp);
 

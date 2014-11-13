@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/HeadInfo.jsp" />
+<jsp:include page="/HeadInfo.jsp" />
 <script>
 	function fnIsNull() {
 		var newpassword1 = document.getElementById("newpassword1").value;
@@ -41,8 +41,9 @@
 							<div>
 								<div>이메일:</div>
 								<div>
-									<input type="hidden" name="member_id" id="member_id" value="${memberDTO.member_id }">
-									<input type="text" name="email" id="email" readonly="readonly"
+									<input type="hidden" name="member_id" id="member_id"
+										value="${memberDTO.member_id }"> <input type="text"
+										name="email" id="email" readonly="readonly"
 										value="${memberDTO.email}" />
 								</div>
 							</div>
@@ -90,11 +91,11 @@
 							</div>
 
 							<div align="center">
-								<input type="button" value="정보수정" onclick="fnIsNull()" />
-							 
-								<a href="main?cmd=INDEX"><input
-									type="button" value="돌아가기" /></a>
-									<div style="font-size: 12px;"><a href="javascript:fndel(this.form)"><span>회원 탈퇴하기</span></a></div>
+								<input type="button" value="정보수정" onclick="fnIsNull()" /> <a
+									href="main?cmd=INDEX"><input type="button" value="돌아가기" /></a>
+								<div style="font-size: 12px;">
+									<a href="javascript:fndel(this.form)"><span>회원 탈퇴하기</span></a>
+								</div>
 							</div>
 						</form>
 					</div>
@@ -103,11 +104,18 @@
 		</div>
 	</div>
 	<script>
-	function fndel(f){
-	//location.href="main?cmd=DELETEMEM";
-	window.open("main?cmd=DELETEMEM", "", "width=430, height=320 resizable=no", false);
-	}
-	
+		function fndel(f) {
+			cw = screen.availWidth; //화면 넓이
+			ch = screen.availHeight; //화면 높이
+			sw = 430; //띄울 창의 넓이
+			sh = 320; //띄울 창의 높이
+			ml = (cw - sw) / 2; //가운데 띄우기위한 창의 x위치
+			mt = (ch - sh) / 2; //가운데 띄우기위한 창의 y위치
+			//location.href="main?cmd=DELETEMEM";
+			window.open("main?cmd=DELETEMEM", "deletemem", "width=" + sw
+					+ ", height=" + sh + ", top=" + mt + ", left=" + ml
+					+ ", resizable=no", false);
+		}
 	</script>
 </body>
 </html>

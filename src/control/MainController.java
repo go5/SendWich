@@ -32,36 +32,18 @@ public class MainController extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemberDTO mdto = (MemberDTO) session.getAttribute("memberDTO");
 		MemberDAO memberDAO = new MemberDAO();
-		if (cmd == null || cmd.equals("INDEX")) {
+		if (cmd == null || cmd.equals("INDEX")) {//메인
 			url = "/index.jsp";
-		} else if (cmd.equals("LOGIN")) {
+		} else if (cmd.equals("LOGIN")) {//로그인
 			System.out.println("login");
 			url = "/Join_v1/login.jsp";
-		} else if (cmd.equals("LOGINPROC")) {
+		} else if (cmd.equals("LOGINPROC")) {//로그인 프록시
 			System.out.println("loginproc");
 			url = "/Join_v1/login_Proc.jsp";
-		} else if (cmd.equals("MEMINFO")) {
+		} else if (cmd.equals("MEMINFO")) {//회원정보 조회/수정창
 			System.out.println("meminfo");
 			url = "/Join_v1/EditMember.jsp";
-		} else if (cmd.equals("DELETEMEM")) {
-			System.out.println("deletemem");
-			String email = req.getParameter("email");
-			req.setAttribute("email", email);
-			url = "/Join_v1/deletemember.jsp";
-		} else if (cmd.equals("DELETEMEMPROC")) {
-			System.out.println("deletememproc");
-			String email = req.getParameter("email");
-			String pass = req.getParameter("password");
-			// 비번 검증
-			boolean flag = memberDAO.checkPass(email, pass);
-			// 검증에 따른 처리
-			if (flag) {// 비번이 맞으면 삭제을 진행.
-				memberDAO.deleteMember(email);
-				req.removeAttribute("memberDTO");
-			}
-			req.setAttribute("flag", flag);
-			url = "/Join_v1/deletemember_Proc.jsp";
-		} else if (cmd.equals("EDITINFO")) {
+		}else if (cmd.equals("EDITINFO")) {//정보 수정
 			System.out.println("editinfo");
 			// model이동해야함.
 			String pass = req.getParameter("password");
@@ -81,15 +63,32 @@ public class MainController extends HttpServlet {
 				mdto.setEmail(email);
 				memberDAO.updateMember(mdto);
 			}
-
 			req.setAttribute("flag", flag);
 			url = "/Join_v1/editmember_Proc.jsp";
-		} else if (cmd.equals("LOGOUT")) {
+		} else if (cmd.equals("DELETEMEM")) {//삭제확인창
+			System.out.println("deletemem");
+			String email = req.getParameter("email");
+			req.setAttribute("email", email);
+			url = "/Join_v1/deletemember.jsp";
+		} else if (cmd.equals("DELETEMEMPROC")) {//삭제
+			System.out.println("deletememproc");
+			String email = req.getParameter("email");
+			String pass = req.getParameter("password");
+			// 비번 검증
+			boolean flag = memberDAO.checkPass(email, pass);
+			// 검증에 따른 처리
+			if (flag) {// 비번이 맞으면 삭제을 진행.
+				memberDAO.deleteMember(email);
+				req.removeAttribute("memberDTO");
+			}
+			req.setAttribute("flag", flag);
+			url = "/Join_v1/deletemember_Proc.jsp";
+		}  else if (cmd.equals("LOGOUT")) {//로그아웃
 			// model?
 			url = "/Join_v1/logout_Proc.jsp";
-		} else if (cmd.equals("JOIN")) {// 메일 입력 창으로
+		} else if (cmd.equals("JOIN")) {//회원가입:메일중복검사
 			url = "/Join_v1/Emaildup.jsp";
-		} else if (cmd.equals("VALIDEMAIL")) {// 검증
+		} else if (cmd.equals("VALIDEMAIL")) {// 메일 중복 검사
 			// model로 이전해야함.
 			url = "/Join_v1/emaildup_Proc.jsp";
 		} else if (cmd.equals("CONJOIN")) {// 회원정보 입력
@@ -97,12 +96,11 @@ public class MainController extends HttpServlet {
 		} else if (cmd.equals("REGMEM")) {// 등록
 			// modelization 해야됨.
 			url = "/Join_v1/join_Proc.jsp";
-		} else if (cmd.equals("MSGLIST")) {// 쪽지글 보기
+		} else if (cmd.equals("MSGLIST")) {// 쪽지글목록 보기
 			// 보드 아이디 받아서 보내야함. .
 			url = "msg?cmd=MSGLIST";
 		}
-
-		else if (cmd.equals("FRIENDS")) {//
+		else if (cmd.equals("FRIENDS")) {//친구 목록/추가
 			url = "friends?cmd=FRIENDS";
 		} else if (cmd.equals("CONTENT")) {// 글 보기
 			// 보드 아이디 받아서 보내야함. .

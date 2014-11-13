@@ -117,7 +117,15 @@
 	}
 	<!-- //logout page -->
 	function fnLogout() {
-		window.open("main?cmd=LOGOUT", "",
-				"width=100, height=100 top=200px left=200px ", false);
+		cw = screen.availWidth; //화면 넓이
+		ch = screen.availHeight; //화면 높이
+		sw = 100; //띄울 창의 넓이
+		sh = 100; //띄울 창의 높이
+		ml = (cw - sw) / 2; //가운데 띄우기위한 창의 x위치
+		mt = (ch - sh) / 2; //가운데 띄우기위한 창의 y위치
+		//location.href="main?cmd=DELETEMEM";
+		window.open("main?cmd=LOGOUT", "logout", "width=" + sw
+				+ ", height=" + sh + ", top=" + mt + ", left=" + ml
+				+ ", resizable=no", false);
 	}
 </script>

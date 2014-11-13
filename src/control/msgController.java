@@ -37,10 +37,6 @@ public class msgController extends HttpServlet {
 		// 즉, 세션에 올라온 멤버 정보 호출.
 		memberDTO = (MemberDTO) session.getAttribute("memberDTO");
 
-		// 테스트용.
-		//memberDTO = msgDAO.MemberInfo(1);
-		//session.setAttribute("memberDTO", memberDTO);
-
 		if (memberDTO == null) {
 			// 비정상 접속 메세지 내놔야 함.
 		}

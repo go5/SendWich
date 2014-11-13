@@ -2,7 +2,34 @@ SendWich
 ========
 어.... 어? 새로 갱신하느라 지워진듯(...)
 아오 ㅠㅠ 
+<h1>프로젝트 도큐먼트</h1>
+시작: maincontroller.java or index.jsp
 
+MVC 구성에 따른 도큐먼트(초안)
+MODEL
+	MemberDAO: 회원 정보 조회, 가입, 수정, 탈퇴(삭제)
+	msgDAO: 메세지 전송, 조회 
+	dbcp.DBConnectionMgr: DBCP.
+	DTO: 각 테이블정보를 테이블명DTO로 작성.
+VIEW
+	루트
+		index.jsp: 시작 페이지.
+		HeadInfo.jsp: 모든 페이지에 적용할 head영역 정보.
+		Sub_Header.jsp: header(메뉴바) 부분. 이것도 모든 페이지에 인클루드.
+		Content: 메인 화면 컨텐트(친구, 내 글)
+		그외
+		contact: 글쓰기 로 재활용
+		single-page: 읽기 화면으로 재활용
+		Mypeed: 내 글 보기로 재활용
+CONTROLLER
+	Front Controller 
+		MainController. 회원가입, 로그인, 메인 페이지 접속 관련 
+	sub Controller
+		msgController: 메세지 전송, 목록 출력 관련 컨트롤러
+		FriendController: 친구 목록, 친구 추가 관련 작업 연동.
+
+
+<hr/>
 일단 통합 작업 내용
 
 <h1>db</h1>
@@ -20,8 +47,6 @@ maincontroller.java 실행해서 들어가세요
 <h1>join</h1> 
 일단 기능 완료. 
 -model 분리해야됨.
-
-
 
 <h1>login</h1>  
 아이디 찾기, 

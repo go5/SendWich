@@ -26,7 +26,7 @@
 			<div id="main" role="main">
 				<ul id="tiles">
 					<!-- These are our grid blocks 블럭 시작.-->
-					<li onclick="location.href='single-page.html';"><img
+					<li onclick="main?CMD=CONTENT&?board_id=${board_id}';"><img
 						src="images/img1.jpg" width="600" height="118">
 						<div class="post-info">
 							<div class="post-basic-info">

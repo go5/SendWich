@@ -10,9 +10,17 @@
 					<input type="text" /><input type="submit" value="" />
 				</form>
 			</div>
+	 <c:choose>
+	 <%-- 로그인 시 --%>
+	 	<c:when test="${!empty memberDTO}">
 			<div class="nav-icon">
 				<a href="#" class="right_bt" id="activator"><span> </span> </a>
 			</div>
+	 	</c:when>
+<%-- 비 로그인 --%>
+	 	<c:when test="${empty memberDTO}">
+	 	</c:when>
+	</c:choose>
 			<div class="box" id="box">
 				<div class="box_content">
 					<div class="box_content_center">
@@ -41,7 +49,7 @@
 						<li><form id="logout"><a href="javascript:fnLogout()"><img src="images/user-pic.png"
 								title="user-name" /><span>Log-out</span></a></form></li>
 						<li><span>&nbsp;|</span></li>
-						<li><a href="main?cmd=MEMINFO"><span>로그인됨</span></a></li>
+						<li><a href="main?cmd=MEMINFO"><span>회원정보 조회/수정</span></a></li>
 					</ul>
 				</div>
 	 	</c:when>
@@ -56,7 +64,6 @@
 					</ul>
 				</div>
 	 	</c:when>
-
 	</c:choose>
 				
 			</div>

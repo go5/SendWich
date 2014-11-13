@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -7,9 +9,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>SendWich-¿ßƒ° ±‚π› ∆Ûº‚«¸ SNS</title>
+<title>SendWich-ÏúÑÏπò Í∏∞Î∞ò ÌèêÏáÑÌòï SNS</title>
 <link href="css/style.css" rel='stylesheet' type='text/css' />
-<meta name="viewport" content="width=device-width, initial-scale=1" charset="euc-kr">
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
 <link rel="shortcut icon" type="image/x-icon" href="images/fav-icon.png" />
 <script type="application/x-javascript">
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
@@ -52,48 +54,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <body>
 	<!---start-wrap---->
 	<!---start-header---->
-	<div class="header">
-		<div class="wrap">
-			<div class="logo">
-				<a href="index.jsp"><img src="images/logo.png" title="pinbal" /></a>
-			</div>
-			<div class="top-searchbar">
-				<form>
-					<input type="text" /><input type="submit" value="" />
-				</form>
-			</div>
-			<div class="nav-icon">
-				<a href="#" class="right_bt" id="activator"><span> </span> </a>
-			</div>
-			<div class="box" id="box">
-				<div class="box_content">
-					<div class="box_content_center">
-						<div class="form_content">
-							<div class="menu_box_list">
-								<ul>
-									<li><a href="#"><span>home</span></a></li>
-									<li><a href="#"><span>Friends</span></a></li>
-									<li><a href="#"><span>MyFeed</span></a></li>
-									<div class="clear"></div>
-								</ul>
-							</div>
-							<a class="boxclose" id="boxclose"> <span> </span></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="userinfo">
-				<div class="user">
-					<ul>
-						<li><a href="#"><img src="images/user-pic.png"
-								title="user-name" /><span>Login</span></a></li> |
-						<li><a href="join.html"><span>JoinUs</span></a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
+	<jsp:include page="Header.jsp" />
+
 	<!---//End-header---->
 	<!---start-content---->
 	<div class="content">
@@ -218,15 +180,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<div class="table-form">
 								<form action="#" method="post" name="post_comment">
 									<div>
-										<label>Name<span>*</span></label> <input type="text" value=" ¿Ã∏ß¿‘∑¬∂ı">
+										<label>Name<span>*</span></label> <input type="text"  value="Ïù¥Î¶Ñ">
 									</div>
 									<div>
 										<label>Email<span>*</span></label> <input type="text"
-											value="¿Ã∏· ¿‘∑¬∂ı ">
+											value="Ïù¥Î©îÏùº">
 									</div>
 									<div>
 										<label>Your Comment<span>*</span></label>
-										<textarea> ≥ªøÎ ¿‘∑¬∂ı </textarea>
+										<textarea> ÎÇ¥Ïö© </textarea>
 									</div>
 								</form>
 								<input type="submit" value="submit">

@@ -32,7 +32,7 @@
 
 		session.setAttribute("memberDTO", mdto);
 
-		out.println("<script>alert('로그인 되셨습니다.');	window.opener.location.reload();window.close();</script>");
+		out.println("<script>alert('로그인 되셨습니다.');	window.opener.location.href='main?cmd=INDEX';window.close();</script>");
 
 	} else {
 		out.println("<script>alert('로그인 정보가 없습니다.');history.back();</script>");

@@ -43,6 +43,24 @@ public class MainController extends HttpServlet {
 		} else if (cmd.equals("MEMINFO")) {
 			System.out.println("meminfo");
 			url = "/Join_v1/EditMember.jsp";
+		} else if (cmd.equals("DELETEMEM")) {
+			System.out.println("deletemem");
+			String email = req.getParameter("email");
+			req.setAttribute("email", email);
+			url = "/Join_v1/deletemember.jsp";
+		} else if (cmd.equals("DELETEMEMPROC")) {
+			System.out.println("deletememproc");
+			String email = req.getParameter("email");
+			String pass = req.getParameter("password");
+			// 비번 검증
+			boolean flag = memberDAO.checkPass(email, pass);
+			// 검증에 따른 처리
+			if (flag) {// 비번이 맞으면 삭제을 진행.
+				memberDAO.deleteMember(email);
+				req.removeAttribute("memberDTO");
+			}
+			req.setAttribute("flag", flag);
+			url = "/Join_v1/deletemember_Proc.jsp";
 		} else if (cmd.equals("EDITINFO")) {
 			System.out.println("editinfo");
 			// model이동해야함.
@@ -52,18 +70,18 @@ public class MainController extends HttpServlet {
 			// 비번 검증
 			boolean flag = memberDAO.checkPass(email, pass);
 			// 신규 입력 비번이 있으면 비번 변경.
-			if (npass != null && npass.length() >= 4 ) {
+			if (npass != null && npass.length() >= 4) {
 				pass = npass;
 			}
 			// 검증에 따른 처리
-			if (flag) {//비번이 맞으면 수정을 진행.
+			if (flag) {// 비번이 맞으면 수정을 진행.
 				mdto.setName(req.getParameter("name"));
 				mdto.setPassword(pass);
 				mdto.setPhone_number(req.getParameter("phone_number"));
 				mdto.setEmail(email);
 				memberDAO.updateMember(mdto);
 			}
-			
+
 			req.setAttribute("flag", flag);
 			url = "/Join_v1/editmember_Proc.jsp";
 		} else if (cmd.equals("LOGOUT")) {
@@ -79,16 +97,14 @@ public class MainController extends HttpServlet {
 		} else if (cmd.equals("REGMEM")) {// 등록
 			// modelization 해야됨.
 			url = "/Join_v1/join_Proc.jsp";
-		}
-		else if (cmd.equals("MSGLIST")) {// 쪽지글 보기
+		} else if (cmd.equals("MSGLIST")) {// 쪽지글 보기
 			// 보드 아이디 받아서 보내야함. .
 			url = "msg?cmd=MSGLIST";
 		}
 
-		else if (cmd.equals("FRIENDS")) {// 
+		else if (cmd.equals("FRIENDS")) {//
 			url = "friends?cmd=FRIENDS";
-		}
-		else if (cmd.equals("CONTENT")) {// 글 보기
+		} else if (cmd.equals("CONTENT")) {// 글 보기
 			// 보드 아이디 받아서 보내야함. .
 			url = "/board/Read.jsp";
 		}

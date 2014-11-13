@@ -1,31 +1,37 @@
-<%@ page  contentType="text/html; charset=utf-8" %>
-<jsp:useBean id="dao" class="dao.MemberDAO"/>
-<jsp:useBean id="dto" class="dto.MemberDTO"/>
-<%
-request.setCharacterEncoding("utf-8");
-response.setCharacterEncoding("utf-8");
-String email=request.getParameter("email");
-String password = request.getParameter("password");
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html>
+<head>
+<jsp:include page="/HeadInfo.jsp" />
+</head>
+<body>
+	<div class="content" align="center">
+		<div class="wrap">
+			<div class="single-page" style="margin-top: 20px">
+				<c:if test="${flag =='true' }">
+					<div>
+						회원 탈퇴가 정상적으로 이루어졌습니다.<br /> 감사합니다.
+					</div>
+					<div>
+						<a href="javascript:fnclose()"><button>닫기</button></a>
+					</div>
+				</c:if>
 
-dto = dao.getInfo(email);
+				<c:if test="${!flag =='true' }">
+					<div>패스워드가 다릅니다. 확인해주세요.</div>
+					<div >
+						<a href="javascript:fnclose()"><button>닫기</button></a>
+					</div>
+				</c:if>
+			</div>
+		</div>
+	</div>
+	<script>
+		function fnclose() {
+			window.opener.location.href = "main?cmd=INDEX";
+			window.close();
+		}
+	</script>
+</body>
+</html>
 
-if(password.equals(dto.getPassword())){
-	dao.deleteMember(email);
-
-%>
-<script>
-alert("삭제되었습니다.");
-location.href="login.html";
-</script>
-
-<%	
-}else if(!password.equals(dto.getPassword())){
-%>
-<script>
-alert("패스워드 틀림ㅋ");
-history.back();
-</script>
-<%
-}
-
-%>

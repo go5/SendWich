@@ -41,6 +41,7 @@
 							<div>
 								<div>이메일:</div>
 								<div>
+									<input type="hidden" name="member_id" id="member_id" value="${memberDTO.member_id }">
 									<input type="text" name="email" id="email" readonly="readonly"
 										value="${memberDTO.email}" />
 								</div>
@@ -90,8 +91,10 @@
 
 							<div align="center">
 								<input type="button" value="정보수정" onclick="fnIsNull()" />
-								&nbsp;&nbsp;&nbsp; <a href="main?cmd=INDEX"><input
-									type="button" value="취소" /></a>
+							 
+								<a href="main?cmd=INDEX"><input
+									type="button" value="돌아가기" /></a>
+									<div style="font-size: 12px;"><a href="javascript:fndel(this.form)"><span>회원 탈퇴하기</span></a></div>
 							</div>
 						</form>
 					</div>
@@ -99,5 +102,12 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	function fndel(f){
+	//location.href="main?cmd=DELETEMEM";
+	window.open("main?cmd=DELETEMEM", "", "width=430, height=320 resizable=no", false);
+	}
+	
+	</script>
 </body>
 </html>

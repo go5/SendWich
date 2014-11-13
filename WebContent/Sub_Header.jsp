@@ -7,6 +7,12 @@
 				title="pinbal" /></a>
 		</div>
 
+
+
+		<%--로그인에 따른 분기 --%>
+		<c:choose>
+			<%-- 로그인 시 --%>
+			<c:when test="${!empty memberDTO}">
 		<div class="box" id="box">
 			<div class="box_content">
 				<div class="box_content_center">
@@ -29,11 +35,7 @@
 			</div>
 		</div>
 
-
-		<%--로그인에 따른 분기 --%>
-		<c:choose>
-			<%-- 로그인 시 --%>
-			<c:when test="${!empty memberDTO}">
+		
 				<!-- 검색창 부분. -->
 				<div class="top-searchbar">
 					<form>
@@ -57,6 +59,8 @@
 			</c:when>
 			<%-- 비 로그인 --%>
 			<c:when test="${empty memberDTO}">
+	
+
 				<div class="top-searchbar" style="margin-top: 10px" align="right">
 
 					<form name="login" id="login" action="main?cmd=LOGINPROC"
@@ -109,7 +113,7 @@
 	<!-- //login page -->
 	function fnLogin() {
 		//window.open("main?cmd=LOGIN", "", "width=500, height=200", false);
-		document.login.submit();
+		document.login.submit(); 
 	}
 	<!-- //logout page -->
 	function fnLogout() {

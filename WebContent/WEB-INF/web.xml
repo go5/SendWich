@@ -32,4 +32,13 @@
 		<url-pattern>/main</url-pattern>
 	</servlet-mapping>
 	
+<!-- friends -->
+	<servlet>
+		<servlet-name>friends</servlet-name>
+		<servlet-class>control.FriendController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>friends</servlet-name>
+		<url-pattern>/friends</url-pattern>
+	</servlet-mapping>	
 </web-app>

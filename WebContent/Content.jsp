@@ -1,37 +1,39 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page contentType="text/html; charset=EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Insert title here</title>
-<link href="css/style.css" rel='stylesheet' type='text/css' />
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="css/style.css" rel='stylesheet' type='text/css' />
 <link rel="shortcut icon" type="image/x-icon" href="images/fav-icon.png" />
-<script type="application/x-javascript">
-	
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
-
-</script>
 <!----webfonts---->
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
 	rel='stylesheet' type='text/css'>
 <!----//webfonts---->
-<!-- Global CSS for the page and tiles -->
 <link rel="stylesheet" href="css/main.css">
+<script type="application/x-javascript">
+	
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+</script>
+<!-- Global CSS for the page and tiles -->
 </head>
 <body>
-<!---start-content---->
+	<!---start-content---->
 	<div class="content">
 		<div class="wrap">
 			<div id="main" role="main">
 				<ul id="tiles">
 					<!-- These are our grid blocks 블럭 시작.-->
-					<li onclick="main?CMD=CONTENT&?board_id=${board_id}';"><img
+					<li onclick="location.href='main?cmd=CONTENT';"><img
 						src="images/img1.jpg" width="600" height="118">
 						<div class="post-info">
 							<div class="post-basic-info">
 								<h3>
-									<a href="#">제목</a>
+									<a href="#">작업된 블럭</a>
 								</h3>
 								<span><a href="#"><label> </label>위치</a></span>
 								<p>Lorem Ipsum is simply dummy text of the printing &
@@ -50,7 +52,7 @@
 								<div class="clear"></div>
 							</div>
 						</div></li>
-						<!-- 한 블럭 끝. -->
+					<!-- 한 블럭 끝. -->
 					<li onclick="location.href='single-page.html';"><img
 						src="images/img2.jpg" width="600" height="344">
 						<div class="post-info">

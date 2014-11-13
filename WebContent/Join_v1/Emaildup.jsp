@@ -37,7 +37,7 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/Header.jsp" />
+	<jsp:include page="/Sub_Header.jsp" />
 	<div class="content">
 		<div class="wrap">
 			<div class="single-page">

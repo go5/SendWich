@@ -13,8 +13,7 @@ import javax.servlet.http.HttpSession;
 import dao.msgDAO;
 import dto.MemberDTO;
 
-public class msgController extends HttpServlet {
-
+public class FriendController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -37,10 +36,6 @@ public class msgController extends HttpServlet {
 		// 즉, 세션에 올라온 멤버 정보 호출.
 		memberDTO = (MemberDTO) session.getAttribute("memberDTO");
 
-		// 테스트용.
-		//memberDTO = msgDAO.MemberInfo(1);
-		//session.setAttribute("memberDTO", memberDTO);
-
 		if (memberDTO == null) {
 			// 비정상 접속 메세지 내놔야 함.
 		}
@@ -51,30 +46,14 @@ public class msgController extends HttpServlet {
 
 
 		// 접근 조건 판별
-		if (cmd.equals("MSGLIST")) {
-			vList = msgDAO.msgList(memberDTO.getMember_id());
-			session.setAttribute("msgList", vList);
-			url = "/message/msglist.jsp";
-		} else if (cmd.equals("MSGWRITE")) {
-			fList = msgDAO.FriendsInfo(memberDTO.getMember_id());
-			// System.out.println(fList.size());
-			session.setAttribute("FriendsList", fList);
-			url = "/message/write.jsp";
-		} else if (cmd.equals("MSGSEND")) {
-			//System.out.println("sendmsg");
-
-			msgDAO.SendMessage(Integer.parseInt(req.getParameter("friend_id")),
-					(req.getParameter("msg_text")), memberDTO.getMember_id());
-			url = "/message/writeProc.jsp"; // 외부창에서 닫히므로 이동할 필요 없음.
-		}else if (cmd.equals("MSGDELETE")) {
-			//System.out.println("deletemsg");
-			msgDAO.DeleteMessage(req.getParameter("msg_ids"));
-			url = "/message/deleteProc.jsp";
-		}else{
+		if (cmd.equals("FRIENDS")||cmd==null) {//시작은 친구 목록.
+			url = "/friends/FriendList.jsp";
+		} else if (cmd.equals("FIND")) {
+			url = "/friends/FriendList.jsp";
+		} else{
 			//비정상접근 메세지.
 		}
 		
-		//System.out.println(url);
 		RequestDispatcher view = req.getRequestDispatcher(url);
 		view.forward(req, resp);
 

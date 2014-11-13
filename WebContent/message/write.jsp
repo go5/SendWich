@@ -25,7 +25,7 @@
 				<div>받는 사람(이메일)</div>
 				<div>
 					<input type="text" id="reciever_name" name="reciever_name"
-						readonly="readonly">
+						readonly="readonly" required="required">
 				</div>
 				<div>
 					<select id="friends" name="friends" onchange="fnfriends()">

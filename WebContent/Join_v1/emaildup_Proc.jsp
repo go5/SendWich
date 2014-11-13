@@ -15,7 +15,7 @@
 		rs = stmt.executeQuery(msql);
 
 		if (rs.next() == true) { // 아이디가 있으면.
-			out.println("<script>alert('중복된 이메일이 있습니다.');history.back();</script>"); // 중복된 아이디 있으면 얼랏창 및 직전페이지
+			out.println("<script>alert('해당 이메일은 가입되어 있습니다.');history.back();</script>"); // 중복된 아이디 있으면 얼랏창 및 직전페이지
 		} else {
 			//없는 거임. 넘어강
 			//System.out.println("없음");

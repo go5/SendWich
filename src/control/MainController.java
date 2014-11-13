@@ -35,12 +35,16 @@ public class MainController extends HttpServlet {
 		if (cmd == null || cmd.equals("INDEX")) {
 			url = "/index.jsp";
 		} else if (cmd.equals("LOGIN")) {
-			url = "/Join_v1/login.html";
+			System.out.println("login");
+			url = "/Join_v1/login.jsp";
 		} else if (cmd.equals("LOGINPROC")) {
+			System.out.println("loginproc");
 			url = "/Join_v1/login_Proc.jsp";
 		} else if (cmd.equals("MEMINFO")) {
+			System.out.println("meminfo");
 			url = "/Join_v1/EditMember.jsp";
 		} else if (cmd.equals("EDITINFO")) {
+			System.out.println("editinfo");
 			// model이동해야함.
 			String pass = req.getParameter("password");
 			String npass = req.getParameter("newpassword1");

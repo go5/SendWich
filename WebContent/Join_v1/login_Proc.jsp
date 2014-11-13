@@ -10,8 +10,8 @@
 	String msql;
 	request.setCharacterEncoding("utf-8");
 	response.setCharacterEncoding("utf-8");
-	String email = request.getParameter("email");
-	String password = request.getParameter("pwd1");
+	String email = request.getParameter("logemail");
+	String password = request.getParameter("logpassword");
 	String member_id = null;
 	MemberDTO mdto = new MemberDTO();
 
@@ -32,10 +32,10 @@
 
 		session.setAttribute("memberDTO", mdto);
 
-		out.println("<script>alert('로그인 되셨습니다.');	window.opener.location.href='main?cmd=INDEX';window.close();</script>");
+		out.println("<script>alert('로그인 되셨습니다.');	window.location.href='main?cmd=INDEX';</script>");
 
 	} else {
-		out.println("<script>alert('로그인 정보가 없습니다.');history.back();</script>");
+		out.println("<script>alert('로그인 정보를 확인해 주세요.');history.back();</script>");
 	}
 
 	System.out.println(msql);

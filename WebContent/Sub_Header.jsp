@@ -6,23 +6,7 @@
 			<a href="main?cmd=INDEX"><img src="images/logo.png"
 				title="pinbal" /></a>
 		</div>
-		<div class="top-searchbar">
-			<form>
-				<!-- 검색창 부분. -->
-				<input type="text" placeholder="장소 검색" /><input type="submit" value="" />
-			</form>
-		</div>
-		<c:choose>
-			<%-- 로그인 시 --%>
-			<c:when test="${!empty memberDTO}">
-				<div class="nav-icon">
-					<a href="#" class="right_bt" id="activator"><span> </span> </a>
-				</div>
-			</c:when>
-			<%-- 비 로그인 --%>
-			<c:when test="${empty memberDTO}">
-			</c:when>
-		</c:choose>
+
 		<div class="box" id="box">
 			<div class="box_content">
 				<div class="box_content_center">
@@ -44,21 +28,46 @@
 				</div>
 			</div>
 		</div>
-		<div class="userinfo">
-			<%--로그인에 따른 분기 --%>
-			<c:choose>
-				<%-- 로그인 시 --%>
-				<c:when test="${!empty memberDTO}">
+
+
+		<%--로그인에 따른 분기 --%>
+		<c:choose>
+			<%-- 로그인 시 --%>
+			<c:when test="${!empty memberDTO}">
+				<!-- 검색창 부분. -->
+				<div class="top-searchbar">
+					<form>
+						<input type="text" placeholder="장소 검색" /><input type="submit"
+							value="" />
+					</form>
+				</div>
+
+				<div class="nav-icon">
+					<a href="#" class="right_bt" id="activator"><span> </span> </a>
+				</div>
+
+				<div class="userinfo">
 					<div class="user">
 						<ul>
 							<li><img src="images/user-pic.png" title="user-name" /></li>
-							<li><blockquote>${memberDTO.name} 님</blockquote> <span>안녕하세요!</span></li>
+							<li><blockquote>${memberDTO.name}님</blockquote> <span>안녕하세요!</span></li>
 						</ul>
 					</div>
+				</div>
+			</c:when>
+			<%-- 비 로그인 --%>
+			<c:when test="${empty memberDTO}">
+				<div class="top-searchbar" style="margin-top: 10px" align="right">
 
-				</c:when>
-				<%-- 비 로그인 --%>
-				<c:when test="${empty memberDTO}">
+					<form name="login" id="login" action="main?cmd=LOGINPROC"
+						method="post">
+						<input name="logemail" required="required" type="email"
+							id="logemail" placeholder="E-mail" /> <input name="logpassword"
+							required="required" type="password" id="logpassword"
+							placeholder="password" onkeypress="if( event.keyCode==13 ){fnLogin();}"/>
+					</form>
+				</div>
+				<div class="userinfo">
 					<div class="user">
 						<ul>
 							<li><a href="javascript:fnLogin()"><span>Login</span></a></li>
@@ -66,9 +75,9 @@
 							<li><a href="main?cmd=JOIN"><span>JoinUs</span></a></li>
 						</ul>
 					</div>
-				</c:when>
-			</c:choose>
-		</div>
+				</div>
+			</c:when>
+		</c:choose>
 		<div class="clear"></div>
 	</div>
 </div>
@@ -99,7 +108,8 @@
 	<!----//End-dropdown--->
 	<!-- //login page -->
 	function fnLogin() {
-		window.open("main?cmd=LOGIN", "", "width=520, height=320", false);
+		//window.open("main?cmd=LOGIN", "", "width=500, height=200", false);
+		document.login.submit();
 	}
 	<!-- //logout page -->
 	function fnLogout() {

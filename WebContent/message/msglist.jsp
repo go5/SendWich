@@ -1,3 +1,4 @@
+<%@page import="dao.MemberDAO"%>
 <%@page import="dto.MessageDTO"%>
 <%@page import="java.util.Vector"%>
 <%@page import="dto.MemberDTO"%>
@@ -16,6 +17,7 @@
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		msgDAO msgDAO = new msgDAO();
+		MemberDAO memberDAO = new MemberDAO();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memberDTO");
 	%>
 	<div class="content">
@@ -53,7 +55,7 @@
 								//받은 글 게시판으로 출력.
 								for (int i = 0; i < msgList.size(); i++) {
 									MessageDTO dto = (MessageDTO) msgList.get(i);
-									MemberDTO friends = msgDAO.MemberInfo(dto.getSender_id());
+									MemberDTO friends = memberDAO.getInfo(dto.getSender_id());
 							%>
 							<tr>
 								<td width="5%"><input type="checkbox" id="msg_chk"

@@ -29,35 +29,7 @@ public class msgDAO {
 		}
 	}
 
-	public MemberDTO MemberInfo(int member_id) {
-		// 멤버 아이디를 받아서 회원 정보를 dto에 담아 반환.
-		// 이건 memberDAO가 할 일.;;
-		String sql = null;
-		MemberDTO dto = null;
-		try {
-			dto = new MemberDTO();
-			sql = "SELECT * FROM member WHERE member_id = ? ";
-			con = pool.getConnection();// 성능을 위해서. 늦게 연결.
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, member_id);
-			rs = pstmt.executeQuery();
-			rs.next();
 
-			dto.setMember_id(rs.getInt("member_id"));
-			dto.setName(rs.getString("name"));
-			dto.setEmail(rs.getString("email"));
-			dto.setJoin_date(rs.getString("join_date"));
-			dto.setPhone_number(rs.getString("phone_number"));
-			dto.setPassword(rs.getString("password"));
-			// System.out.println(dto.getMember_id());
-
-		} catch (Exception err) {
-			err.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return dto;
-	}
 
 	public Vector msgList(int member_id) {
 		// 멤버 아이디를 받아서 메세지dto 묶음 벡터를 반환.

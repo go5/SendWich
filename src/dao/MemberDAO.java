@@ -37,14 +37,42 @@ public class MemberDAO {
 			dto.setPassword(rs.getString("password"));
 			dto.setPhone_number(rs.getString("phone_number"));
 			dto.setName(rs.getString("name"));
-
+			dto.setEmail(email);
+			dto.setJoin_date(rs.getString("join_date"));
+			dto.setMember_id(rs.getInt("member_id"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return dto;
+	}
 
+	public MemberDTO getInfo(int member_id) {
+		MemberDTO dto = new MemberDTO();
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			
+			sql = "select * from member where email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			dto.setMember_id(rs.getInt("member_id"));
+			dto.setName(rs.getString("name"));
+			dto.setEmail(rs.getString("email"));
+			dto.setJoin_date(rs.getString("join_date"));
+			dto.setPhone_number(rs.getString("phone_number"));
+			dto.setPassword(rs.getString("password"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return dto;
 	}
 
 	public void updateMember(MemberDTO dto) {

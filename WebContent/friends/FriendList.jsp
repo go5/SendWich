@@ -14,9 +14,9 @@
 			<div class="single-page">
 				<div name="FrList" id="FrList">
 					<h2>模备 格废</h2>
-					<table border="1">
+					<table style="border:1px solid silver;">
 					<tr><td>捞抚</td><td>捞皋老 林家<td><td>昏力</td><tr>
-					<tr><td>模备捞抚</td><td>捞皋老 林家<td><td><a href="#">昏力</a></td><tr>
+					<tr><td>模备捞抚</td><td>捞皋老 林家<td><td><a href="#" style="font:bold pink">昏力</a></td><tr>
 					</table>
 				</div>
 

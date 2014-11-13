@@ -46,10 +46,10 @@ public class FriendController extends HttpServlet {
 
 
 		// 접근 조건 판별
-		if (cmd.equals("FRIENDS")||cmd==null) {//시작은 친구 목록.
+		if (cmd.equals("FRIENDS")) {//시작은 친구 목록.
 			url = "/friends/FriendList.jsp";
-		} else if (cmd.equals("FIND")) {
-			url = "/friends/FriendList.jsp";
+		} else if (cmd.equals("")) {
+			url = "/message/write.jsp";
 		} else{
 			//비정상접근 메세지.
 		}

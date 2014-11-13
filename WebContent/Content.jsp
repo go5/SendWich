@@ -1,27 +1,4 @@
 <%@ page contentType="text/html; charset=EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Insert title here</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="css/style.css" rel='stylesheet' type='text/css' />
-<link rel="shortcut icon" type="image/x-icon" href="images/fav-icon.png" />
-<!----webfonts---->
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-<!----//webfonts---->
-<link rel="stylesheet" href="css/main.css">
-<script type="application/x-javascript">
-	
-	
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
-
-
-</script>
-<!-- Global CSS for the page and tiles -->
-</head>
-<body>
 	<!---start-content---->
 	<div class="content">
 		<div class="wrap">
@@ -380,5 +357,3 @@
 			$window.bind('scroll.wookmark', onScroll);
 		})(jQuery);
 	</script>
-</body>
-</html>

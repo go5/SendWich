@@ -34,9 +34,6 @@ public class MainController extends HttpServlet {
 		MemberDAO memberDAO = new MemberDAO();
 		if (cmd == null || cmd.equals("INDEX")) {//메인
 			url = "/index.jsp";
-		} else if (cmd.equals("LOGIN")) {//로그인
-			//System.out.println("login");
-			url = "/Join_v1/login.jsp";
 		} else if (cmd.equals("LOGINPROC")) {//로그인 프록시
 			//System.out.println("loginproc");
 			url = "/Join_v1/login_Proc.jsp";

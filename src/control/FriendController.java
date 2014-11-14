@@ -30,6 +30,7 @@ public class FriendController extends HttpServlet {
 
 		msgDAO msgDAO = new msgDAO();
 		HttpSession session = req.getSession();
+		MemberDTO friendDTO;
 		MemberDTO memberDTO;
 		MemberDAO memberDAO = new MemberDAO();
 
@@ -49,11 +50,12 @@ public class FriendController extends HttpServlet {
 		// 친구 목록 정보 호출.
 		Vector fList = memberDAO.FriendsInfo(memberDTO.getMember_id());
 		session.setAttribute("friendsList", fList);
+
+		
 		// 접근 조건 판별
 		if (cmd.equals("FRIENDS")) {// 시작은 친구 목록.
 			url = "/friends/FriendList.jsp";
 			if (req.getParameter("frSearch") != null) {
-				MemberDTO friendDTO;
 				String email = req.getParameter("frSearch");
 				System.out.println(email);
 				friendDTO = memberDAO.getInfo(email);
@@ -61,6 +63,12 @@ public class FriendController extends HttpServlet {
 			}
 		} 
 		else if (cmd.equals("INVITE")) {
+			url = "/friends/FriendList.jsp";
+			String femail = req.getParameter("femail");
+			friendDTO = memberDAO.getInfo(femail);
+			int sender_id = memberDTO.getMember_id();
+			int reciever_id = friendDTO.getMember_id();
+			memberDAO.FriendInvite(sender_id, reciever_id);
 			
 		}
 			else {

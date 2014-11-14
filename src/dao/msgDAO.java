@@ -29,8 +29,6 @@ public class msgDAO {
 		}
 	}
 
-
-
 	public Vector msgList(int member_id) {
 		// 멤버 아이디를 받아서 메세지dto 묶음 벡터를 반환.
 		// System.out.println("list"+member_id);
@@ -60,34 +58,6 @@ public class msgDAO {
 		return vMsgList;
 	}
 
-	public Vector FriendsInfo(int member_id) {
-		// 멤버 아이디를 받아서 친구 정보를 dto에 담고 복수개의 정보를 벡터에 담아 반환
-		String sql = "SELECT * FROM member WHERE member_id IN (SELECT friend_id FROM friends WHERE member_id = "
-				+ member_id + ")";
-		// System.out.println(sql);
-		MemberDTO dto = new MemberDTO();
-		Vector v = new Vector();
-		try {
-			con = pool.getConnection();
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				dto.setMember_id(rs.getInt("member_id"));
-				dto.setName(rs.getString("name"));
-				dto.setEmail(rs.getString("email"));
-				dto.setJoin_date(rs.getString("join_date"));
-				dto.setPhone_number(rs.getString("phone_number"));
-				dto.setPassword(rs.getString("password"));
-				System.out.println(dto.getMember_id());
-				v.add(dto);
-			}
-		} catch (Exception err) {
-			err.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return v;
-	}
 
 	public void SendMessage(int friend_id, String msg_text, int member_id) {
 		// 메세지dto를 받아서 전송.
@@ -113,7 +83,7 @@ public class msgDAO {
 	public void DeleteMessage(String msg_ids) {
 		// 메세지dto를 받아서 전송.
 		String sql = "DELETE FROM message WHERE msg_id IN (" + msg_ids + ")";
-		//System.out.println(sql);
+		// System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			stmt = con.createStatement();

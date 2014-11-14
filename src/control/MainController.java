@@ -26,7 +26,7 @@ public class MainController extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		resp.setCharacterEncoding("utf-8");
-		System.out.println("maincont");
+		//System.out.println("maincont");
 		String url = "";
 		String cmd = req.getParameter("cmd");
 		HttpSession session = req.getSession();
@@ -35,16 +35,16 @@ public class MainController extends HttpServlet {
 		if (cmd == null || cmd.equals("INDEX")) {//메인
 			url = "/index.jsp";
 		} else if (cmd.equals("LOGIN")) {//로그인
-			System.out.println("login");
+			//System.out.println("login");
 			url = "/Join_v1/login.jsp";
 		} else if (cmd.equals("LOGINPROC")) {//로그인 프록시
-			System.out.println("loginproc");
+			//System.out.println("loginproc");
 			url = "/Join_v1/login_Proc.jsp";
 		} else if (cmd.equals("MEMINFO")) {//회원정보 조회/수정창
-			System.out.println("meminfo");
+			//System.out.println("meminfo");
 			url = "/Join_v1/EditMember.jsp";
 		}else if (cmd.equals("EDITINFO")) {//정보 수정
-			System.out.println("editinfo");
+			//System.out.println("editinfo");
 			// model이동해야함.
 			String pass = req.getParameter("password");
 			String npass = req.getParameter("newpassword1");
@@ -66,12 +66,12 @@ public class MainController extends HttpServlet {
 			req.setAttribute("flag", flag);
 			url = "/Join_v1/editmember_Proc.jsp";
 		} else if (cmd.equals("DELETEMEM")) {//삭제확인창
-			System.out.println("deletemem");
+			//System.out.println("deletemem");
 			String email = req.getParameter("email");
 			req.setAttribute("email", email);
 			url = "/Join_v1/deletemember.jsp";
 		} else if (cmd.equals("DELETEMEMPROC")) {//삭제
-			System.out.println("deletememproc");
+			//System.out.println("deletememproc");
 			String email = req.getParameter("email");
 			String pass = req.getParameter("password");
 			// 비번 검증

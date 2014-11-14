@@ -1,5 +1,11 @@
-CREATE SCHEMA `project`;
-ALTER SCHEMA `project`  DEFAULT CHARACTER SET utf8 ;
+/*
+ * 작업할때 편하라고 만들어 둔건데 DB 담당자 외  절대로 수정 금지.
+ * */
+
+/*db 생성 */
+CREATE SCHEMA `project` DEFAULT CHARACTER SET utf8 ;
+
+/*테이블 생성 */
 CREATE TABLE `project`.`member` (
   `member_id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(50) NOT NULL,
@@ -56,7 +62,7 @@ CREATE TABLE project.reply (
     ON UPDATE RESTRICT
     );
 
- CREATE TABLE project.evaluation (
+ CREATE TABLE project.chart (
   loc_id INT NOT NULL,
   eva_type VARCHAR(30) NOT NULL,
   eva_type_num INT NOT NULL,
@@ -72,10 +78,11 @@ CREATE TABLE project.reply (
 CREATE TABLE project.friends (
   member_id INT NOT NULL,
   friend_id INT NOT NULL,
+  invited int not null DEFAULT '0',
   CONSTRAINT FK_friends_1 
 	FOREIGN KEY(member_id)
     REFERENCES project.member (member_id)
-    ON DELETE restrict
+    ON DELETE RESTRICT
     ON UPDATE RESTRICT,
   CONSTRAINT FK_friends_2 
 	FOREIGN KEY (friend_id)
@@ -83,7 +90,7 @@ CREATE TABLE project.friends (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
     );
-   
+
 CREATE TABLE project.message (
   msg_id integer NOT NULL AUTO_INCREMENT,
   sender_id INTEGER UNSIGNED NOT NULL,
@@ -113,13 +120,13 @@ INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `p
 INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","김영준", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"1234"); 
 
 /*친구*/
-INSERT INTO project.friends VALUES(1, 2);
+INSERT INTO project.friends VALUES(1, 2, 0);
 
-INSERT INTO project.friends VALUES(2, 1);
+INSERT INTO project.friends VALUES(2, 1, 0);
 
 /*지역*/
 INSERT INTO project.location(loc_name) VALUES("종묘");
-select * from project.location;
+
 /*글*/
 INSERT INTO project.board(member_id,title, textarea,upload_date) 
  VALUES(1,"공지입니다","관리잡니다. 관리자용 공지 테스트입니다.",DATE_FORMAT("14.10.11","%y%m%d"));

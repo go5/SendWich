@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=EUC-KR"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -13,30 +13,58 @@
 		<div class="wrap">
 			<div class="single-page">
 				<div name="FrList" id="FrList">
-					<h2>Ä£±¸ ¸ñ·Ï</h2>
-					<table style="border:1px solid silver;">
-					<tr><td>ÀÌ¸§</td><td>ÀÌ¸ŞÀÏ ÁÖ¼Ò<td><td>»èÁ¦</td><tr>
-					<tr><td>Ä£±¸ÀÌ¸§</td><td>ÀÌ¸ŞÀÏ ÁÖ¼Ò<td><td><a href="#" style="font:bold pink">»èÁ¦</a></td><tr>
-					</table>
+					<h2>ì¹œêµ¬ ëª©ë¡</h2>
+					<c:forEach var="fr" items="${friendsList}">
+						<div style="background-color: silver;">
+							<div style="float: left;">${fr.name}</div>
+							<div style="float: left;">( ${fr.email} )</div>
+							<div>
+								&nbsp;&nbsp;
+								<button onclick="#">ì‚­ì œ</button>
+							</div>
+						</div>
+					</c:forEach>
 				</div>
 
-<hr/>
-<!-- Ä£±¸°Ë»ö. ÀÌÈÄ¿¡ ÅÇÀ¸·Î º¯°æÇÏ´Â ¹æ¾È. -->
-<!--  ÀÏ´Ü È¸¿ø ÁßÀÇ ÀÌ¸ŞÀÏÀ» °Ë»ö. ³ªÁß¿¡´Â db¿¡ ¾ø´Â ÀÌ¸ŞÀÏ¿¡ ÃÊ´ë ¸ŞÀÏ ¹ß¼Û±â´É. -->
+				<hr />
+				<!-- ì¹œêµ¬ê²€ìƒ‰. ì´í›„ì— íƒ­ìœ¼ë¡œ ë³€ê²½í•˜ëŠ” ë°©ì•ˆ. -->
+				<!--  ì¼ë‹¨ íšŒì› ì¤‘ì˜ ì´ë©”ì¼ì„ ê²€ìƒ‰. ë‚˜ì¤‘ì—ëŠ” dbì— ì—†ëŠ” ì´ë©”ì¼ì— ì´ˆëŒ€ ë©”ì¼ ë°œì†¡ê¸°ëŠ¥. -->
 				<div class="searchbar">
-					<form action="friends?cmd=FIND&email=${param.frSearch}">
-						<!-- °Ë»öÃ¢ ºÎºĞ. -->
-						<input type="text" name="frSearch" id="frSearch" placeholder="Ä£±¸ ÀÌ¸ŞÀÏ ÁÖ¼Ò"/><input
-							type="submit" value="ÀÌ¸ŞÀÏ °Ë»ö" />
+					<form method="post" name="fSearch" id="fSearch" action="friends">
+						<!-- ê²€ìƒ‰ì°½ ë¶€ë¶„. -->
+						<input type="hidden" name="cmd" id="cmd" value="FRIENDS" /> <input
+							type="text" name="frSearch" id="frSearch" placeholder="ì´ë©”ì¼ ì£¼ì†Œ" />
+						<input type="button" value="ì´ë©”ì¼ ê²€ìƒ‰"
+							onclick="fnfrsearch(this.form)" />
 					</form>
 				</div>
 				<div class="FrResult">
-				<c:if test="${!empty friendDTO.name}">
-			 °Ë»öµÈ	Ä£±¸ ÀÌ¸§, ÀÌ¸ŞÀÏ ¶ç¿ï °÷.
-				</c:if>
+					<c:if test="${!empty friendDTO.name}">
+					<form method="post" action="friends?cmd=INVITE">
+						<div style="float: left;">${friendDTO.name}</div>
+						<div style="float: left;">( ${friendDTO.email} )
+						<input type="hidden" name="femail" id="femail" value="${friendDTO.email}"/>
+						</div>
+						<div>
+							<button type="submit">ì¹œêµ¬ ì‹ ì²­</button>
+						</div>
+					</form>
+					</c:if>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script>
+	function fnfrsearch(f){
+		if(f.frSearch.value==null||f.frSearch.value==""){
+		//alert(f);
+			alert("ì¹œêµ¬ì˜ ì´ë©”ì¼ì„ ì ì–´ì£¼ì„¸ìš”.");
+		}else{
+			f.submit();			
+		}
+	}
+	
+	</script>
 </body>
 </html>

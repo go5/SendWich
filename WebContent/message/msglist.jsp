@@ -1,8 +1,8 @@
 <%@page import="dao.MemberDAO"%>
-<%@page import="dto.MessageDTO"%>
-<%@page import="java.util.Vector"%>
-<%@page import="dto.MemberDTO"%>
 <%@page import="dao.msgDAO"%>
+<%@page import="dto.MessageDTO"%>
+<%@page import="dto.MemberDTO"%>
+<%@page import="java.util.Vector"%>
 <%@ page language="java" import="java.sql.*"
 	contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html >
@@ -62,7 +62,6 @@
 									name="msg_chk" value="<%=dto.getMsg_id()%>" /></td>
 								<td width="45%"><div><%=dto.getTextarea()%></div></td>
 
-
 								<td width="20%">
 									<p align=center><%=friends.getName()%></p>
 								</td>
@@ -70,7 +69,6 @@
 								<td width="30%">
 									<p align=center><%=dto.getSend_date()%></p>
 								</td>
-
 							</tr>
 							<%
 								}

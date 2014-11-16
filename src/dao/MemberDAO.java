@@ -37,6 +37,7 @@ public class MemberDAO {
 
 			rs = pstmt.executeQuery();
 			rs.next();
+			
 
 			dto.setPassword(rs.getString("password"));
 			dto.setPhone_number(rs.getString("phone_number"));

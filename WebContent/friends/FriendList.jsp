@@ -20,21 +20,21 @@
 				<div name="FrList" id="FrList">
 					<h2>친구 목록</h2>
 					<c:forEach var="frdto" items="${friendsList}">
-					<c:if test="${frdto.name != memberDTO.name}">
-						<div style="background-color: silver;">
-							<form action="friends" method="post" id="fListItem">
-								<input type="hidden" name="cmd" id="cmd" value="DELETEFRIEND">
-								<input type="hidden" name="femail" id="femail" value="${frdto.email}">
-								<div style="float: left;">${frdto.name}</div>
-								<div style="float: left;">( ${frdto.email} )</div>
-
-								<div>
-									&nbsp;&nbsp;
-									<button onclick="fndel(this.form)">삭제</button>
-								</div>
-							</form>
-						</div>
-					</c:if>
+						<c:if test="${frdto.name != memberDTO.name}">
+							<div style="background-color: silver;">
+								<form action="friends" method="post" id="fListItem">
+									<input type="hidden" name="cmd" id="cmd" value="DELETEFRIEND">
+									<input type="hidden" name="femail" id="femail"
+										value="${frdto.email}">
+									<div style="float: left;">${frdto.name}</div>
+									<div style="float: left;">( ${frdto.email} )</div>
+									<div>
+										&nbsp;&nbsp;
+										<button onclick="subform(this.form, 'friends?cmd=DELETEFRIEND')">삭제</button>
+									</div>
+								</form>
+							</div>
+						</c:if>
 					</c:forEach>
 				</div>
 
@@ -43,8 +43,8 @@
 				<!-- 검색창 부분. -->
 				<div class="searchbar">
 					<form method="post" action="friends?cmd=FIND">
-						<input type="text" name="frSearch" id="frSearch" placeholder="이메일 주소" />
-						<input type="button" value="이메일 검색"
+						<input type="text" name="frSearch" id="frSearch"
+							placeholder="이메일 주소" /> <input type="button" value="이메일 검색"
 							onclick="fnfrsearch(this.form)" />
 					</form>
 				</div>
@@ -76,25 +76,21 @@
 				<hr />
 				<!--  친구 신청 수락 대기 목록. -->
 				<div>
-					<form method="post" action="friends?cmd=RESFRIEND">
-						<c:forEach var="frlist" items="${inviteList}">
+					<c:forEach var="frlist" items="${inviteList}">
+						<form method="post" >
 							<div style="float: left;">${frlist.name}</div>
 							<div style="float: left;">
 								( ${frlist.email} ) <input type="hidden" name="femail"
 									id="femail" value="${frlist.email}" />
 							</div>
-							<div>
-								<button type="submit">친구 수락</button>
-								<button onclick="fndel(this.form)">삭제</button>
-							</div>
-						</c:forEach>
-					</form>
-
+							<button onclick="subform(this.form, 'friends?cmd=RESFRIEND')">친구 수락</button>
+							<button onclick="subform(this.form, 'friends?cmd=DELETEFRIEND')">삭제</button>
+						</form>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<script>
 		function fnfrsearch(f) {//fSearch 폼(검색창)
 
@@ -105,8 +101,9 @@
 				f.submit();
 			}
 		}
-		function fndel(f){
-			f.submit
+		function subform(f, act) {
+			f.action = act;
+			f.submit();
 		}
 	</script>
 </body>

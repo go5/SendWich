@@ -19,7 +19,7 @@ VIEW
 		Sub_Header.jsp: header(메뉴바) 부분. 이것도 모든 페이지에 인클루드.
 		Content.jsp: 메인 화면 글 목록(친구, 내 글)
 		그외
-			contact.html: 글쓰기 로 재활용
+			contact.jsp: 글쓰기 로 재활용
 			single-page.jsp: 읽기 화면으로 재활용
 			Mypeed.jsp: 내 글 보기로 재활용
 	board

@@ -94,7 +94,7 @@ public class FriendController extends HttpServlet {
 			friendsDAO.AllowFriend(member_id, friend_id );
 		} else if (cmd.equals("DELETEFRIEND")) {// 친구 삭제. 둘다 삭제됨.
 			url = "/main?cmd=FRIENDS";
-
+			
 			String fremail = req.getParameter("femail");
 			System.out.println(fremail);
 			friendDTO = memberDAO.getInfo(fremail);

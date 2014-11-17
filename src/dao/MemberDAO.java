@@ -36,7 +36,7 @@ public class MemberDAO {
 			pstmt.setString(1, email);
 
 			rs = pstmt.executeQuery();
-			rs.next();
+			while(rs.next()){
 			
 
 			dto.setPassword(rs.getString("password"));
@@ -45,6 +45,7 @@ public class MemberDAO {
 			dto.setEmail(email);
 			dto.setJoin_date(rs.getString("join_date"));
 			dto.setMember_id(rs.getInt("member_id"));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

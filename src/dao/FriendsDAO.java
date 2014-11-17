@@ -28,15 +28,18 @@ public class FriendsDAO {
 	// 회원의 친구 목록 출력(기본)
 	public Vector FriendsInfo(int member_id) {
 		// 멤버 아이디를 받아서 친구 정보를 dto에 담고 복수개의 정보를 벡터에 담아 반환
-		String sql = "SELECT * FROM member WHERE member_id IN (SELECT friend_id FROM friends WHERE member_id = "
-				+ member_id + ")";
+		
+		String sql = "SELECT * FROM member WHERE member_id IN ("
+				+ "SELECT friend_id FROM friends "
+				+ "WHERE (invited=1 AND member_id = "+ member_id + ")"
+						+ ") ORDER BY name";
 		// System.out.println(sql);
 		Vector v = new Vector();
 		try {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
+			while (rs.next()){
 				MemberDTO dto = new MemberDTO();
 				dto.setMember_id(rs.getInt("member_id"));
 				dto.setName(rs.getString("name"));
@@ -55,9 +58,40 @@ public class FriendsDAO {
 		return v;
 	}
 
+	// 친구 검색
+	public MemberDTO SearchInfo(String femail, int member_id) {
+		// 친구 이메일을 입력하면 결과가 하나 나옴.
+		// 기존 친구는 나오면 안됨.
+		String sql = "SELECT * FROM member WHERE email= '"
+				+ femail
+				+ "' AND member_id not in (SELECT friend_id from friends where member_id="
+				+ member_id + ")";
+		//System.out.println("검색: " + sql);
+		MemberDTO dto = new MemberDTO();
+		try {
+			con = pool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				dto.setMember_id(rs.getInt("member_id"));
+				dto.setName(rs.getString("name"));
+				dto.setEmail(rs.getString("email"));
+				dto.setJoin_date(rs.getString("join_date"));
+				dto.setPhone_number(rs.getString("phone_number"));
+				dto.setPassword(rs.getString("password"));
+				// System.out.println(dto.getMember_id());
+			}
+		} catch (Exception err) {
+			err.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return dto;
+	}
+
 	// 나에게 친구를 신청한 사람 목록
 	public Vector FriendResponse(int member_id) {
-		String sql = "SELECT * FROM member WHERE member_id IN (select sender from friends where invited=0 AND reciever="
+		String sql = "SELECT * FROM member WHERE member_id IN (select friend_id from friends where invited=0 AND member_id="
 				+ member_id + ")";
 		// System.out.println(sql);
 		Vector v = new Vector();
@@ -108,9 +142,9 @@ public class FriendsDAO {
 
 	// 친구수락.
 	public void AllowFriend(int member_id, int friend_id) {
-		String sql = "update friends set invited=1 where invited=0 AND reciever="
-				+ member_id + " AND sender=" + friend_id;
-		// System.out.println(sql);
+		String sql = "update friends set invited=1 where invited=0 AND member_id="
+				+ member_id + " AND friend_id=" + friend_id;
+		System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -125,10 +159,10 @@ public class FriendsDAO {
 
 	// 친구삭제.
 	public void DeleteFriend(int member_id, int friend_id) {
-		String sql = "delete from friends where (sender=" + friend_id
-				+ " and reciever=" + member_id + ") OR (sender=" + member_id
-				+ " AND reciever=" + friend_id + ")";
-		// System.out.println(sql);
+		String sql = "delete from friends where (friend_id=" + friend_id
+				+ " and member_id=" + member_id + ") OR (friend_id="
+				+ member_id + " AND member_id=" + friend_id + ")";
+		System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);

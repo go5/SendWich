@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.FriendsDAO;
 import dao.MemberDAO;
 import dao.msgDAO;
 import dto.MemberDTO;
@@ -29,6 +30,7 @@ public class msgController extends HttpServlet {
 		resp.setCharacterEncoding("utf-8");
 		msgDAO msgDAO = new msgDAO();
 		MemberDAO memberDAO = new MemberDAO();
+		FriendsDAO friendsDAO = new FriendsDAO();
 		HttpSession session = req.getSession();
 		MemberDTO memberDTO;
 		String url = "";
@@ -57,7 +59,7 @@ public class msgController extends HttpServlet {
 			session.setAttribute("msgList", vList);
 			url = "/message/msglist.jsp";
 		} else if (cmd.equals("MSGWRITE")) {
-			fList = memberDAO.FriendsInfo(memberDTO.getMember_id());
+			fList = friendsDAO.FriendsInfo(memberDTO.getMember_id());
 			session.setAttribute("FriendsList", fList);
 			url = "/message/write.jsp";
 		} else if (cmd.equals("MSGSEND")) {

@@ -135,3 +135,11 @@ select reciever from firends where sender= b
 메인: 로그인, 회원가입
 friends: 친구 검색, 친구 추가 
 msg: 쪽지 관련.
+
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->

@@ -1,8 +1,8 @@
 package dto;
 
-public class BoardDto {
+public class BoardDTO {
 	private int board_id, member_id,loc_id;
-	private String title, textarea,photo, upload_date;
+	private String title, textarea,photo, upload_date, loc_name;
 	public int getBoard_id() {
 		return board_id;
 	}
@@ -45,5 +45,13 @@ public class BoardDto {
 	public void setUpload_date(String upload_date) {
 		this.upload_date = upload_date;
 	}
+	public String getLoc_name() {
+		return loc_name;
+	}
+	public void setLoc_name(String loc_name) {
+		this.loc_name = loc_name;
+	}
+
+	
 	  
 }

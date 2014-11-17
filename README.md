@@ -31,7 +31,7 @@ VIEW
 	error
 		NeedLogin.html: 로그인 세션 필요한 페이지에서 세션이 없는 경우 안내
 	friends
-		FriendList.jsp: 친구 목록 출력 페이지(해야됨)
+		FriendList.jsp: 친구 목록 출력 페이지
 	images
 		... : 기존 틀에서 사용되는 이미지.
 	join_v1
@@ -86,50 +86,26 @@ maincontroller.java 실행해서 들어가세요
 -model 분리해야됨.
 
 <h1>login</h1>  
-아이디 찾기, 
-비번 재설정
+-아이디 찾기
+-비번 재설정
 
 <h1>menu</h1>
 
 <h1> 메인 게시판</h1>
 일단 메인화면 1번글에서 연결했음.
-뿌리는거랑 받는거 DAO 작성되야함.
-id 받아서 넘겨주기 되야함. 
-
+-뿌리는거랑 받는거 DAO 작성되야함.
+-id 받아서 넘겨주기 되야함. 
+-본인글+친구글 나와야함.
 
 <h1>friends</h1>
 친구검색
- -기등록 친구 제외 : JS 부분 수정해야됨.
- 
-친구 삭제
-친구 신청 로직(테이블 값은 sender reciever invite)
-검색이 복잡해지므로 그냥 테이블 두개로 처리.
-2. 테이블 두개
-a가 b에 신청 
--insert into friends value(a, b, 1);
--insert into friends value(b, a, 0);
-
-0중 받는사람(b)에게 항목 띄움. 
--select reciever from friends where sender=b AND invite=0;
-
-b가 수락 
-update friends set invite=1 where sender=b AND reciever=a;
-a b 1 완성
-
-삭제: 
-a에게는 친구 b를
-b에게는 초청자 a를 삭제 해야 함. 
-
-delete from friends where (sender=a and reciever=b) OR (sender=b AND reciever=a);
-
-b 기준 검색- 본, 친 중에 자신이 있는 상대방 출력.
-select reciever from firends where sender= b
 
 
 <h1>msg</h1> 
 디자인 맞추기.
 목록을 사각형으로 맞춰보자.
 
+-친구목록 model 분리하기. (초대/수락이랑 겹쳐서 애매하게 나옴)
 
 <h1>컨트롤러</h1>
 메인: 로그인, 회원가입

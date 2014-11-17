@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.BoardDAO;
 import dao.MemberDAO;
 import dto.MemberDTO;
 
@@ -32,12 +34,26 @@ public class MainController extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemberDTO mdto = (MemberDTO) session.getAttribute("memberDTO");
 		MemberDAO memberDAO = new MemberDAO();
+		BoardDAO boardDAO = new BoardDAO();
+		Vector boardList= null;
+		
+		if(mdto!=null){
+		
+		boardList = boardDAO.BoradList(mdto.getMember_id());
+		req.setAttribute("boardList", boardList);
+		}
+		
 		if (cmd == null || cmd.equals("INDEX")) {//메인
+			
 			url = "/index.jsp";
-		} else if (cmd.equals("LOGINPROC")) {//로그인 프록시
-			//System.out.println("loginproc");
+		}
+		//로그인 부분
+		else if (cmd.equals("LOGINPROC")) {//로그인 프록시
+			System.out.println("loginproc");
 			url = "/Join_v1/login_Proc.jsp";
-		} else if (cmd.equals("MEMINFO")) {//회원정보 조회/수정창
+		}
+		//회원 정보 조회/ 수정
+		else if (cmd.equals("MEMINFO")) {//회원정보 조회/수정창
 			//System.out.println("meminfo");
 			url = "/Join_v1/EditMember.jsp";
 		}else if (cmd.equals("EDITINFO")) {//정보 수정
@@ -62,7 +78,9 @@ public class MainController extends HttpServlet {
 			}
 			req.setAttribute("flag", flag);
 			url = "/Join_v1/editmember_Proc.jsp";
-		} else if (cmd.equals("DELETEMEM")) {//삭제확인창
+		} 
+		//회원 탈퇴
+		else if (cmd.equals("DELETEMEM")) {//삭제확인창
 			//System.out.println("deletemem");
 			String email = req.getParameter("email");
 			req.setAttribute("email", email);
@@ -80,10 +98,14 @@ public class MainController extends HttpServlet {
 			}
 			req.setAttribute("flag", flag);
 			url = "/Join_v1/deletemember_Proc.jsp";
-		}  else if (cmd.equals("LOGOUT")) {//로그아웃
+		}  
+		//로그아웃
+		else if (cmd.equals("LOGOUT")) {//로그아웃
 			// model?
 			url = "/Join_v1/logout_Proc.jsp";
-		} else if (cmd.equals("JOIN")) {//회원가입:메일중복검사
+		} 
+		//회원 가입
+		else if (cmd.equals("JOIN")) {//회원가입:메일중복검사
 			url = "/Join_v1/Emaildup.jsp";
 		} else if (cmd.equals("VALIDEMAIL")) {// 메일 중복 검사
 			// model로 이전해야함.
@@ -93,13 +115,19 @@ public class MainController extends HttpServlet {
 		} else if (cmd.equals("REGMEM")) {// 등록
 			// modelization 해야됨.
 			url = "/Join_v1/join_Proc.jsp";
-		} else if (cmd.equals("MSGLIST")) {// 쪽지글목록 보기
+		} 
+		//메세지 보드
+		else if (cmd.equals("MSGLIST")) {// 쪽지글목록 보기
 			// 보드 아이디 받아서 보내야함. .
 			url = "msg?cmd=MSGLIST";
 		}
+		
+		//친구 관리
 		else if (cmd.equals("FRIENDS")) {//친구 목록/추가
 			url = "friends?cmd=FRIENDS";
-		} else if (cmd.equals("CONTENT")) {// 글 보기
+		} 
+		//글 보기
+		else if (cmd.equals("CONTENT")) {// 글 보기
 			// 보드 아이디 받아서 보내야함. .
 			url = "/board/Read.jsp";
 		}

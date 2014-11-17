@@ -24,6 +24,10 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
+
+	
+
+	
 //회원정보
 	public MemberDTO getInfo(String email) {
 		MemberDTO dto = new MemberDTO();

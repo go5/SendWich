@@ -1,6 +1,6 @@
 package dto;
 
-public class ReplyDto {
+public class ReplyDTO {
 	 private int member_id, board_id;
 	 private  String reply_date, reply_text; 
 

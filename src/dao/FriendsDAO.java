@@ -61,7 +61,6 @@ public class FriendsDAO {
 	// 친구 검색
 	public MemberDTO SearchInfo(String femail, int member_id) {
 		// 친구 이메일을 입력하면 결과가 하나 나옴.
-		// 기존 친구는 나오면 안됨.
 		String sql = "SELECT * FROM member WHERE email= '"
 				+ femail
 				+ "' AND member_id not in (SELECT friend_id from friends where member_id="

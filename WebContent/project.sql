@@ -67,7 +67,7 @@ CREATE TABLE project.reply (
   eva_type VARCHAR(30) NOT NULL,
   eva_type_num INT NOT NULL,
   eva_key VARCHAR(20) NOT NULL,
-  eva_vlaue INT NOT NULL,
+  eva_value INT NOT NULL,
   CONSTRAINT FK_evaluation_1 
 	FOREIGN KEY (loc_id)
     REFERENCES project.location (loc_id)
@@ -135,11 +135,11 @@ INSERT INTO project.board(member_id,title, textarea,upload_date,loc_id)
  VALUES(1,"테스트","내용 무",DATE_FORMAT("14.10.12","%y%m%d"),1);
 
 /*평가*/
-INSERT INTO project.evaluation VALUES(1,"분위기",1,"조용함",5);
+INSERT INTO project.chart VALUES(1,"분위기",1,"조용함",5);
 
-INSERT INTO project.evaluation VALUES(1,"분위기",2,"엄숙함",3);
+INSERT INTO project.chart VALUES(1,"분위기",2,"엄숙함",3);
 
-INSERT INTO project.evaluation VALUES(1,"분위기",3,"아즈넉함",7);
+INSERT INTO project.chart VALUES(1,"분위기",3,"아즈넉함",7);
 
 /*댓글*/
 INSERT INTO project.reply VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"넹");

@@ -45,15 +45,15 @@
 				<!-- 검색 결과창 -->
 				<!-- 기등록 친구 제외해야함.  아오!-->
 				<div class="FrResult">
-					<c:if test="${!empty friendDTO.name}">
-						<c:if test="${friendDTO.name != memberDTO.name}">
+					<c:if test="${!empty searchfriend.name}">
+						<c:if test="${searchfriend.name != memberDTO.name}">
 							<!-- 본인 제외 -->
 
 							<form method="post" action="friends?cmd=INVITE">
-								<div style="float: left;">${friendDTO.name}</div>
+								<div style="float: left;">${searchfriend.name}</div>
 								<div style="float: left;">
-									( ${friendDTO.email} ) <input type="hidden" name="femail"
-										id="femail" value="${friendDTO.email}" />
+									( ${searchfriend.email} ) <input type="hidden" name="femail"
+										id="femail" value="${searchfriend.email}" />
 								</div>
 								<div>
 									<button type="submit">친구 신청</button>

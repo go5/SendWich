@@ -93,7 +93,7 @@
 		//메세지 작성
 		function fnWrite() {
 			window.open("/SendWich/msg?cmd=MSGWRITE", "",
-					"width=520, height=320");
+					"width=570, height=370");
 		}
 		//전체 체크해제 함수
 		function fnchkall(f) {

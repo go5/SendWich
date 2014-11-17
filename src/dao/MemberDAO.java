@@ -79,55 +79,7 @@ public class MemberDAO {
 		}
 		return dto;
 	}
-//회원의 친구 목록
-	public Vector FriendsInfo(int member_id) {
-		// 멤버 아이디를 받아서 친구 정보를 dto에 담고 복수개의 정보를 벡터에 담아 반환
-		String sql = "SELECT * FROM member WHERE member_id IN (SELECT friend_id FROM friends WHERE member_id = "
-				+ member_id + ")";
-		// System.out.println(sql);
-		Vector v = new Vector();
-		try {
-			con = pool.getConnection();
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				MemberDTO dto = new MemberDTO();
-				dto.setMember_id(rs.getInt("member_id"));
-				dto.setName(rs.getString("name"));
-				dto.setEmail(rs.getString("email"));
-				dto.setJoin_date(rs.getString("join_date"));
-				dto.setPhone_number(rs.getString("phone_number"));
-				dto.setPassword(rs.getString("password"));
-				//System.out.println(dto.getMember_id());
-				v.add(dto);
-			}
-		} catch (Exception err) {
-			err.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return v;
-	}
-	//친구신청. 자신에는 인바이트1로 상대방은 0으로 설정함.
-	public void FriendInvite(int member_id, int friend_id) {
-		String sql1 = "INSERT INTO friends VALUES("+member_id+", "+friend_id+", 1)";
-		String sql2 = "INSERT INTO friends VALUES("+friend_id+", "+member_id+", 0)";
-		// System.out.println(sql);
-		MemberDTO dto = new MemberDTO();
-		try {
-			con = pool.getConnection();
-			pstmt = con.prepareStatement(sql1);
-			pstmt.executeUpdate();
-			pstmt = con.prepareStatement(sql2);
-			pstmt.executeUpdate();
-			
-		} catch (Exception err) {
-			err.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-	}
-	
+
 //회원정보 수정.
 	public void updateMember(MemberDTO dto) {
 

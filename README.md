@@ -102,32 +102,33 @@ id 받아서 넘겨주기 되야함.
  -기등록 친구 제외 : JS 부분 수정해야됨.
  
 친구 삭제
-친구 신청 로직 생각해야됨.
-1--------------
-a 가 b에 신청
+친구 신청 로직(테이블 값은 sender reciever invite)
+검색이 복잡해지므로 그냥 테이블 두개로 처리.
+2. 테이블 두개
+a가 b에 신청 
+-insert into friends value(a, b, 1);
+-insert into friends value(b, a, 0);
 
-본 친 #
-a b 1
-b a 0
+0중 받는사람(b)에게 항목 띄움. 
+-select reciever from friends where sender=b AND invite=0;
 
-b의 친구항에 a가 뜸(본인의 친구항에 0인 사람의 이름 띄움)
-확인 시 
-b a 1 됨.
-삭졔: 둘다 지움.
-검색. 자신이 본 인 친 출력.
-
-2---------------
-a가 b에 신청
-a b 0
-0중 받는사람에게 항목 띄움.
 b가 수락 
+update friends set invite=1 where sender=b AND reciever=a;
 a b 1 완성
-삭제: 이걸 지우면 끗.
-검색- 본, 친 중에 자신이 있는 상대방 출력.
+
+삭제: 
+a에게는 친구 b를
+b에게는 초청자 a를 삭제 해야 함. 
+
+delete from friends where (sender=a and reciever=b) OR (sender=b AND reciever=a);
+
+b 기준 검색- 본, 친 중에 자신이 있는 상대방 출력.
+select reciever from firends where sender= b
 
 
 <h1>msg</h1> 
 디자인 맞추기.
+목록을 사각형으로 맞춰보자.
 
 
 <h1>컨트롤러</h1>

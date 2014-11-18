@@ -41,4 +41,18 @@
 		<servlet-name>friends</servlet-name>
 		<url-pattern>/friends</url-pattern>
 	</servlet-mapping>	
+	
+<!-- pq_board  -->
+
+<servlet>
+		<servlet-name>pq_board</servlet-name>
+		<servlet-class>control.pq_board.boardController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>pq_board</servlet-name>
+		<url-pattern>/pq_board</url-pattern>
+	</servlet-mapping>
+
+
 </web-app>

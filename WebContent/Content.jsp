@@ -18,7 +18,7 @@
 									<h3>
 										<a href="#">${listdto.title}</a>
 									</h3>
-									<span><a href="#"><label> ${listdto.loc_name}</label></a></span>
+									<span><a href="#"><label> </label><nobr>${listdto.loc_name} </nobr></a></span>
 									<div style="text-overflow:ellipsis; overflow:hidden;">
 									<p><nobr>${listdto.textarea} </nobr></p></div>
 								</div>

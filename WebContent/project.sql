@@ -115,7 +115,7 @@ CREATE TABLE project.message (
 /*테스트용 값 삽입*/
 
 /*멤버*/
-INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `password`) VALUES ('keispacce.kyj@gmail.com', '김영준', '01047874352', '141010', '1234');
+INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `password`) VALUES ('keispace.kyj@gmail.com', '김영준', '01047874352', '141010', '1234');
 
 INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","김영준", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"1234"); 
 

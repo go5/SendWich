@@ -10,6 +10,10 @@ DB에 저장된 좌표값을 가져와서 지도에 뿌린후 클릭이벤트를 거는 작업.
 
 
 <%@ page contentType="text/html; charset=EUC-KR"%>
+<%@page import="dao.MapDAO"%>
+<%@page import="dto.MapDTO"%>
+<jsp:useBean id="dto" class="dto.MapDTO"></jsp:useBean>
+<jsp:useBean id="dao" class="dao.MapDAO"></jsp:useBean>
 <html>
 <head>
 <title>세미</title>
@@ -19,13 +23,15 @@ html { height: 100% }
 body { height: 500px; margin: 0; padding: 0 }
 #map { width: 500px; height: 485px }
 </style>
-<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>
-<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=다음API키 값 "></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=4491cfa019e7f26639c2a14e621d321d408d3b0b"></script>
 <script type="text/javascript">
 
 
  window.onload = function() {
-  var position = new daum.maps.LatLng(초기좌표값x,초기좌표값y);
+  var position = new daum.maps.LatLng(37.537187, 127.005476);
+  
+  
   var map = new daum.maps.Map(document.getElementById('map'), {
    center: position,
    level: 11,
@@ -35,9 +41,11 @@ body { height: 500px; margin: 0; padding: 0 }
  
 
 
+
+  
   var icon = new daum.maps.MarkerImage(
-   '/images/pic12.jpg', 
-   new daum.maps.Size(20,20),   //아이콘 크기
+	'rss.png',		
+	new daum.maps.Size(20,20),   //아이콘 크기
    new daum.maps.Point(25,25) //아이콘의 포인터크기
    
   );
@@ -65,7 +73,13 @@ body { height: 500px; margin: 0; padding: 0 }
   var mapTypeControl = new daum.maps.MapTypeControl();
    map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT); //맵타입 셀렉터
 
-     var position<%=i+1%> = new daum.maps.LatLng(<%=rs.getString("GIS_Y")%>, <%=rs.getString("GIS_X")%>); //<%=rs.getString("CCTVNAME")%>
+<%int i = 0;%>
+<%i = i + 1;%>
+
+
+     var position<%=i+1%> = new daum.maps.LatLng(<%=dto.getGis_y()%>, <%=dto.getGis_x()%>); //<%=dto.getLoc_name()%>
+    
+     
      var marker<%=i+1%> = new daum.maps.Marker({
       position: position<%=i+1%>,
       image : icon
@@ -73,7 +87,7 @@ body { height: 500px; margin: 0; padding: 0 }
      marker<%=i+1%>.setMap(map);
      
      var infowindow<%=i+1%> = new daum.maps.InfoWindow({
-      content: '<p style="margin:0px 0px;font-size:11px"><%=rs.getString("CCTVNAME")%></p>'
+      content: '<p style="margin:0px 0px;font-size:11px"><%=dto.getLoc_name()%></p>'
      });
 
       // 인포윈도우 메시지값 뿌리기
@@ -97,14 +111,12 @@ body { height: 500px; margin: 0; padding: 0 }
  
 
      daum.maps.event.addListener(marker<%=i+1%>, 'click', function(e) { 
-      aa('<%=rs.getString("MMSURL")%>');
-      bb('<%=rs.getString("CCTVID")%>');
+      aa('<%=dto.getMmsurl()%>');
+      bb('<%=dto.getLoc_id()%>');
      });
 
     // 마커를 클릭했을때 클릭이벤트 주기
-
-
- };
+ }
 </script>
 </head>
 <body>

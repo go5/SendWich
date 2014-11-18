@@ -110,6 +110,8 @@ CREATE TABLE project.message (
     ON UPDATE RESTRICT
 );    
     
+ 
+
     
 
 /*테스트용 값 삽입*/

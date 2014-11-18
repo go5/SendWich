@@ -1,4 +1,11 @@
 <%@ page contentType="text/html; charset=EUC-KR"%>
+<%@page import="dao.MapDAO"%>
+<%@page import="dto.MapDTO"%>
+
+<%int i=0; %>
+<% i=i+1; %>
+<jsp:useBean id="dto" class="dto.MapDTO"></jsp:useBean>
+<jsp:useBean id="dao" class="dao.MapDAO"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,23 +58,26 @@
 </head>
 <body>
 
-<div class="map_wrap">
-<!--     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div> -->
 
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
+
+<div class="map_wrap">
+        <div align="center" class="option">
             <p>
                 <form onsubmit="searchPlaces(); return false;">
- 
-                키워드 : <input type="text" value="" id="keyword" size="15"> 
+                
+                키워드 : <input type="text" value="" id="keyword"  name="keyword" size="100"> 
                 <button type="submit">검색하기</button> 
-            </p>
-            
+    			<hr/>
+    	</form>
         </div>
-        
-        <hr>
+    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+    <div id="menu_wrap" class="bg_white">
         <ul id="placesList"></ul>
         <div id="pagination"></div>
+<p>
+    <button onclick="getInfo()">지도 정보 보기</button> <br>
+</p>
+<p id="infoDiv"></p>
     </div>
 </div>
 
@@ -79,6 +89,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
+        
     };  
 
 // 지도를 생성합니다    
@@ -89,6 +100,7 @@ var ps = new daum.maps.services.Places();
 
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new daum.maps.InfoWindow({zIndex:1});
+
 
 // 키워드로 장소를 검색합니다
 searchPlaces();
@@ -131,6 +143,10 @@ function placesSearchCB(status, data, pagination) {
     }
 }
 
+
+
+
+
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
 
@@ -153,7 +169,7 @@ function displayPlaces(places) {
             marker = addMarker(placePosition, i), 
             itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해 
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
 
@@ -165,17 +181,27 @@ function displayPlaces(places) {
                 displayInfowindow(marker, title);
             });
 
-            daum.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
+//             daum.maps.event.addListener(marker, 'mouseout', function() {
+//                 infowindow.close();
+//             });
+			
+            daum.maps.event.addListener(marker, 'click', function() {
+          		iwContent(marker, title);
             });
 
-            itemEl.onmouseover =  function () {
-                displayInfowindow(marker, title);
-            };
+            
+//             itemEl.onmouseover =  function () {
+//                 displayInfowindow(marker, title);
+//             };
 
-            itemEl.onmouseout =  function () {
-                infowindow.close();
+            
+            itemEl.onclick =  function () {
+            	iwContent(marker, title);
             };
+            
+//             itemEl.onmouseout =  function () {
+//                 infowindow.close();
+//             };
         })(marker, places[i].title);
 
         fragment.appendChild(itemEl);
@@ -225,7 +251,8 @@ function addMarker(position, idx, title) {
         markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imgOptions),
             marker = new daum.maps.Marker({
             position: position, // 마커의 위치
-            image: markerImage 
+            image: markerImage,
+//            content : iwContent 
         });
 
     marker.setMap(map); // 지도 위에 마커를 표출합니다
@@ -277,10 +304,23 @@ function displayPagination(pagination) {
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title) {
     var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-
+	
+//     var content = '<div style="padding:5px;">Hello World! <br><a href="http://map.daum.net/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>';
     infowindow.setContent(content);
     infowindow.open(map, marker);
 }
+
+function iwContent(marker, title) {
+//     var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+	
+	
+// 	이부분에 저희가 넣고싶은 사이트 url넣으세여
+    var content = '<div style="padding:5px;">글(리뷰)을 등록하시겠습니까? 여긴넣고싶은글로바꾸고 <br> <a href="http://map.daum.net/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a><br/><a href="resultpage.jsp" style="color:blue" target="_blank">우리사이트</a></div>';
+    infowindow.setContent(content);
+    infowindow.open(map, marker);
+    
+}
+
 
  // 검색결과 목록의 자식 Element를 제거하는 함수입니다
 function removeAllChildNods(el) {   
@@ -288,7 +328,15 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
+ 
+// function getInfo() {
+//     // 지도의 현재 중심좌표를 얻어옵니다 
+//     var center = map.getCenter();
+// 	var x= center.getLat();
+// 	var y= center.getLng();
+// }
 </script>
 
 </body>
 </html>
+

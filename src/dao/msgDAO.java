@@ -29,6 +29,39 @@ public class msgDAO {
 		}
 	}
 
+	// 메세지용 친구목록. 둘다 1 된 친구만 떠야함.
+	public Vector FriendsInfo(int member_id) {
+		// 멤버 아이디를 받아서 친구 정보를 dto에 담고 복수개의 정보를 벡터에 담아 반환
+
+		String sql = "SELECT name, email FROM member WHERE member_id IN( SELECT friend_id FROM friends WHERE invited=1 AND member_id= "
+				+ member_id
+				+ " ) AND member_id IN ( SELECT member_id FROM friends WHERE invited=1 AND friend_id= "
+				+ member_id + ") ORDER BY name";
+		// System.out.println(sql);
+		Vector v = new Vector();
+		try {
+			con = pool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				dto.setMember_id(rs.getInt("member_id"));
+				dto.setName(rs.getString("name"));
+				dto.setEmail(rs.getString("email"));
+				dto.setJoin_date(rs.getString("join_date"));
+				dto.setPhone_number(rs.getString("phone_number"));
+				dto.setPassword(rs.getString("password"));
+				// System.out.println(dto.getMember_id());
+				v.add(dto);
+			}
+		} catch (Exception err) {
+			err.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return v;
+	}
+
 	public Vector msgList(int member_id) {
 		// 멤버 아이디를 받아서 메세지dto 묶음 벡터를 반환.
 		// System.out.println("list"+member_id);
@@ -57,7 +90,6 @@ public class msgDAO {
 		}
 		return vMsgList;
 	}
-
 
 	public void SendMessage(int friend_id, String msg_text, int member_id) {
 		// 메세지dto를 받아서 전송.

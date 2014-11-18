@@ -59,7 +59,7 @@ public class msgController extends HttpServlet {
 			session.setAttribute("msgList", vList);
 			url = "/message/msglist.jsp";
 		} else if (cmd.equals("MSGWRITE")) {
-			fList = friendsDAO.FriendsInfo(memberDTO.getMember_id());
+			fList = msgDAO.FriendsInfo(memberDTO.getMember_id());
 			session.setAttribute("FriendsList", fList);
 			url = "/message/write.jsp";
 		} else if (cmd.equals("MSGSEND")) {

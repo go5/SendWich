@@ -13,7 +13,6 @@
 
 서블릿 컨트롤러 세팅.
 
-
 // 게시글 테이블
     CREATE TABLE `pq_board` (
   `board_id` INT NOT NULL AUTO_INCREMENT,
@@ -21,11 +20,10 @@
   `textarea` VARCHAR(200) NOT NULL,
   `photo` VARCHAR(45) NULL,
   `upload_date` DATE NOT NULL,
-  `member_name` VARCHAR(60) NOT NULL,
+  `member_id` INT NOT NULL,
   `answer` VARCHAR(60) NOT NULL,
     PRIMARY KEY (`board_id`)
 	);
-    
 
 // 댓글 테이블
 	CREATE TABLE `pq_reply` (
@@ -34,7 +32,6 @@
   `board_id` INT NOT NULL,
   `reply_date` DATE NOT NULL,
   `reply_field` VARCHAR(60) NOT NULL,
-  `member_name` VARCHAR(60) NOT NULL,
     PRIMARY KEY (`reply_id`)
 	);
 
@@ -79,7 +76,6 @@ WriteCommand
 WriteProcCommand
 -게시글 쓰기
 
-
 ------------------------------------------------------------
 각 jsp페이지
 
@@ -115,7 +111,3 @@ ReplyWrite.jsp
 
 single-page.jsp
 -게시글 상세보기 페이지
-
-
-
-

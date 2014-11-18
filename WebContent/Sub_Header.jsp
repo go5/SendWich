@@ -38,8 +38,8 @@
 		
 				<!-- 검색창 부분. -->
 				<div class="top-searchbar">
-					<form>
-						<input type="text" placeholder="장소 검색" /><input type="submit"
+					<form action="main?cmd=MAP" method="post">
+						<input type="text" id="keyword" name="keyword" placeholder="장소 검색" value="${param.keyword }" /><input type="submit"
 							value="" />
 					</form>
 				</div>

@@ -65,6 +65,30 @@ CREATE TABLE project.reply (
     ON UPDATE RESTRICT
     );
 
+ CREATE TABLE project.pq_board (
+  `board_id` int(11) NOT NULL AUTO_INCREMENT,
+  `member_id` int(11) NOT NULL,
+  `title` varchar(60) COLLATE utf8_bin NOT NULL,
+  `textarea` varchar(200) COLLATE utf8_bin NOT NULL,
+  `photo` varchar(45) COLLATE utf8_bin NOT NULL,
+  `upload_date` date NOT NULL,
+  `answer` varchar(60) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`board_id`),
+  KEY `fk_pq1_idx` (`member_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+SELECT * FROM project.friends;
+    
+CREATE TABLE `pq_reply` (
+  `reply_id` int(11) NOT NULL AUTO_INCREMENT,
+  `member_id` int(11) NOT NULL,
+  `board_id` int(11) NOT NULL,
+  `reply_date` date DEFAULT NULL,
+  `reply_field` varchar(60) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`reply_id`),
+  KEY `fk_pqr1_idx` (`board_id`),
+  KEY `fk_pqr2_idx` (`member_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
  CREATE TABLE project.chart (
   `borad_id` int(11) NOT NULL,
   `loc_id` int(11) NOT NULL,

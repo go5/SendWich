@@ -139,6 +139,9 @@ public class MainController extends HttpServlet {
 			
 			url = "/board/Read.jsp";
 		}
+		else if(cmd.equals("MAP")){
+			url="/map/complete1.jsp";
+		}
 
 		RequestDispatcher view = req.getRequestDispatcher(url);
 		view.forward(req, resp);

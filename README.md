@@ -75,21 +75,17 @@ CONTROLLER
 	위에 추가한 테이블.
 
 <h1>main</h1> 
-maincontroller.java 실행해서 들어가세요
-
 -헤더 분리중. 
 -싱글페이지꺼도 분리하기.
 -헤더는 body 부분에서 쓸 것만 분리중.
 
 <h1>join</h1> 
-일단 기능 완료. 
 -model 분리해야됨.
 
 <h1>login</h1>  
 -아이디 찾기
 -비번 재설정
 
-<h1>menu</h1>
 
 <h1> 메인 게시판</h1>
 일단 메인화면 1번글에서 연결했음.
@@ -97,8 +93,6 @@ maincontroller.java 실행해서 들어가세요
 -id 받아서 넘겨주기 되야함. 
 -본인글+친구글 나와야함.
 
-<h1>friends</h1>
-친구검색
 
 
 <h1>msg</h1> 

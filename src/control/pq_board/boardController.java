@@ -1,4 +1,4 @@
-package control;
+package control.pq_board;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BoardController extends HttpServlet {
+public class boardController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -19,16 +19,18 @@ public class BoardController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String url="";
+		req.setCharacterEncoding("utf-8");
 		String cmd = req.getParameter("cmd");
+		String url = "";
 		
-		if(cmd.equals("READ")){
-			
-		}else if(cmd.equals("")){
-			
-		}
-		
-		RequestDispatcher view = req.getRequestDispatcher(url);
+
+		CommandFactory factory = CommandFactory.getInstance();
+		Command icmd = factory.createCommand(cmd);
+		url = (String)icmd.processCommand(req, resp);
+
+		System.out.println(cmd);
+		RequestDispatcher view = req.getRequestDispatcher(url); // 요청시 해당페이지로
+																// 이동을 지시하는 메서드
 		view.forward(req, resp);
 	}
 

@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import dao.BoardDAO;
 import dao.MemberDAO;
+import dto.BoardDTO;
 import dto.MemberDTO;
+import dto.ReplyDTO;
 
 public class MainController extends HttpServlet {
 
@@ -37,8 +39,8 @@ public class MainController extends HttpServlet {
 		BoardDAO boardDAO = new BoardDAO();
 		Vector boardList= null;
 		
+	//글목록 불러오기	
 		if(mdto!=null){
-		
 		boardList = boardDAO.BoradList(mdto.getMember_id());
 		req.setAttribute("boardList", boardList);
 		}
@@ -127,8 +129,14 @@ public class MainController extends HttpServlet {
 			url = "friends?cmd=FRIENDS";
 		} 
 		//글 보기
-		else if (cmd.equals("CONTENT")) {// 글 보기
+		else if (cmd.equals("CONTENT")) {// 글 보기  
 			// 보드 아이디 받아서 보내야함. .
+			BoardDTO boardDTO = boardDAO.GetBoard(Integer.parseInt(req.getParameter("board_id")));
+			req.setAttribute("boardDTO", boardDTO);
+			//리플 정보도 보내기
+			Vector replyList = boardDAO.GetReply(Integer.parseInt(req.getParameter("board_id")));
+			req.setAttribute("replyList", replyList);
+			
 			url = "/board/Read.jsp";
 		}
 

@@ -1,0 +1,121 @@
+기본적으로 로그인이 되었을 때 
+멤버 아이디 및 멤버 이름, 이메일을 세션으로 보내줘야 작동.
+
+<servlet>
+		<servlet-name>pq_board</servlet-name>
+		<servlet-class>control.pq_board.boardController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>pq_board</servlet-name>
+		<url-pattern>/pq_board</url-pattern>
+	</servlet-mapping>
+
+서블릿 컨트롤러 세팅.
+
+
+// 게시글 테이블
+    CREATE TABLE `pq_board` (
+  `board_id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(60) NOT NULL,
+  `textarea` VARCHAR(200) NOT NULL,
+  `photo` VARCHAR(45) NULL,
+  `upload_date` DATE NOT NULL,
+  `member_name` VARCHAR(60) NOT NULL,
+  `answer` VARCHAR(60) NOT NULL,
+    PRIMARY KEY (`board_id`)
+	);
+    
+
+// 댓글 테이블
+	CREATE TABLE `pq_reply` (
+  `reply_id` INT NOT NULL AUTO_INCREMENT,
+  `member_id` INT NOT NULL,
+  `board_id` INT NOT NULL,
+  `reply_date` DATE NOT NULL,
+  `reply_field` VARCHAR(60) NOT NULL,
+  `member_name` VARCHAR(60) NOT NULL,
+    PRIMARY KEY (`reply_id`)
+	);
+
+
+
+pq_boardDAO
+-게시글 리스트
+-글쓰기
+-글 상세보기
+-리플 달고 나서 글 상세보기
+-글 삭제
+
+pq_replyDAO
+-리플 갖고오기
+-리플 쓰기
+
+------------------------------------------------------------
+
+컨트롤러
+
+boardController / Command / CommandFactory
+각 cmd에 대해 분류해주는 컨트롤러
+
+DeleteCommand
+-게시글 삭제
+
+ListCommand
+-게시글 리스트
+
+ReadCommand
+-글 읽기
+
+ReplyWriteProcCommand
+-댓글 쓰기
+
+RepReadCommand
+-댓글을 달았을 때 게시글 보기
+
+WriteCommand
+-게시글 쓰기페이지로 이동
+
+WriteProcCommand
+-게시글 쓰기
+
+
+------------------------------------------------------------
+각 jsp페이지
+
+AnswerProc.jsp (기능페이지)
+-댓글로 답을 달았을 때 답을 확인한 후 댓글 달기.
+
+contact.jsp
+-게시글 쓰기 페이지
+
+Delete.jsp
+-게시글 삭제 페이지
+
+DeleteMemChk.jsp
+-게시글 삭제 시 권한 확인
+
+DeletePassChk.jsp
+-게시글에 대한 비밀번호 확인
+
+List.jsp
+-게시글의 리스트 페이지
+
+PostProc.jsp
+-컨트롤러에서 게시글 게시 후 얼랏창 띄우고 리스트로 이동
+
+ReplyDUP.jsp
+-댓글의 답에 대한 중복 확인
+
+ReplyProc.jsp
+-댓글이 정답일 경우 얼랏창 띄우고 리플단 후 게시글이동을 위한 컨트롤러로 이동
+
+ReplyWrite.jsp
+-댓글을 달기위한 뷰
+
+single-page.jsp
+-게시글 상세보기 페이지
+
+
+
+

@@ -20,6 +20,9 @@ COMMENT = 'member infomation. ';
 CREATE TABLE `project`.`location` (
   `loc_id` INT NOT NULL AUTO_INCREMENT,
   `loc_name` VARCHAR(50) NOT NULL,
+  gis_x INT NOT NULL,
+  gis_y INT NOT NULL,
+  mmsurl VARCHAR(200) ,
   PRIMARY KEY (`loc_id`));
  
  CREATE TABLE `project`.`board` (

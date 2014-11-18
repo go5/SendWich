@@ -9,27 +9,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>SendWich-위치 기반 폐쇄형 SNS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1"
-	charset="utf-8">
-<link href="css/style.css" rel='stylesheet' type='text/css' />
-<link rel="shortcut icon" type="image/x-icon" href="images/fav-icon.png" />
-<!----webfonts---->
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-<!----//webfonts---->
-<link rel="stylesheet" href="css/main.css">
-<!-- Global CSS for the page and tiles -->
-	
-<!--  menubar -->
-<script type="application/x-javascript">
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
-</script>
-
-<!---start-click-drop-down-menu----->
-<script src="js/jquery.min.js"></script>
-
+<jsp:include page="/HeadInfo.jsp"/>
 </head>
 <body>
 	<!---start-wrap---->
@@ -55,18 +35,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="artical-links">
 						<ul>
 							<li><a href="#"><img src="images/blog-icon2.png"
-									title="Admin"><span>admin</span></a></li>
-							<li><a href="#"><img src="images/blog-icon3.png"
-									title="Comments"><span>No comments</span></a></li>
+									title="Admin"><span>글 수정</span></a></li>
+							<li><a href="#reply"><img src="images/blog-icon3.png"
+									title="Comments"><span>댓글 달기</span></a></li>
 							<li><a href="#"><img src="images/blog-icon4.png"
-									title="Lables"><span>View posts</span></a></li>
+									title="Lables"><span>목록으로</span></a></li>
 						</ul>
 					</div>
-					<!--  소셜 링크 -->
+					
+					<!--  소셜 링크 
 					<div class="share-artical">
 						<ul>
-							<li><a href="#"><img src="images/facebooks.png"
-									title="facebook">Facebook</a></li>
+							<li>
+							<a href="#">
+							<img src="images/facebooks.png"	title="facebook"/>Facebook</a>
+						</li>
 							<li><a href="#"><img src="images/twiter.png"
 									title="Twitter">Twiiter</a></li>
 							<li><a href="#"><img src="images/google+.png"
@@ -74,6 +57,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<li><a href="#"><img src="images/rss.png" title="rss">Rss</a></li>
 						</ul>
 					</div>
+					-->
 					
 					
 					

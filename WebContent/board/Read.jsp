@@ -42,34 +42,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="single-page">
 				<div class="single-page-artical">
 					<div class="artical-content">
+					<!-- 사진 부분 -->
 						<img src="images/single-post-pic.jpg" title="banner1">
+						<!-- 제목 -->
 						<h3>
-							<a href="#">incididunt ut labore et dolore magna aliqua. Ut
-								enim ad minim veniam</a>
+							<a href="#">${boardDTO.title}</a>
 						</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-							sed do eiusmod tempor incididunt ut labore et dolore magna
-							aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-							ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-							aute irure dolor in reprehenderit in voluptate velit esse cillum
-							dolore eu fugiat nulla pariatur.</p>
-						<p class="para1">Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est
-							laborum. Lorem ipsum dolor sit amet, consectetur adipisicing
-							elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-							aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-							ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-							aute irure dolor in reprehenderit in voluptate velit esse cillum
-							dolore eu fugiat nulla pariatur.</p>
-						<p class="para2">Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est
-							laborum. Lorem ipsum dolor sit amet, consectetur adipisicing
-							elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-							aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-							ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-							aute irure dolor in reprehenderit in voluptate velit esse cillum
-							dolore eu fugiat nulla pariatur.</p>
+						<!--  내용 -->
+						<p>${boardDTO.textarea}</p>
 					</div>
+					<!-- 관리버튼 -->
 					<div class="artical-links">
 						<ul>
 							<li><a href="#"><img src="images/blog-icon2.png"
@@ -80,6 +62,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									title="Lables"><span>View posts</span></a></li>
 						</ul>
 					</div>
+					<!--  소셜 링크 -->
 					<div class="share-artical">
 						<ul>
 							<li><a href="#"><img src="images/facebooks.png"
@@ -91,6 +74,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<li><a href="#"><img src="images/rss.png" title="rss">Rss</a></li>
 						</ul>
 					</div>
+					
+					
+					
 					<div class="clear"></div>
 				</div>
 				<!---start-comments-section--->

@@ -2,9 +2,15 @@ package dto;
 
 public class BoardDTO {
 	private int board_id, member_id,loc_id;
-	private String title, textarea,photo, upload_date, loc_name;
+	private String title, textarea,photo, upload_date, loc_name, name;
 	public int getBoard_id() {
 		return board_id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public void setBoard_id(int board_id) {
 		this.board_id = board_id;

@@ -11,7 +11,7 @@
 				<c:choose>
 					<c:when test="${!empty memberDTO}">
 					<c:forEach var="listdto"  items="${boardList}">
-						<li onclick="location.href='main?cmd=CONTENT';">
+						<li onclick="location.href='main?cmd=CONTENT&board_id=${listdto.board_id}';">
 						<img	src="images/img1.jpg" width="600" height="118">
 							<div class="post-info">
 								<div class="post-basic-info">
@@ -34,7 +34,8 @@
 									</div>
 									<div class="clear"></div>
 								</div>
-							</div></li>
+							</div>
+							</li>
 						<!-- 한 블럭 끝. -->
 
 					</c:forEach>

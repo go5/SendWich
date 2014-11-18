@@ -33,7 +33,7 @@ public class msgDAO {
 	public Vector FriendsInfo(int member_id) {
 		// 멤버 아이디를 받아서 친구 정보를 dto에 담고 복수개의 정보를 벡터에 담아 반환
 
-		String sql = "SELECT name, email FROM member WHERE member_id IN( SELECT friend_id FROM friends WHERE invited=1 AND member_id= "
+		String sql = "SELECT * FROM member WHERE member_id IN( SELECT friend_id FROM friends WHERE invited=1 AND member_id= "
 				+ member_id
 				+ " ) AND member_id IN ( SELECT member_id FROM friends WHERE invited=1 AND friend_id= "
 				+ member_id + ") ORDER BY name";
@@ -50,7 +50,7 @@ public class msgDAO {
 				dto.setEmail(rs.getString("email"));
 				dto.setJoin_date(rs.getString("join_date"));
 				dto.setPhone_number(rs.getString("phone_number"));
-				dto.setPassword(rs.getString("password"));
+				//dto.setPassword(rs.getString("password"));
 				// System.out.println(dto.getMember_id());
 				v.add(dto);
 			}

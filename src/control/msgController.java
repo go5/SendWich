@@ -34,7 +34,7 @@ public class msgController extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemberDTO memberDTO;
 		String url = "";
-		;
+		
 
 		// 기본적으로 로그인 된 후 와야되므로 세션 dto에 회원 정보가 있어야 함.
 		// 즉, 세션에 올라온 멤버 정보 호출.

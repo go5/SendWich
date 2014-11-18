@@ -3,39 +3,36 @@ package dto;
 public class MapDTO {
 	
 	
-	private String loc_id, loc_name ,mmsurl; 
-	private int gis_x, gis_y;
-	public String getLoc_id() {
-		return loc_id;
+	private String CCTVID, CCTVNAME ,MMSURL; 
+	private int GIS_X, GIS_Y;
+	public String getCCTVID() {
+		return CCTVID;
 	}
-	public void setLoc_id(String loc_id) {
-		this.loc_id = loc_id;
+	public void setCCTVID(String cCTVID) {
+		CCTVID = cCTVID;
 	}
-	public String getLoc_name() {
-		return loc_name;
+	public String getCCTVNAME() {
+		return CCTVNAME;
 	}
-	public void setLoc_name(String loc_name) {
-		this.loc_name = loc_name;
+	public void setCCTVNAME(String cCTVNAME) {
+		CCTVNAME = cCTVNAME;
 	}
-	public String getMmsurl() {
-		return mmsurl;
+	public String getMMSURL() {
+		return MMSURL;
 	}
-	public void setMmsurl(String mmsurl) {
-		this.mmsurl = mmsurl;
+	public void setMMSURL(String mMSURL) {
+		MMSURL = mMSURL;
 	}
-	public int getGis_x() {
-		return gis_x;
+	public int getGIS_X() {
+		return GIS_X;
 	}
-	public void setGis_x(int gis_x) {
-		this.gis_x = gis_x;
+	public void setGIS_X(int gIS_X) {
+		GIS_X = gIS_X;
 	}
-	public int getGis_y() {
-		return gis_y;
+	public int getGIS_Y() {
+		return GIS_Y;
 	}
-	public void setGis_y(int gis_y) {
-		this.gis_y = gis_y;
+	public void setGIS_Y(int gIS_Y) {
+		GIS_Y = gIS_Y;
 	}
-
-
-
 }

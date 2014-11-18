@@ -48,8 +48,10 @@ VIEW
 		logout_Proc.jsp: 로그아웃 처리 메세지.
 	js
 		...: 기존 틀에서 사용되는 JS
-	map
-		지도 검색 관련 자료
+	map(작업중)
+		complete1.jsp: 검
+		mapdb.jsp: 일단 보존.(미사용)
+		resultpage.jsp: 마커누르면 가는 곳.
 	message
 		deleteProc.jsp : 삭제 완료 메세지
 		msglist.jsp : 쪽지 목록 창
@@ -64,6 +66,9 @@ CONTROLLER
 		FriendController: 친구 목록, 친구 추가 관련 작업 연동.
 
 </pre>
+
+
+
 <hr/>
 일단 통합 작업 내용
 
@@ -81,11 +86,11 @@ CONTROLLER
 
 <h1>join</h1> 
 -model 분리해야됨.
+-약관동의
 
 <h1>login</h1>  
 -아이디 찾기
 -비번 재설정
-
 
 <h1> 메인 게시판</h1>
 일단 메인화면 1번글에서 연결했음.
@@ -93,13 +98,9 @@ CONTROLLER
 -id 받아서 넘겨주기 되야함. 
 -본인글+친구글 나와야함.
 
-
-
 <h1>msg</h1> 
 디자인 맞추기.
 목록을 사각형으로 맞춰보자.
-
--친구목록 model 분리하기. (초대/수락이랑 겹쳐서 애매하게 나옴)
 
 <h1>컨트롤러</h1>
 메인: 로그인, 회원가입

@@ -16,7 +16,7 @@ CREATE TABLE `project`.`member` (
   PRIMARY KEY (`member_id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 COMMENT = 'member infomation. ';
-
+ 
 CREATE TABLE `project`.`location` (
   `loc_id` INT NOT NULL AUTO_INCREMENT,
   `loc_name` VARCHAR(50) NOT NULL,
@@ -49,21 +49,24 @@ CREATE TABLE `project`.`location` (
     );
     
 CREATE TABLE project.reply (
-  member_id INT NOT NULL,
-  board_id INT NOT NULL,
-  reply_date DATE NOT NULL,
-  reply_text TEXT NOT NULL,
-  CONSTRAINT FK_reply_1 
-	FOREIGN KEY (member_id)
-    REFERENCES project.member (member_id)
+  `reply_id` int(11) NOT NULL AUTO_INCREMENT,
+  `member_id` int(11) NOT NULL,
+  `board_id` int(11) NOT NULL,
+  `reply_date` date NOT NULL,
+  `reply_text` text NOT NULL,
+  PRIMARY KEY (`reply_id`),
+   CONSTRAINT `FK_reply_1`
+    FOREIGN KEY (`member_id`)
+    REFERENCES `project`.`member` (`member_id`)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT,
-  CONSTRAINT FK_reply_2
-	FOREIGN KEY (board_id)
-    REFERENCES project.board (board_id)
+   CONSTRAINT `FK_reply_2`
+    FOREIGN KEY (`board_id`)
+    REFERENCES `project`.`board` (`board_id`)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
-    );
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+SELECT * FROM project.board;
 
  CREATE TABLE project.pq_board (
   `board_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -74,29 +77,51 @@ CREATE TABLE project.reply (
   `upload_date` date NOT NULL,
   `answer` varchar(60) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`board_id`),
-  KEY `fk_pq1_idx` (`member_id`)
+   CONSTRAINT `fk_pq1_idx`
+    FOREIGN KEY (`member_id`)
+    REFERENCES `project`.`member` (`member_id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 SELECT * FROM project.friends;
     
-CREATE TABLE `pq_reply` (
+CREATE TABLE project.pq_reply (
   `reply_id` int(11) NOT NULL AUTO_INCREMENT,
   `member_id` int(11) NOT NULL,
   `board_id` int(11) NOT NULL,
   `reply_date` date DEFAULT NULL,
   `reply_field` varchar(60) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`reply_id`),
-  KEY `fk_pqr1_idx` (`board_id`),
-  KEY `fk_pqr2_idx` (`member_id`)
+     CONSTRAINT `fk_pqr1_idx`
+    FOREIGN KEY (`board_id`)
+    REFERENCES `project`.`pq_board` (`board_id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+       CONSTRAINT `fk_pqr2_idx`
+    FOREIGN KEY (`member_id`)
+    REFERENCES `project`.`member` (`member_id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
  CREATE TABLE project.chart (
-  `borad_id` int(11) NOT NULL,
+ `chart_id` int(11) NOT NULL AUTO_INCREMENT, 
+  `board_id` int(11) NOT NULL,
   `loc_id` int(11) NOT NULL,
   `eva_type` varchar(45) COLLATE utf8_bin NOT NULL,
   `eva_key` varchar(45) COLLATE utf8_bin NOT NULL,
   `eva_value` int(11) NOT NULL,
-  KEY `FK_chart1_idx` (`borad_id`),
-  KEY `FK_chart2_idx` (`loc_id`)
+    PRIMARY KEY (`chart_id`),
+     CONSTRAINT `FK_chart1_idx`
+    FOREIGN KEY (`board_id`)
+    REFERENCES `project`.`board` (`board_id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+     CONSTRAINT `FK_chart2_idx`
+    FOREIGN KEY (`loc_id`)
+    REFERENCES `project`.`location` (`loc_id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE project.friends (
@@ -124,7 +149,7 @@ CREATE TABLE project.message (
    PRIMARY KEY (msg_id),
   CONSTRAINT FK_message_1
 	FOREIGN KEY (sender_id)
-    REFERENCES prooject.member (member_id)
+    REFERENCES project.member (member_id)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT,
   CONSTRAINT FK_message_2
@@ -168,13 +193,10 @@ INSERT INTO project.chart VALUES(2,1,"분위기","엄숙함",3);
 INSERT INTO project.chart VALUES(2,1,"분위기","아즈넉함",7);
 
 /*댓글*/
-INSERT INTO project.reply VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"넹");
-
-INSERT INTO project.reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"테스트 공진데 리플 ㄴㄴ");
-
-INSERT INTO project.reply VALUES(2,1,DATE_FORMAT("141013","%y%m%d"),"넹~");
-
-INSERT INTO project.reply VALUES(1,1,DATE_FORMAT("141013","%y%m%d"),"-__-");
+INSERT INTO project.reply(member_id, board_id,reply_date,reply_text) VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"넹");
+INSERT INTO project.reply(member_id, board_id,reply_date,reply_text) VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"첫번째 댓글인가");
+INSERT INTO project.reply(member_id, board_id,reply_date,reply_text) VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"아니용");
+INSERT INTO project.reply(member_id, board_id,reply_date,reply_text) VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"그래용");
 
 /*쪽지*/
 INSERT INTO project.message(sender_id, reciever_id, textarea, send_date) VALUES(1,2,"널 믿었던 만큼 난 내 친구도 믿었기에",DATE_FORMAT("141010","%y%m%d"));

@@ -142,7 +142,9 @@ public class MainController extends HttpServlet {
 		else if(cmd.equals("MAP")){
 			url="/map/complete1.jsp";
 		}
-
+		else if(cmd.equals("pqWrite")){
+			url="pq_board?cmd=write";
+		}
 		RequestDispatcher view = req.getRequestDispatcher(url);
 		view.forward(req, resp);
 	}

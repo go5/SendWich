@@ -20,7 +20,7 @@
 								<a href="#">${listdto.reply_text }</a>
 							</h4>
 							<h3 class="style">${listdto.reply_date }</h3>
-							<p class="para top">${listdto.name }</p>
+							<p class="para top">from ${listdto.name }</p>
 						</div>
 						<div class="clear"></div>
 					</div>
@@ -50,11 +50,13 @@
  -->
 
 
+	</div>
+</div>
+<!---//End-comments-section--->
 
 
 		<!-- comment 입력 -->
-		<div class="artical-commentbox">
-			<a name="reply"></a>
+		<div class="artical-commentbox" style="width: 100%;">
 			<div class="table-form" style="width: 100%;">
 				<form action="#" method="post" name="reply">
 					<!--  			<div>
@@ -62,7 +64,7 @@
 					</div>
 -->
 					<div style="width: 100%;">
-						<textarea placeholder="comment"> </textarea>
+						<textarea > </textarea>
 					</div>
 					<input type="submit" value="댓글 달기">
 				</form>
@@ -72,7 +74,4 @@
 		</div>
 
 
-	</div>
-</div>
-<!---//End-comments-section--->
 

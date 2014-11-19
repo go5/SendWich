@@ -53,8 +53,8 @@ response.setCharacterEncoding("utf-8");
 	
 	<tr>
 		<td align=right>
-			<a href="pq_board?cmd=write">[글쓰기]</a>
-			<a href="pq_board?cmd=list">[처음으로]</a>
+			<a href="/SendWich/pq_board?cmd=write">[글쓰기]</a>
+			<a href="/pq_board?cmd=list">[처음으로]</a>
 		</td>
 	</tr>
 </table>

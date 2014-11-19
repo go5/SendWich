@@ -11,7 +11,7 @@ public class CommandFactory {
 //---------------------------------------------------------------------ø©±‚±Ó¡ˆ ΩÃ≈¨≈Ê
 	
 	public Command createCommand(String cmd) {
-		System.out.println("cmd : "+cmd);
+		//System.out.println("cmd : "+cmd);
 		
 		if (cmd.equals("main"))
 			return new MainCommand();

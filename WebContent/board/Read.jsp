@@ -29,10 +29,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<a href="#">${boardDTO.title}</a>
 						</h3>
 						<!--  내용 -->
-						<p>${boardDTO.textarea}</p>
+						${boardDTO.textarea}
 					</div>
 					<!-- 관리버튼 -->
-					<div class="artical-links">
+<!-- 
+ 					<div class="artical-links">
+ -->
+					<div class="share-artical">
 						<ul>
 							<li><a href="#"><img src="images/blog-icon2.png"
 									title="Admin"><span>글 수정</span></a></li>

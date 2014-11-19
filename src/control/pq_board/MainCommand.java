@@ -12,7 +12,8 @@ public class MainCommand implements Command {
 	public Object processCommand(HttpServletRequest req, HttpServletResponse res)
 			 throws ServerException, IOException {
 		
-		return "/index.html";
+		return "/SendWich/main?cmd=INDEX";
 	}
 
 }
+

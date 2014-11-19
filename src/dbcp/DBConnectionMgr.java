@@ -16,8 +16,8 @@ public class DBConnectionMgr {
     private Vector connections = new Vector(10);
 	// 드라이버 지정 
     private String _driver = "com.mysql.jdbc.Driver",
-    _url = "jdbc:mysql://localhost:3306/project",
-    _user = "root", _password = "0000";
+    _url = "jdbc:mysql://localhost:3306/dbl3",
+    _user = "root", _password = "1111";
     private boolean _traceOn = false;
     private boolean initialized = false;
     private int _openConnections = 10;

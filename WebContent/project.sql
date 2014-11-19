@@ -191,7 +191,7 @@ INSERT INTO project.chart VALUES(2,1,"분위기","조용함",5);
 INSERT INTO project.chart VALUES(2,1,"분위기","엄숙함",3);
 
 INSERT INTO project.chart VALUES(2,1,"분위기","아즈넉함",7);
-
+ 
 /*댓글*/
 INSERT INTO project.reply(member_id, board_id,reply_date,reply_text) VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"넹");
 INSERT INTO project.reply(member_id, board_id,reply_date,reply_text) VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"첫번째 댓글인가");

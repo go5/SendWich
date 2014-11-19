@@ -7,8 +7,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 로컬호스트 키 
+-->
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=4491cfa019e7f26639c2a14e621d321d408d3b0b&libraries=services"></script>
-<!-- <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=cedab95cd842ff542e48d915bc9f8f3fe587af06&libraries=services"></script> -->
+
+<!-- 192.168.10.21
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=de78da4c647327ca076e1da781a14b50348fc85b&libraries=services"></script>
+-->
+
 <jsp:include page="/HeadInfo.jsp"/>
 <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}

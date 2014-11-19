@@ -4,11 +4,12 @@
 <head>
 <jsp:include page="/HeadInfo.jsp"></jsp:include>
 </head>
-<body>
-	<jsp:include page="/Sub_Header.jsp" />
-	<div class="content">
-		<div class="wrap">
-			<div class="single-page">
+<jsp:include page="/Sub_Header.jsp" />
+<body class="container">
+	
+	<div class="row">
+		<div class="span12">
+			<div class="dropdown">
 				<form action="main?cmd=VALIDEMAIL" method="post" name="emaidup">
 					<div align="center" >
 						이메일을 입력해주세요.<br /> <br /> <input type="email" name="email"

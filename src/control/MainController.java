@@ -16,6 +16,7 @@ import dao.MemberDAO;
 import dto.BoardDTO;
 import dto.MemberDTO;
 import dto.ReplyDTO;
+import encode.Encode;
 
 public class MainController extends HttpServlet {
 
@@ -61,8 +62,15 @@ public class MainController extends HttpServlet {
 		}else if (cmd.equals("EDITINFO")) {//정보 수정
 			//System.out.println("editinfo");
 			// model이동해야함.
+			
 			String pass = req.getParameter("password");
+			pass = Encode.encrypt(pass);
+			//기존 비밀번호 암호화
+			
 			String npass = req.getParameter("newpassword1");
+			npass = Encode.encrypt(npass);
+			//새로운 비밀번호 암호화
+			
 			String email = req.getParameter("email");
 			// 비번 검증
 			boolean flag = memberDAO.checkPass(email, pass);

@@ -85,7 +85,9 @@ var markers = [];
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
 center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-level: 3 // 지도의 확대 레벨
+
+level: 4 // 지도의 확대 레벨
+
 };
 // 지도를 생성합니다
 var map = new daum.maps.Map(mapContainer, mapOption);
@@ -113,6 +115,7 @@ if (status === daum.maps.services.Status.OK) {
 displayPlaces(data.places);
 // 페이지 번호를 표출합니다
 displayPagination(pagination);
+
 } else if (status === daum.maps.services.Status.ZERO_RESULT) {
 alert('검색 결과가 존재하지 않습니다.');
 return;
@@ -152,6 +155,12 @@ displayInfowindow(marker, title);
 // });
 daum.maps.event.addListener(marker, 'click', function() {
 iwContent(marker, title);
+});
+
+
+daum.maps.event.addListener(marker, 'click', function() {
+	zoomIn(marker);
+
 });
 // itemEl.onmouseover = function () {
 // displayInfowindow(marker, title);
@@ -256,6 +265,18 @@ var content = '<div style="padding:5px;">글(리뷰)을 등록하시겠습니까
 infowindow.setContent(content);
 infowindow.open(map, marker);
 }
+
+
+	function zoomIn(marker) {		
+		 var level = map.getLevel();
+		    
+		    // 지도를 1레벨 내립니다 (지도가 확대됩니다)
+		    map.setLevel(level - 2);
+
+}
+
+
+
 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
 function removeAllChildNods(el) {
 while (el.hasChildNodes()) {

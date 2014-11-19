@@ -172,7 +172,7 @@
 			
 			</p>
 			<p>
-				<a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a>
+				<a href="/board/Read" class="btn btn-primary btn-large">Learn more &raquo;</a>
 			</p>
 		</div>
 

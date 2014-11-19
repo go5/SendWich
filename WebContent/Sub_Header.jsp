@@ -156,9 +156,9 @@
 						<ul class="nav">
 							<!-- 검색창 부분. -->
 							<li>
-								<form class="form-search">
+								<form class="form-search" action="main?cmd=MAP" method="post">
 									<div class="input-append">
-										<input type="text" class="span4 input-medium"
+										<input type="text" class="span4 input-medium" id="keyword" name="keyword" value="${param.keyword }" 
 											placeholder="위치!"> <a href="#"><span
 											class="add-on"><i class="icon-search"></i></span></a>
 									</div>
@@ -180,11 +180,6 @@
 									<li><a href="#">One more separated link</a></li>
 								</ul></li>
 						</ul>
-						<form class="navbar-form pull-right">
-							<input class="span2" type="text" placeholder="Email"> <input
-								class="span2" type="password" placeholder="Password">
-							<button type="submit" class="btn">Sign in</button>
-						</form>
 					</div>
 				</c:when>
 

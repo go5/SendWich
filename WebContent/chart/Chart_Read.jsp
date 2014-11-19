@@ -1,14 +1,13 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="dto.ChartDTO"%>
-<% request.setCharacterEncoding("utf-8"); %>
-<!DOCTYPE HTML>
+<%@page import="java.util.Vector"%>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Highcharts Example</title>
-<style>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+
+	<style>
 		*{margin:0;padding:0;}
 		div{padding:0px; overflow: hidden; height: auto;}
 		.hgroup{padding:20px;background-color:#e9e9e9;}
@@ -18,16 +17,15 @@
 	</style>
 
 	<link rel='stylesheet' href='chart/Nwagon.css' type='text/css'>
-	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="chart/Nwagon.js"></script>
+	<script src='chart/Nwagon.js'></script>
 </head>
 <body>
-<!-- 	디비 정보 불러오기 -->
+		<!-- 	디비 정보 불러오기 -->
 	<%
 		Vector ChartDto = (Vector)session.getAttribute("ChartDto");
-		int val[]= new int[12];
-		String key[] = new String[12];
-		String title[] = new String[12];
+		int val[]= new int[36];
+		String key[] = new String[36];
+		String title[] = new String[36];
 		for(int i=0; i<ChartDto.size() ; i++){
 			ChartDTO dto = (ChartDTO)ChartDto.get(i);
 			val[i] = dto.getEva_value();
@@ -35,9 +33,7 @@
 			title[i] = dto.getEva_type();
 		}
 		
-		
 // 		불러온 값을 차트에 뿌려질 ArrayList로 변경
-	
 		ArrayList data=new ArrayList();//항목
 		ArrayList value=new ArrayList();//값
 		ArrayList titles=new ArrayList();//값
@@ -49,32 +45,24 @@
 				break;
 			}
 		}
-	for (int i =0; i<data.size(); i++){		
-	%>
-		<%= value %>
-		<%= data %>
-<%} %>
-	<div id="chart1"></div>
+%>
+	<div id="chart11"></div>
 	<script>
-		// 차트 정보 js로 전달
-		$(document).ready(function(){var options = {
+		var options = {
 			'legend':{
-				// 항목
-				names: <%= data %>,
+				names: <%=data%>,
 					},
 			'dataset': {
-				title: 'none',
-				// 항목값
-				values: [<%= value%>],
+				title: 'Web accessibility status',
+				values: [<%=value%>], 
 				bgColor: '#f9f9f9',
 				fgColor: '#cc79a7'
 			},
-			'chartDiv': 'chart1',
+			'chartDiv': 'chart11',
 			'chartType': 'radar',
 			'chartSize': {width:600, height:300}
 		};
 		Nwagon.chart(options);
-		});
 	</script>
 </body>
 </html>

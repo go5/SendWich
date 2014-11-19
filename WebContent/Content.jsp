@@ -162,63 +162,74 @@
 </script>
  --%>
 
- 
-	<div class="container">
 
-		<!-- Main hero unit for a primary marketing message or call to action -->
-		<div class="hero-unit">
-			<h1>SendWich 소개</h1>
-			<p>샌드 위치를 소개하는 곳. 그냥 글 목록이랑 마찬가지니까 그냥 쓰자.
-			
-			</p>
-			<p>
-				<a href="/board/Read" class="btn btn-primary btn-large">Learn more &raquo;</a>
-			</p>
-		</div>
+<div class="container">
 
-		<!-- Example row of columns -->
-		<div class="row">
-			<div class="span4">
-				<h2>Heading</h2>
-				<p>Donec id elit non mi porta gravida at eget metus. Fusce
-					dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-					ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-					magna mollis euismod. Donec sed odio dui.</p>
-				<p>
-					<a class="btn" href="#">View details &raquo;</a>
-				</p>
-			</div>
-			<div class="span4">
-				<h2>Heading</h2>
-				<p>Donec id elit non mi porta gravida at eget metus. Fusce
-					dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-					ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-					magna mollis euismod. Donec sed odio dui.</p>
-				<p>
-					<a class="btn" href="#">View details &raquo;</a>
-				</p>
-			</div>
-			<div class="span4">
-				<h2>Heading</h2>
-				<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
-					egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-					Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-					nibh, ut fermentum massa justo sit amet risus.</p>
-				<p>
-					<a class="btn" href="#">View details &raquo;</a>
-				</p>
-			</div>
-		</div>
-
-		<hr>
-
-		<footer>
-			<p>&copy; Company 2013</p>
-		</footer>
-
+	<!-- Main hero unit for a primary marketing message or call to action -->
+	<div class="hero-unit">
+		<h1>SendWich 소개</h1>
+		<p>샌드 위치를 소개하는 곳. 그냥 글 목록이랑 마찬가지니까 그냥 쓰자.</p>
+		<p>
+			<a href="board/aboutus.jsp" class="btn btn-primary btn-large">Learn
+				more &raquo;</a>
+		</p>
 	</div>
-	<!-- /container -->
 
- 
- 
- 
+	<!-- Example row of columns -->
+	<!--  로그인해야만 보이는 블럭, 본인+친구 게시글 -->
+	<div class="row">
+		<c:choose>
+			<c:when test="${!empty memberDTO}">
+				<c:forEach var="listdto" items="${boardList}">
+
+
+					<div class="span4" style="text-overflow:ellipsis; overflow:hidden;" >
+						<img	src="images/img1.jpg" class="img-rounded">
+						<h2>${listdto.title}</h2>
+						<p>
+							<nobr>${listdto.textarea} </nobr>
+						</p>
+						<p>
+							<a class="btn"
+								href="main?cmd=CONTENT&board_id=${listdto.board_id}">View
+								details &raquo;</a>
+						</p>
+					</div>
+				</c:forEach>
+			</c:when>
+		</c:choose>
+
+
+		<div class="span4">
+			<h2>Heading</h2>
+			<p>Donec id elit non mi porta gravida at eget metus. Fusce
+				dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+				ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+				magna mollis euismod. Donec sed odio dui.</p>
+			<p>
+				<a class="btn" href="#">View details &raquo;</a>
+			</p>
+		</div>
+		<div class="span4">
+			<h2>Heading</h2>
+			<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
+				egestas eget quam. Vestibulum id ligula porta felis euismod semper.
+				Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
+				nibh, ut fermentum massa justo sit amet risus.</p>
+			<p>
+				<a class="btn" href="#">View details &raquo;</a>
+			</p>
+		</div>
+	</div>
+
+	<hr>
+
+	<footer>
+		<p>&copy; Company 2013</p>
+	</footer>
+
+</div>
+<!-- /container -->
+
+
+

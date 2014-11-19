@@ -1,3 +1,4 @@
+<%@page import="encode.Encode"%>
 <%@page import="dto.MemberDTO"%>
 
 <%@ page language="java" import="java.sql.*"
@@ -12,6 +13,8 @@
 	response.setCharacterEncoding("utf-8");
 	String email = request.getParameter("logemail");
 	String password = request.getParameter("logpassword");
+	password = Encode.encrypt(password);
+	//로그인 시 비밀번호 암호화
 	String member_id = null;
 	MemberDTO mdto = new MemberDTO();
 

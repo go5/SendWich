@@ -35,19 +35,17 @@ public class ChartController extends HttpServlet {
 		String cmd = req.getParameter("cmd");
 	
 		int board_id = Integer.parseInt(req.getParameter("board_id"));
-		int loc_id = Integer.parseInt(req.getParameter("loc_id"));
-		int chart_id = Integer.parseInt(req.getParameter("chart_id"));
-		// 서버에서 받아오는 그래프 정보 변수
+		
 		Vector vChart =null;
 		
 		if(cmd.equals("chart")){
 			//dao로 서버에서 가저온 정보 저장
 			vChart = dao.getList(board_id);
-			
-			//정보 세션으로 전달
 			session.setAttribute("ChartDto", vChart);
 			url="chart/Chart_Read.jsp";
 		}else if(cmd.equals("Chart_Insert")){
+			int chart_id = Integer.parseInt(req.getParameter("chart_id"));
+			int loc_id = Integer.parseInt(req.getParameter("loc_id"));
 			String title1 = req.getParameter("title1");
 			String title2 = req.getParameter("title2");
 			String title3 = req.getParameter("title3");
@@ -93,7 +91,7 @@ public class ChartController extends HttpServlet {
 				dao.insertList(dto);
 			}
 			}
-			url="chart/Chart_Read.jsp";
+			url="chart/Chart.jsp";
 		}
 		
 		RequestDispatcher view = req.getRequestDispatcher(url);

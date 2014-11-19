@@ -33,7 +33,7 @@ public class ChartDAO {
 			pool = DBConnectionMgr.getInstance();
 			con = pool.getConnection();
 
-			sql = "select * from chart where board_id=? GROUP BY eva_type";
+			sql = "select * from chart where board_id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board_id);
 			rs = pstmt.executeQuery();
@@ -43,21 +43,21 @@ public class ChartDAO {
 				dto.setEva_type(rs.getString("eva_type"));
 				dto.setEva_value(rs.getInt("eva_value"));
 				dto.setEva_key(rs.getString("eva_key"));
-				dto.setLoc_id(rs.getInt("loc_id"));
 				dto.setBoard_id(rs.getInt("board_id"));
 				dto.setChart_id(rs.getInt("chart_id"));
+				dto.setLoc_id(rs.getInt("loc_id"));
 				v.add(dto);
 			}
 
 		} catch (Exception e) {
-			System.out.println("MemberDAO(): ");
+			System.out.println("getList(): ");
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return v;
 	}
-	
+
 	public void insertList(ChartDTO dto){
 		String sql="";
 		try{

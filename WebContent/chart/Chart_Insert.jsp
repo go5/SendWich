@@ -99,11 +99,9 @@
 <body>
 	<form method="post" action="/SendWich/chart?cmd=Chart_Insert" name="Chart_Insert" id="form">
 			<!-- 게시판번호넘김 -->
-			<input type="hidden" name="board_id" value="10" />
+			<input type="hidden" name="board_id" value="4" />
 			<!-- 로컬정보 넘김 -->
-			<input type="hidden" name="loc_id" value="1" />
-			<!-- 차트아이디 넘김 -->
-			<input type="hidden" name="chart_id" value="4" />
+			<input type="hidden" name="loc_id" value="6" />
 			<div id="field1">
 			<div>
 				<h2>평가</h2>

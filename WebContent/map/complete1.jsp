@@ -80,13 +80,16 @@
 </div></div></div>
 
 <script>
+
+var x=null;
+var y=null;
 // 마커를 담을 배열입니다
 var markers = [];
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
 center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
 
-level: 4 // 지도의 확대 레벨
+level: 5 // 지도의 확대 레벨
 
 };
 // 지도를 생성합니다
@@ -137,7 +140,10 @@ removeAllChildNods(listEl);
 removeMarker();
 for ( var i=0; i<places.length; i++ ) {
 // 마커를 생성하고 지도에 표시합니다
-var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
+// var wich = new daum.maps.LatLng(places[i].getLat(), places[i].getLng())
+var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude)
+x=places[i].latitude;
+y=places[i].longitude;
 marker = addMarker(placePosition, i),
 itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
@@ -158,10 +164,26 @@ iwContent(marker, title);
 });
 
 
+daum.maps.event.addListener(marker, 'mouseover', function() {
+// 	zoomIn(marker);
+
+	map.setCenter(x,y);
+	setCenter1(marker, title);
+});
+
+// daum.maps.event.addListener(marker, 'mouseout', function() {
+// 	zoomout(marker);
+// });
+
+
+
 daum.maps.event.addListener(marker, 'click', function() {
-	zoomIn(marker);
 
 });
+
+// daum.maps.event.addListener(marker, 'click', function() {
+// 	setCenter(mouseEvent,map);
+// 	});
 // itemEl.onmouseover = function () {
 // displayInfowindow(marker, title);
 // };
@@ -267,13 +289,36 @@ infowindow.open(map, marker);
 }
 
 
-	function zoomIn(marker) {		
+	function zoomIn(marker,title) {		
 		 var level = map.getLevel();
 		    
 		    // 지도를 1레벨 내립니다 (지도가 확대됩니다)
-		    map.setLevel(level - 2);
-
+// 		    center: new daum.maps.LatLng(p)
+		    map.setLevel(level -2);
+		    	    
+		    
 }
+	
+	function zoomout(marker,title) {		
+		 var level = map.getLevel();
+		    
+		    // 지도를 1레벨 내립니다 (지도가 확대됩니다)
+//		    center: new daum.maps.LatLng(p)
+		    map.setLevel(level +2);
+		    	    
+		    
+}
+
+	function setCenter1(marker,title) {            
+	    // 이동할 위도 경도 위치를 생성합니다
+				
+	    var latlng = mouseEvent.latLng;
+	    // 지도 중심을 이동 시킵니다
+	     var moveLatLon = new daum.maps.LatLng(x,y);
+	   
+	    map.setCenter(moveLatLon);
+	}
+
 
 
 

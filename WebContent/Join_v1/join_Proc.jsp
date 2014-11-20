@@ -1,5 +1,6 @@
  
- <%@ page language="java" import="java.sql.*"
+ <%@page import="encode.Encode"%>
+<%@ page language="java" import="java.sql.*"
 	contentType="text/html; charset=utf-8"%>
 <%@ include file="conn_db.jsp"%>
 <%
@@ -15,6 +16,7 @@ System.out.println("가입 프로세스");
 	String name = request.getParameter("name");
 	String phone_number = request.getParameter("phone");
 	
+	password = Encode.encrypt(password);
 
 	
 	msql  = "INSERT INTO member(email,password,name,phone_number,join_date) VALUES(?,?,?,?,now())";

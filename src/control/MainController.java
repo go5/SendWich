@@ -150,7 +150,7 @@ public class MainController extends HttpServlet {
 			url = "/board/Read.jsp";
 		}
 		else if(cmd.equals("MAP")){
-			url="/map/complete1.jsp";
+			url="/map/map.jsp";
 		}
 		else if(cmd.equals("pqWrite")){
 			url="pq_board?cmd=write";

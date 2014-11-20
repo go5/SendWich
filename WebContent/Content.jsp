@@ -165,17 +165,22 @@
 
 
 	<!-- Main hero unit for a primary marketing message or call to action -->
-	<div class="row">
 <div class="container">
 <div class="span12">
-	<div class="span6" >
+	<div class="row" >
+	<div class="span3"></div>
+	<div class="hero-unit" style="background-color: lightgray">
 		<h1>SendWich 소개</h1>
-		<p>샌드 위치를 소개하는 곳. 그냥 글 목록이랑 마찬가지니까 그냥 쓰자.</p>
+		<p>샌드 위치를 소개하는 곳. 나중에. 캐러셀 넣자.</p>
 		<p>
 			<a href="main?cmd=ABOUTUS" class="btn btn-primary btn-large">읽어보기
 				&raquo;</a>
 		</p>
 	</div>
+	<div class="span3"></div>
+	</div>
+	<div class="row" >
+	<div class="span12"> </div>
 	</div>
 
 	<!-- Example row of columns -->
@@ -261,6 +266,7 @@
 				<a class="btn" href="#">자세히 보기 &raquo;</a>
 			</p>
 		</div>
+		
 	</div>
 </div>
 <!-- /container -->

@@ -165,6 +165,7 @@
 									</div>
 								</form>
 							</li>
+							
 							<li class="active"><a href="main?cmd=MEMINFO">회원 정보</a></li>
 							<li><a href="main?cmd=FRIENDS">친구목록</a></li>
 							<li><a href="main?cmd=MSGLIST">메세지</a></li>

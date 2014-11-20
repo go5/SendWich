@@ -37,10 +37,20 @@ public class ChartController extends HttpServlet {
 		int board_id = Integer.parseInt(req.getParameter("board_id"));
 		
 		Vector vChart =null;
+		Vector vTitle1 = null;
 		
 		if(cmd.equals("chart")){
 			//dao로 서버에서 가저온 정보 저장
 			vChart = dao.getList(board_id);
+			for(int i=0; i<vChart.size(); i++){
+				dto = (ChartDTO)vChart.get(i);
+				if(dto.getEva_type() == "k"){
+					System.out.println(dto.getEva_type());
+//					vTitle1.add(dto.getEva_type());
+//					vTitle1.add(dto.getEva_value());
+//					vTitle1.add(dto.getEva_key());
+				}
+			}
 			session.setAttribute("ChartDto", vChart);
 			url="chart/Chart_Read.jsp";
 		}else if(cmd.equals("Chart_Insert")){

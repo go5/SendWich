@@ -1,11 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -23,7 +18,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="single-page-artical">
 					<div class="artical-content">
 					<!-- 사진 부분 -->
-						<img src="images/single-post-pic.jpg" title="banner1">
+						<img src="images/single-post-pic.jpg" align="middle">
 						<!-- 제목 -->
 						<h3>
 							<a href="#">${boardDTO.title}</a>

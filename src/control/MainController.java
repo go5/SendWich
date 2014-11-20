@@ -50,9 +50,11 @@ public class MainController extends HttpServlet {
 			
 			url = "/index.jsp";
 		}
+		else if (cmd.equals("ABOUTUS")) {//메인의 소개글.
+			url = "/board/aboutus.jsp";
+		}
 		//로그인 부분
 		else if (cmd.equals("LOGINPROC")) {//로그인 프록시
-			System.out.println("loginproc");
 			url = "/Join_v1/login_Proc.jsp";
 		}
 		//회원 정보 조회/ 수정

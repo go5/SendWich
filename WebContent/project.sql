@@ -155,8 +155,8 @@ ON UPDATE RESTRICT
 );
 /*Å×½ºÆ®¿ë °ª »ðÀÔ*/
 /*¸â¹ö*/
-INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `password`) VALUES ('keispace.kyj@gmail.com', '±è¿µÁØ', '01047874352', '141010', '1234');
-INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","±è¿µÁØ", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"1234");
+INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `password`) VALUES ('test', '±è¿µÁØ', '01047874352', '141010', 'MTIzNA==');
+INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","±è¿µÁØ", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"MTIzNA==");
 /*Ä£±¸*/
 INSERT INTO project.friends VALUES(1, 2, 0);
 INSERT INTO project.friends VALUES(2, 1, 0);

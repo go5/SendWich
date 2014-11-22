@@ -58,16 +58,19 @@ public class BoardDAO {
 		return boardList;
 	}
 
-	public Vector membermapBoradList(int member_id, int loc_id) {// 지도아이디와 멤버아이디를 받아서 글 목록 꺼내옴.
+	public Vector membermapBoradList(int member_id, int loc_id) {// 지도아이디와
+																	// 멤버아이디를
+																	// 받아서 글 목록
+																	// 꺼내옴.
 		Vector boardList = new Vector();
-		String sql = "SELECT * FROM board WHERE member_id ="
-				+ member_id +"AND loc_id = "+loc_id;
-		// System.out.println(sql);
+		String sql = "SELECT * FROM board WHERE member_id =" + member_id
+				+ " AND loc_id = " + loc_id;
+		System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				BoardDTO boardDTO = new BoardDTO();
 				boardDTO.setBoard_id(rs.getInt("board_id"));
@@ -79,13 +82,13 @@ public class BoardDAO {
 				boardDTO.setUpload_date(rs.getString("upload_date"));
 				boardList.add(boardDTO);
 			}
-			
+
 		} catch (Exception err) {
 			err.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		
+
 		return boardList;
 	}
 
@@ -121,7 +124,7 @@ public class BoardDAO {
 	public Vector GetReply(int board_id) {// 선택 게시물의 댓글출력
 		Vector replyList = new Vector();
 		String sql = "SELECT * FROM reply rp JOIN member mem ON(rp.member_id = mem.member_id) "
-				+ " where board_id= " + board_id+" ORDER BY reply_date desc";
+				+ " where board_id= " + board_id + " ORDER BY reply_date desc";
 		System.out.println(sql);
 		try {
 			con = pool.getConnection();
@@ -145,6 +148,34 @@ public class BoardDAO {
 		return replyList;
 	}
 	
-	
-	
+	//글 입력.
+	public void insertBoard(BoardDTO dto) {
+		String sql="";
+		try {
+			con = pool.getConnection();
+
+			sql ="INSERT INTO board(title, textarea, photo, upload_date, member_id, loc_id) "
+					+ "VALUES (?,?,?,now(),?,?)";
+			
+		   System.out.println("글쓰기"+dto.getTitle());
+						
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getTextarea());
+			pstmt.setString(3, dto.getPhoto());
+			pstmt.setInt(4, dto.getMember_id());
+			pstmt.setInt(5, dto.getLoc_id());
+			pstmt.executeUpdate();	
+
+
+			
+		} catch (Exception err) {
+			err.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+
+	}
+
 }

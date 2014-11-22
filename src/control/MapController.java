@@ -34,8 +34,8 @@ public class MapController extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemberDTO memberDTO;
 		String url = "";
-		MapDTO mapDTO;
 		BoardDAO boardDAO=new BoardDAO();
+		MapDTO mapDTO=null;
 		MapDAO mapDAO = new MapDAO();
 		double gis_x = 0.0, gis_y = 0.0;
 		String loc_name=null;
@@ -53,19 +53,23 @@ public class MapController extends HttpServlet {
 //		}
 		String cmd = req.getParameter("cmd");
 
+		if(req.getParameter("loc_name")!=null){
+			gis_x = Double.valueOf(req.getParameter("gis_x"));
+			gis_y = Double.valueOf(req.getParameter("gis_y"));
+			loc_name= req.getParameter("loc_name");
+			//chkmap 해서 있으면 거기서 불러오고 없으면 입력해서 불러오자.
+			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);	
+			req.setAttribute("mapDTO", mapDTO);
+			
+		}
 		
 		
 		// 접근 조건 판별
 		if (cmd.equals("MAPINFO")) {
-			gis_x = Double.valueOf(req.getParameter("gis_x"));
-			gis_y = Double.valueOf(req.getParameter("gis_y"));
-			//System.out.println(gis_y);
-			loc_name= req.getParameter("loc_name");
-			//hasmap 해서 있으면 거기서 불러오고 없으면 입력해서 불러오자.
-			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);
-			req.setAttribute("mapDTO", mapDTO);
-			System.out.println("d:"+mapDTO.getLoc_id());
-			System.out.println("md:"+memberDTO.getMember_id());
+			int cnt = mapDAO.chkMap(gis_x, gis_y); 
+			if (cnt == 0) {
+				mapDAO.addMap(gis_x, gis_y, loc_name);
+			}
 			memboardList = boardDAO.membermapBoradList(memberDTO.getMember_id(),mapDTO.getLoc_id());
 			req.setAttribute("memboardList", memboardList);
 			url = "/map/mapinfo.jsp";

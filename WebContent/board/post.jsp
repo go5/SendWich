@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<jsp:include page="/HeadInfo.jsp"/>
+<jsp:include page="/HeadInfo.jsp" />
 </head>
 <body>
 	<!---start-wrap---->
@@ -11,92 +11,71 @@
 	<jsp:include page="/Sub_Header.jsp" />
 	<!---//End-header---->
 	<!---start-content---->
-	<div class="content">
-		<div class="wrap">
-			<div class="contact-info">
-				<div class="map">
-					<iframe width="100%" height="400" frameborder="0" scrolling="no"
-						marginheight="0" marginwidth="0"
-						src="https://maps.google.co.in/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Lighthouse+Point,+FL,+United+States&amp;aq=4&amp;oq=light&amp;sll=26.275636,-80.087265&amp;sspn=0.04941,0.104628&amp;ie=UTF8&amp;hq=&amp;hnear=Lighthouse+Point,+Broward,+Florida,+United+States&amp;t=m&amp;z=14&amp;ll=26.275636,-80.087265&amp;output=embed"></iframe>
-					<br>
-					<small><a
-						href="https://maps.google.co.in/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Lighthouse+Point,+FL,+United+States&amp;aq=4&amp;oq=light&amp;sll=26.275636,-80.087265&amp;sspn=0.04941,0.104628&amp;ie=UTF8&amp;hq=&amp;hnear=Lighthouse+Point,+Broward,+Florida,+United+States&amp;t=m&amp;z=14&amp;ll=26.275636,-80.087265"
-						style="color: #666; text-align: left; font-size: 12px"></a></small>
-				</div>
-				<div class="contact-grids">
-					<div class="col_1_of_bottom span_1_of_first1">
-						<h5>Address</h5>
-						<ul class="list3">
-							<li><img src="images/home.png" alt="">
-								<div class="extra-wrap">
-									<p>
-										Lorem ipsum consectetu,<br>dolor sit amet,.
-									</p>
-								</div></li>
-						</ul>
-					</div>
-					<div class="col_1_of_bottom span_1_of_first1">
-						<h5>Phones</h5>
-						<ul class="list3">
-							<li><img src="images/phone.png" alt="">
-								<div class="extra-wrap">
-									<p>
-										<span>Telephone:</span>+1 800 258 2598
-									</p>
-								</div> <img src="images/fax.png" alt="">
-								<div class="extra-wrap">
-									<p>
-										<span>FAX:</span>+1 800 589 2587
-									</p>
-								</div></li>
-						</ul>
-					</div>
-					<div class="col_1_of_bottom span_1_of_first1">
-						<h5>Email</h5>
-						<ul class="list3">
-							<li><img src="images/email.png" alt="">
-								<div class="extra-wrap">
-									<p>
-										<span class="mail"><a href="mailto:yoursite.com">info(at)pinball.com</a></span>
-									</p>
-								</div></li>
-						</ul>
-					</div>
-					<div class="clear"></div>
-				</div>
-				<form method="post" action="contact-post.html">
-					<div class="contact-form">
-						<div class="contact-to">
-							<input type="text" class="text" value="Name..."
-								onfocus="this.value = '';"
-								onblur="if (this.value == '') {this.value = 'Name...';}">
-							<input type="text" class="text" value="Email..."
-								onfocus="this.value = '';"
-								onblur="if (this.value == '') {this.value = 'Email...';}">
-							<input type="text" class="text" value="Subject..."
-								onfocus="this.value = '';"
-								onblur="if (this.value == '') {this.value = 'Subject...';}">
-						</div>
-						<div class="text2">
-							<textarea value="Message:" onfocus="this.value = '';"
-								onblur="if (this.value == '') {this.value = 'Message';}">Message..</textarea>
-						</div>
-						<span><input type="submit" class="" value="Submit"></span>
-						<div class="clear"></div>
-					</div>
-				</form>
+	<div class="container">
+		<div class="row" id="staticMap" style="width: 100%; height: 300px"></div>
+
+
+
+		<form method="post" action="main?cmd=POSTPROC">
+			<input type="hidden" value="${param.keyword }" id="keyword"
+				name="keyword"> <input type="hidden"
+				value="${param.loc_name }" id="loc_name" name="loc_name"> <input
+				type="hidden" value="${param.gis_x }" id="gis_x" name="gis_x">
+			<input type="hidden" value="${param.gis_y }" id="gis_y" name="gis_y">
+			<div class="row">
+				<div class="span1">제목</div>
+				<input class="span11" type="text" class="text" name="title" id="title" placeholder="제목" />
 			</div>
-		</div>
+
+			<div class="row">
+				<div class="span1">&nbsp;</div>
+				<textarea class="span11" rows="12" name="textarea" id="textarea" placeholder="하고싶은 이야기가 더 있나요?"></textarea>
+			</div>
+
+			<div>평가표 작성 들어갈 자리</div>
+			<div>
+				사진을 올려 주세요.(일단 한장. 이후에 추가예정.)<br /> <input type="file" class="text"
+					name="photo" id="photo">
+			</div>
+
+			<input type="submit" class="btn" value="Send!" /> <input
+				type="button" class="btn" value="뒤로가기"
+				onclick="javascript:history.back();" />
+		</form>
+
+
 	</div>
-	<!----start-footer
-	<div class="footer">
-		<p>
-			Design by <a href="http://w3layouts.com/">W3layouts</a>
-		</p>
-	</div>
-	--->
-	<!----//End-footer--->
-	<!---//End-wrap---->
+
+	<jsp:include page="/map/mapkey.html" />
+	<script>
+		var gis_x = document.getElementById("gis_x").value;
+		var gis_y = document.getElementById("gis_y").value;
+		var loc_name = document.getElementById("loc_name").value;
+
+		// 이미지 지도에서 마커가 표시될 위치입니다
+		var markerPosition = new daum.maps.LatLng(gis_x, gis_y);
+
+		// 이미지 지도에 표시할 마커입니다
+		// 이미지 지도에 표시할 마커는 Object 형태입니다
+		var marker = [ {
+			position : markerPosition
+		}, {
+			position : markerPosition,
+			text : "위치!: " + loc_name
+		// text 옵션을 설정하면 마커 위에 텍스트를 함께 표시할 수 있습니다     
+		} ];
+
+		var staticMapOption = {
+			center : markerPosition, // 이미지 지도의 중심좌표
+			level : 3, // 이미지 지도의 확대 레벨
+			marker : marker
+		// 이미지 지도에 표시할 마커 
+		};
+
+		// 이미지 지도를 생성합니다
+		var staticMap = new daum.maps.StaticMap(document
+				.getElementById('staticMap'), staticMapOption);
+	</script>
 </body>
 </html>
 

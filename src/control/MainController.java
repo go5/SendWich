@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.BoardDAO;
+import dao.MapDAO;
 import dao.MemberDAO;
 import dto.BoardDTO;
+import dto.MapDTO;
 import dto.MemberDTO;
 import dto.ReplyDTO;
 import encode.Encode;
@@ -31,48 +33,50 @@ public class MainController extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		resp.setCharacterEncoding("utf-8");
-		//System.out.println("maincont");
+		// System.out.println("maincont");
 		String url = "";
 		String cmd = req.getParameter("cmd");
 		HttpSession session = req.getSession();
 		MemberDTO mdto = (MemberDTO) session.getAttribute("memberDTO");
 		MemberDAO memberDAO = new MemberDAO();
 		BoardDAO boardDAO = new BoardDAO();
-		Vector boardList= null;
-		
-	//글목록 불러오기	
-		if(mdto!=null){
-		boardList = boardDAO.BoradList(mdto.getMember_id());
-		req.setAttribute("boardList", boardList);
+		Vector boardList = null;
+		BoardDTO boardDTO = null;
+		MapDAO mapDAO = new MapDAO();
+		MapDTO mapDTO=null;
+
+		// 글목록 불러오기
+		if (mdto != null) {
+			boardList = boardDAO.BoradList(mdto.getMember_id());
+			req.setAttribute("boardList", boardList);
 		}
-		
-		if (cmd == null || cmd.equals("INDEX")) {//메인
-			
+
+		if (cmd == null || cmd.equals("INDEX")) {// 메인
+
 			url = "/index.jsp";
-		}
-		else if (cmd.equals("ABOUTUS")) {//메인의 소개글.
+		} else if (cmd.equals("ABOUTUS")) {// 메인의 소개글.
 			url = "/board/aboutus.jsp";
 		}
-		//로그인 부분
-		else if (cmd.equals("LOGINPROC")) {//로그인 프록시
+		// 로그인 부분
+		else if (cmd.equals("LOGINPROC")) {// 로그인 프록시
 			url = "/Join_v1/login_Proc.jsp";
 		}
-		//회원 정보 조회/ 수정
-		else if (cmd.equals("MEMINFO")) {//회원정보 조회/수정창
-			//System.out.println("meminfo");
+		// 회원 정보 조회/ 수정
+		else if (cmd.equals("MEMINFO")) {// 회원정보 조회/수정창
+			// System.out.println("meminfo");
 			url = "/Join_v1/EditMember.jsp";
-		}else if (cmd.equals("EDITINFO")) {//정보 수정
-			//System.out.println("editinfo");
+		} else if (cmd.equals("EDITINFO")) {// 정보 수정
+			// System.out.println("editinfo");
 			// model이동해야함.
-			
+
 			String pass = req.getParameter("password");
 			pass = Encode.encrypt(pass);
-			//기존 비밀번호 암호화
-			
+			// 기존 비밀번호 암호화
+
 			String npass = req.getParameter("newpassword1");
 			npass = Encode.encrypt(npass);
-			//새로운 비밀번호 암호화
-			
+			// 새로운 비밀번호 암호화
+
 			String email = req.getParameter("email");
 			// 비번 검증
 			boolean flag = memberDAO.checkPass(email, pass);
@@ -90,15 +94,15 @@ public class MainController extends HttpServlet {
 			}
 			req.setAttribute("flag", flag);
 			url = "/Join_v1/editmember_Proc.jsp";
-		} 
-		//회원 탈퇴
-		else if (cmd.equals("DELETEMEM")) {//삭제확인창
-			//System.out.println("deletemem");
+		}
+		// 회원 탈퇴
+		else if (cmd.equals("DELETEMEM")) {// 삭제확인창
+			// System.out.println("deletemem");
 			String email = req.getParameter("email");
 			req.setAttribute("email", email);
 			url = "/Join_v1/deletemember.jsp";
-		} else if (cmd.equals("DELETEMEMPROC")) {//삭제
-			//System.out.println("deletememproc");
+		} else if (cmd.equals("DELETEMEMPROC")) {// 삭제
+			// System.out.println("deletememproc");
 			String email = req.getParameter("email");
 			String pass = req.getParameter("password");
 			// 비번 검증
@@ -110,14 +114,14 @@ public class MainController extends HttpServlet {
 			}
 			req.setAttribute("flag", flag);
 			url = "/Join_v1/deletemember_Proc.jsp";
-		}  
-		//로그아웃
-		else if (cmd.equals("LOGOUT")) {//로그아웃
+		}
+		// 로그아웃
+		else if (cmd.equals("LOGOUT")) {// 로그아웃
 			// model?
 			url = "/Join_v1/logout_Proc.jsp";
-		} 
-		//회원 가입
-		else if (cmd.equals("JOIN")) {//회원가입:메일중복검사
+		}
+		// 회원 가입
+		else if (cmd.equals("JOIN")) {// 회원가입:메일중복검사
 			url = "/Join_v1/Emaildup.jsp";
 		} else if (cmd.equals("VALIDEMAIL")) {// 메일 중복 검사
 			// model로 이전해야함.
@@ -127,36 +131,51 @@ public class MainController extends HttpServlet {
 		} else if (cmd.equals("REGMEM")) {// 등록
 			// modelization 해야됨.
 			url = "/Join_v1/join_Proc.jsp";
-		} 
-		//메세지 보드
+		}
+		// 메세지 보드
 		else if (cmd.equals("MSGLIST")) {// 쪽지글목록 보기
 			// 보드 아이디 받아서 보내야함. .
 			url = "msg?cmd=MSGLIST";
 		}
-		
-		//친구 관리
-		else if (cmd.equals("FRIENDS")) {//친구 목록/추가
+
+		// 친구 관리
+		else if (cmd.equals("FRIENDS")) {// 친구 목록/추가
 			url = "friends?cmd=FRIENDS";
-		} 
-		//글 보기
-		else if (cmd.equals("CONTENT")) {// 글 보기  
+		}
+		// 글 보기
+		else if (cmd.equals("CONTENT")) {// 글 보기
 			// 보드 아이디 받아서 보내야함. .
-			BoardDTO boardDTO = boardDAO.GetBoard(Integer.parseInt(req.getParameter("board_id")));
+			boardDTO = boardDAO.GetBoard(Integer.parseInt(req
+					.getParameter("board_id")));
 			req.setAttribute("boardDTO", boardDTO);
-			//리플 정보도 보내기
-			Vector replyList = boardDAO.GetReply(Integer.parseInt(req.getParameter("board_id")));
+			// 리플 정보도 보내기
+			Vector replyList = boardDAO.GetReply(Integer.parseInt(req
+					.getParameter("board_id")));
 			req.setAttribute("replyList", replyList);
-			
+
 			url = "/board/Read.jsp";
-		}
-		else if(cmd.equals("MAP")){
-			url="/map/map.jsp";
-		}
-		else if(cmd.equals("POST")){
-			url="/board/post.jsp";
-		}
-		else if(cmd.equals("pqWrite")){
-			url="pq_board?cmd=write";
+		} else if (cmd.equals("MAP")) {
+			url = "/map/map.jsp";
+		} else if (cmd.equals("POST")) {
+			url = "/board/post.jsp";
+		} else if (cmd.equals("POSTPROC")) {
+			//글쓰기입력 전에 locid가 발급됨.
+			//지도 정보를 바탕으로 id 불러서 dto에 넣고 인서트.
+			double gis_x = Double.valueOf(req.getParameter("gis_x"));
+			double 	gis_y = Double.valueOf(req.getParameter("gis_y"));
+			String loc_name= req.getParameter("loc_name");
+			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);
+			loc_id를 못가져옴. 왜지?
+			boardDTO =new BoardDTO();
+			boardDTO.setTitle(req.getParameter("title"));
+			boardDTO.setTextarea(req.getParameter("textarea"));
+			boardDTO.setPhoto(req.getParameter("photo"));
+			boardDTO.setLoc_id(mapDTO.getLoc_id());
+			boardDTO.setMember_id(mdto.getMember_id());
+			boardDAO.insertBoard(boardDTO);
+			url = "/index.jsp";
+		} else if (cmd.equals("pqWrite")) {
+			url = "pq_board?cmd=write";
 		}
 		RequestDispatcher view = req.getRequestDispatcher(url);
 		view.forward(req, resp);

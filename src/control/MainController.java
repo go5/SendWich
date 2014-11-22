@@ -152,6 +152,9 @@ public class MainController extends HttpServlet {
 		else if(cmd.equals("MAP")){
 			url="/map/map.jsp";
 		}
+		else if(cmd.equals("POST")){
+			url="/board/post.jsp";
+		}
 		else if(cmd.equals("pqWrite")){
 			url="pq_board?cmd=write";
 		}

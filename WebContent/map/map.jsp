@@ -205,35 +205,39 @@
 }
 </style>
 </head>
-<body>
+<body id="top">
 	<jsp:include page="/Sub_Header.jsp" />
-	<div class="content">
-		<div class="wrap">
-			<div class="single-page">
+	<div class="container">
+		<div class="map_wrap">
+			<form onload="searchPlaces(); return false;">
+				<input type="hidden" value="${param.keyword}" id="keyword">
+			</form>
+			<div id="map"
+				style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 
-				<div class="map_wrap">
-					<div align="center" class="option">
-						<p>
-						<form onsubmit="searchPlaces(); return false;">
-							<input type="hidden" value="${param.keyword}" id="keyword"
-								name="keyword" size="100">
-							<!-- <button type="submit">검색하기</button> -->
-							<hr />
-						</form>
-					</div>
-					<div id="map"
-						style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-					<div id="menu_wrap" class="bg_white">
-						<ul id="placesList"></ul>
-						<div id="pagination"></div>
-
-					</div>
+			<div id="menu_wrap" class="bg_white">
+				<div class="option">
+					<p>
 				</div>
+				<hr>
+				<ul id="placesList"></ul>
+				<div id="pagination"></div>
 			</div>
 		</div>
 	</div>
 
+	<form method="post" action="map?cmd=MAPINFO" id="hiddenpost"
+		name="hiddenpost">
+		<input type="hidden" value="${param.keyword }" id="keyword"
+			name="keyword"> <input type="hidden" value="" id="loc_name"
+			name="loc_name"> <input type="hidden" value="" id="gis_x"
+			name="gis_x"> <input type="hidden" value="" id="gis_y"
+			name="gis_y">
+	</form>
+
 	<script>
+		var gis_x = null;
+		var gis_y = null;
 		// 마커를 담을 배열입니다
 		var markers = [];
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -310,6 +314,7 @@
 								displayInfowindow(marker, title);
 							});
 					daum.maps.event.addListener(marker, 'click', function() {
+						location.href = "#top";
 						iwContent(marker, title);
 					});
 
@@ -317,12 +322,12 @@
 							function() {
 							});
 
-
 					daum.maps.event.addListener(marker, 'click', function() {
 
 					});
 
 					itemEl.onclick = function() {
+						location.href = "#top";
 						iwContent(marker, title);
 					};
 				})(marker, places[i].title);
@@ -407,36 +412,32 @@
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 		// 인포윈도우에 장소명을 표시합니다
 		function displayInfowindow(marker, title) {
-			var content = '<div class="dropdown" align="center"> ' + title
-					+ '</div>';
+			var content = '<div style="padding:5px;"> ' + title + '</div>';
 			// var content = '<div style="padding:5px;">Hello World! <br><a href="http://map.daum.net/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>';
 			infowindow.setContent(content);
 			infowindow.open(map, marker);
 		}
 		function iwContent(marker, title) {
-			// var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+			var mrkLL = marker.getPosition();
+			gis_x = mrkLL.getLat();
+			gis_y = mrkLL.getLng();
+			document.getElementById("gis_x").value = gis_x;
+			document.getElementById("gis_y").value = gis_y;
+			document.getElementById("loc_name").value = title;
 			// 이부분에 저희가 넣고싶은 사이트 url넣으세여
-			var content = '<div width="10%" style="padding:2px;background-color: #73aeff"><a href="#" >'+title+'</a></div>';
-
-					
-				var contentt =	'<div class="dropdown"><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"> <li><a tabindex="-1" href="#">Action</a></li> <li><a tabindex="-1" href="#">Another action</a></li> <li><a tabindex="-1" href="#">Something else here</a></li> <li class="divider"></li> <li><a tabindex="-1" href="#">Separated link</a></li> </ul></div>'
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+			var content = '<input type="button" onclick="fnSubmitPost()" value="'
+					+ title + '의 장소정보" />';
+			//alert(content);
+			//인포윈도우에 내용 추가.
 			infowindow.setContent(content);
 			infowindow.open(map, marker);
-			var mrkLL = marker.getPosition();
-			//alert(mrkLL);
-			map.setLevel(4); //지도 확대
-			map.setCenter(mrkLL);//
 
+			map.setLevel(4); //지도 확대
+			map.setCenter(mrkLL);//지도 이동.
+
+		}
+		function fnSubmitPost() {
+			document.getElementById("hiddenpost").submit();
 		}
 
 		function zoomIn(marker, title) {

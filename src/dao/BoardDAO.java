@@ -56,7 +56,37 @@ public class BoardDAO {
 		}
 
 		return boardList;
+	}
 
+	public Vector membermapBoradList(int member_id, int loc_id) {// 지도아이디와 멤버아이디를 받아서 글 목록 꺼내옴.
+		Vector boardList = new Vector();
+		String sql = "SELECT * FROM board WHERE member_id ="
+				+ member_id +"AND loc_id = "+loc_id;
+		// System.out.println(sql);
+		try {
+			con = pool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				BoardDTO boardDTO = new BoardDTO();
+				boardDTO.setBoard_id(rs.getInt("board_id"));
+				boardDTO.setMember_id(rs.getInt("member_id"));
+				boardDTO.setLoc_id(rs.getInt("loc_id"));
+				boardDTO.setTitle(rs.getString("title"));
+				boardDTO.setTextarea(rs.getString("textarea"));
+				boardDTO.setPhoto(rs.getString("photo"));
+				boardDTO.setUpload_date(rs.getString("upload_date"));
+				boardList.add(boardDTO);
+			}
+			
+		} catch (Exception err) {
+			err.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		
+		return boardList;
 	}
 
 	public BoardDTO GetBoard(int board_id) {// 선택 게시물 출력
@@ -88,7 +118,7 @@ public class BoardDAO {
 		return boardDTO;
 	}
 
-	public Vector GetReply(int board_id) {// 선택 게시물 출력
+	public Vector GetReply(int board_id) {// 선택 게시물의 댓글출력
 		Vector replyList = new Vector();
 		String sql = "SELECT * FROM reply rp JOIN member mem ON(rp.member_id = mem.member_id) "
 				+ " where board_id= " + board_id+" ORDER BY reply_date desc";

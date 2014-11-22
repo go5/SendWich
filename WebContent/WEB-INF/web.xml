@@ -54,6 +54,7 @@
 		<url-pattern>/pq_board</url-pattern>
 	</servlet-mapping>
 
+<!-- chart -->
 	<servlet>
 		<servlet-name>chart</servlet-name>
 		<servlet-class>control.ChartController</servlet-class>
@@ -62,4 +63,16 @@
 		<servlet-name>chart</servlet-name>
 		<url-pattern>/chart</url-pattern>
 	</servlet-mapping>
+
+<!-- map -->
+	<servlet>
+		<servlet-name>map</servlet-name>
+		<servlet-class>control.MapController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>map</servlet-name>
+		<url-pattern>/map</url-pattern>
+	</servlet-mapping>
+
+
 </web-app>

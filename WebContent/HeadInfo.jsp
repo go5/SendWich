@@ -32,6 +32,7 @@
 <link href="assets/css/bootstrap.css" rel="stylesheet">
 <style type="text/css">
 body {
+	background-image:url("images/bg.png");
 	padding-top: 60px;
 	padding-bottom: 40px;
 }

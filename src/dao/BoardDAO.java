@@ -29,7 +29,7 @@ public class BoardDAO {
 				+ member_id
 				+ " UNION SELECT * FROM board fri JOIN location loc2 ON(fri.loc_id=loc2.loc_id) "
 				+ "WHERE member_id IN (SELECT member_id FROM friends WHERE invited=1 AND friend_id="
-				+ member_id + ") " + "ORDER BY upload_date desc";
+				+ member_id + ") " + "ORDER BY upload_date desc, board_id desc";
 		// System.out.println(sql);
 		try {
 			con = pool.getConnection();
@@ -65,7 +65,7 @@ public class BoardDAO {
 		Vector boardList = new Vector();
 		String sql = "SELECT * FROM board WHERE member_id =" + member_id
 				+ " AND loc_id = " + loc_id;
-		System.out.println(sql);
+		//System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -125,7 +125,7 @@ public class BoardDAO {
 		Vector replyList = new Vector();
 		String sql = "SELECT * FROM reply rp JOIN member mem ON(rp.member_id = mem.member_id) "
 				+ " where board_id= " + board_id + " ORDER BY reply_date desc";
-		System.out.println(sql);
+		//System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -157,7 +157,7 @@ public class BoardDAO {
 			sql ="INSERT INTO board(title, textarea, photo, upload_date, member_id, loc_id) "
 					+ "VALUES (?,?,?,now(),?,?)";
 			
-		   System.out.println("글쓰기"+dto.getTitle());
+		  // System.out.println("글쓰기"+dto.getTitle());
 						
 			pstmt = con.prepareStatement(sql);
 			

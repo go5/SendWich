@@ -41,5 +41,5 @@
 		out.println("<script>alert('로그인 정보를 확인해 주세요.');history.back();</script>");
 	}
 
-	System.out.println(msql);
+//	System.out.println(msql);
 %>

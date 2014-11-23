@@ -63,6 +63,7 @@ public class MapDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				//System.out.println("¿Ö?");
 				dto.setLoc_id(rs.getInt("loc_id"));
 				dto.setLoc_name(rs.getString("loc_name"));
 				dto.setGis_x(rs.getDouble("gis_x"));
@@ -73,7 +74,6 @@ public class MapDAO {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		System.out.println("sdd" + dto.getLoc_id());
 
 		return dto;
 	}
@@ -110,7 +110,7 @@ public class MapDAO {
 			if (rs.next()) {
 				rowcount = rs.getInt(1);
 			}
-			System.out.println("Total rows : " + rowcount);
+		//	System.out.println("Total rows : " + rowcount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

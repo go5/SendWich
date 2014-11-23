@@ -99,7 +99,7 @@ public class MemberDAO {
 			pstmt.setString(3, dto.getPhone_number());
 			pstmt.setString(4, dto.getEmail());
 
-			System.out.println(dto.getEmail());
+			//System.out.println(dto.getEmail());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -115,7 +115,7 @@ public class MemberDAO {
 		try {
 			con = pool.getConnection();
 			String sql = "delete from member where email=?";
-			System.out.print(email);
+		//	System.out.print(email);
 
 			pool = DBConnectionMgr.getInstance();
 			pstmt = con.prepareStatement(sql);
@@ -136,13 +136,13 @@ public class MemberDAO {
 		try {
 			con = pool.getConnection();
 			String sql = "SELECT password From member WHERE email=? ";
-			System.out.println(sql);
+		//	System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs = pstmt.executeQuery();
 			rs.next();
-			System.out.println(pass);
-			System.out.println(rs.getString("password"));
+		//	System.out.println(pass);
+		//	System.out.println(rs.getString("password"));
 			if(rs.getString("password").equals(pass)){
 				flag=true;
 			}

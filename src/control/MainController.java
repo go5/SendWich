@@ -43,7 +43,10 @@ public class MainController extends HttpServlet {
 		Vector boardList = null;
 		BoardDTO boardDTO = null;
 		MapDAO mapDAO = new MapDAO();
-		MapDTO mapDTO=null;
+		MapDTO mapDTO = null;
+		Vector memboardList = null;
+		double gis_x = 0.0, gis_y = 0.0;
+		String loc_name = null;
 
 		// 글목록 불러오기
 		if (mdto != null) {
@@ -156,17 +159,33 @@ public class MainController extends HttpServlet {
 			url = "/board/Read.jsp";
 		} else if (cmd.equals("MAP")) {
 			url = "/map/map.jsp";
+		} else if (cmd.equals("MAPINFO")) {
+			gis_x = Double.valueOf(req.getParameter("gis_x"));
+			gis_y = Double.valueOf(req.getParameter("gis_y"));
+			loc_name = req.getParameter("loc_name");
+			int cnt = mapDAO.chkMap(gis_x, gis_y);
+			if (cnt == 0) {
+				mapDAO.addMap(gis_x, gis_y, loc_name);
+				//System.out.println("추가됨.");
+			}
+			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);
+			//System.out.println("꺼내온거:"+mapDTO.getLoc_id());
+			memboardList = boardDAO.membermapBoradList(mdto.getMember_id(),
+					mapDTO.getLoc_id());
+			req.setAttribute("memboardList", memboardList);
+			url = "/map/mapinfo.jsp";
+
 		} else if (cmd.equals("POST")) {
 			url = "/board/post.jsp";
 		} else if (cmd.equals("POSTPROC")) {
-			//글쓰기입력 전에 locid가 발급됨.
-			//지도 정보를 바탕으로 id 불러서 dto에 넣고 인서트.
-			double gis_x = Double.valueOf(req.getParameter("gis_x"));
-			double 	gis_y = Double.valueOf(req.getParameter("gis_y"));
-			String loc_name= req.getParameter("loc_name");
+			// 글쓰기입력 전에 locid가 발급됨.
+			// 지도 정보를 바탕으로 id 불러서 dto에 넣고 인서트.
+			gis_x = Double.valueOf(req.getParameter("gis_x"));
+			gis_y = Double.valueOf(req.getParameter("gis_y"));
+			loc_name = req.getParameter("loc_name");
 			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);
-			loc_id를 못가져옴. 왜지?
-			boardDTO =new BoardDTO();
+			// loc_id를 못가져옴. 왜지?
+			boardDTO = new BoardDTO();
 			boardDTO.setTitle(req.getParameter("title"));
 			boardDTO.setTextarea(req.getParameter("textarea"));
 			boardDTO.setPhoto(req.getParameter("photo"));

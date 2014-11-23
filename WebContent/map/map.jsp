@@ -1,9 +1,4 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@page import="dao.MapDAO"%>
-<%@page import="dto.MapDTO"%>
-
-<jsp:useBean id="dto" class="dto.MapDTO"></jsp:useBean>
-<jsp:useBean id="dao" class="dao.MapDAO"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 <head>
@@ -226,11 +221,11 @@
 		</div>
 	</div>
 
-	<form method="post" action="map?cmd=MAPINFO" id="hiddenpost"
+	<form method="post" action="main?cmd=MAPINFO" id="hiddenpost"
 		name="hiddenpost">
 		<input type="hidden" value="${param.keyword }" id="keyword"
 			name="keyword"> <input type="hidden" value="" id="loc_name"
-			name="loc_name"> <input type="hidden" value="" id="gis_x"
+			name="loc_name"> <input type="text" value="" id="gis_x"
 			name="gis_x"> <input type="hidden" value="" id="gis_y"
 			name="gis_y">
 	</form>
@@ -440,23 +435,6 @@
 			document.getElementById("hiddenpost").submit();
 		}
 
-		function zoomIn(marker, title) {
-			var level = map.getLevel();
-
-			// 지도를 1레벨 내립니다 (지도가 확대됩니다)
-			// 		    center: new daum.maps.LatLng(p)
-			map.setLevel(level - 2);
-
-		}
-
-		function zoomout(marker, title) {
-			var level = map.getLevel();
-
-			// 지도를 1레벨 내립니다 (지도가 확대됩니다)
-			//		    center: new daum.maps.LatLng(p)
-			map.setLevel(level + 2);
-
-		}
 
 		// 검색결과 목록의 자식 Element를 제거하는 함수입니다
 		function removeAllChildNods(el) {
@@ -464,12 +442,6 @@
 				el.removeChild(el.lastChild);
 			}
 		}
-		// function getInfo() {
-		// // 지도의 현재 중심좌표를 얻어옵니다
-		// var center = map.getCenter();
-		// var x= center.getLat();
-		// var y= center.getLng();
-		// }
 	</script>
 </body>
 </html>

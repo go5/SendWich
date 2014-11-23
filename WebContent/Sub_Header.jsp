@@ -155,13 +155,13 @@
 					<div class="nav-collapse collapse">
 						<ul class="nav">
 							<!-- 검색창 부분. -->
-							<li>
+	<li>
 								<form class="form-search" action="main?cmd=MAP" method="post">
 									<div class="input-append">
 										<input type="text" class="span4 input-medium" id="keyword"
-											name="keyword" value="${param.keyword }" placeholder="위치!">
-										<a href="#"><span class="add-on"><i
-												class="icon-search"></i></span></a>
+											name="keyword" value="${param.keyword }"
+											placeholder="위치?!"> <a href="#"><span
+											class="add-on"><i class="icon-search"></i></span></a>
 									</div>
 								</form>
 							</li>
@@ -188,16 +188,8 @@
 				<c:when test="${empty memberDTO}">
 					<div class="nav-collapse collapse">
 						<ul class="nav">
-							<li>
-								<form class="form-search" action="main?cmd=MAP" method="post">
-									<div class="input-append">
-										<input type="text" class="span4 input-medium" id="keyword"
-											name="keyword" value="${param.keyword }"
-											placeholder="테스트용 검색창"> <a href="#"><span
-											class="add-on"><i class="icon-search"></i></span></a>
-									</div>
-								</form>
-							</li>
+						
+						
 
 							<li><a href="main?cmd=JOIN">회원가입</a></li>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"

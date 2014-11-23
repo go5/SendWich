@@ -70,19 +70,14 @@ CONTROLLER
 
 
 <hr/>
-일단 통합 작업 내용
+일단 작업 할 것들. 
 
 <h1>db</h1>
 
 -pq_보드, 리플 테이블 추가.
 
--sql파일 수정
-	위에 추가한 테이블.
-
 <h1>main</h1> 
 -헤더 분리중. 
--싱글페이지꺼도 분리하기.
--헤더는 body 부분에서 쓸 것만 분리중.
 
 <h1>join</h1> 
 -model 분리해야됨.
@@ -92,25 +87,14 @@ CONTROLLER
 -아이디 찾기
 -비번 재설정
 
-<h1> 메인 게시판</h1>
-일단 메인화면 1번글에서 연결했음.
--뿌리는거랑 받는거 DAO 작성되야함.
--id 받아서 넘겨주기 되야함. 
--본인글+친구글 나와야함.
+<h1>게시판</h1>
+차트 연결 해야함.
+map은 연결함. 
+read페이지에 올린 사진 링크해야함.
 
-<h1>msg</h1> 
-디자인 맞추기.
-목록을 사각형으로 맞춰보자.
 
 <h1>컨트롤러</h1>
 메인: 로그인, 회원가입
 friends: 친구 검색, 친구 추가 
 msg: 쪽지 관련.
 
-
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->

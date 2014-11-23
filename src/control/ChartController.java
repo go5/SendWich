@@ -28,8 +28,8 @@ public class ChartController extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		resp.setCharacterEncoding("utf-8");
 		
-		ChartDAO dao = new ChartDAO();
-		ChartDTO dto = null;
+		ChartDAO chartDAO = new ChartDAO();
+		ChartDTO chartDTO = null;
 		HttpSession session = req.getSession();
 		String url="";
 		String cmd = req.getParameter("cmd");
@@ -41,11 +41,11 @@ public class ChartController extends HttpServlet {
 		
 		if(cmd.equals("chart")){
 			//dao로 서버에서 가저온 정보 저장
-			vChart = dao.getList(board_id);
+			vChart = chartDAO.getList(board_id);
 			for(int i=0; i<vChart.size(); i++){
-				dto = (ChartDTO)vChart.get(i);
-				if(dto.getEva_type() == "k"){
-					System.out.println(dto.getEva_type());
+				chartDTO = (ChartDTO)vChart.get(i);
+				if(chartDTO.getEva_type() == "k"){
+					System.out.println(chartDTO.getEva_type());
 //					vTitle1.add(dto.getEva_type());
 //					vTitle1.add(dto.getEva_value());
 //					vTitle1.add(dto.getEva_key());
@@ -67,38 +67,38 @@ public class ChartController extends HttpServlet {
 			String value3[] = req.getParameterValues("value3");
 			if(title1 != ""){
 			for(int i =0; i<key1.length; i++){
-				dto = new ChartDTO();
-				dto.setChart_id(chart_id);
-				dto.setEva_type(title1);
-				dto.setLoc_id(loc_id);
-				dto.setBoard_id(board_id);
-				dto.setEva_key(key1[i]);
-				dto.setEva_value(Integer.parseInt(value1[i])*10);
-				dao.insertList(dto);
+				chartDTO = new ChartDTO();
+				chartDTO.setChart_id(chart_id);
+				chartDTO.setEva_type(title1);
+				chartDTO.setLoc_id(loc_id);
+				chartDTO.setBoard_id(board_id);
+				chartDTO.setEva_key(key1[i]);
+				chartDTO.setEva_value(Integer.parseInt(value1[i])*10);
+				chartDAO.insertList(chartDTO);
 			}
 			}
 			if(title2 != ""){
 			for(int i =0; i<key2.length; i++){
-				dto = new ChartDTO();
-				dto.setChart_id(chart_id);
-				dto.setEva_type(title2);
-				dto.setLoc_id(loc_id);
-				dto.setBoard_id(board_id);
-				dto.setEva_key(key2[i]);
-				dto.setEva_value(Integer.parseInt(value2[i])*10);
-				dao.insertList(dto);
+				chartDTO = new ChartDTO();
+				chartDTO.setChart_id(chart_id);
+				chartDTO.setEva_type(title2);
+				chartDTO.setLoc_id(loc_id);
+				chartDTO.setBoard_id(board_id);
+				chartDTO.setEva_key(key2[i]);
+				chartDTO.setEva_value(Integer.parseInt(value2[i])*10);
+				chartDAO.insertList(chartDTO);
 			}
 			}
 			if(title3 != ""){
 			for(int i =0; i<key3.length; i++){
-				dto = new ChartDTO();
-				dto.setChart_id(chart_id);
-				dto.setEva_type(title3);
-				dto.setLoc_id(loc_id);
-				dto.setBoard_id(board_id);
-				dto.setEva_key(key3[i]);
-				dto.setEva_value(Integer.parseInt(value3[i])*10);
-				dao.insertList(dto);
+				chartDTO = new ChartDTO();
+				chartDTO.setChart_id(chart_id);
+				chartDTO.setEva_type(title3);
+				chartDTO.setLoc_id(loc_id);
+				chartDTO.setBoard_id(board_id);
+				chartDTO.setEva_key(key3[i]);
+				chartDTO.setEva_value(Integer.parseInt(value3[i])*10);
+				chartDAO.insertList(chartDTO);
 			}
 			}
 			url="chart/Chart.jsp";

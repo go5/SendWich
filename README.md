@@ -1,7 +1,6 @@
 SendWich
 ========
-어.... 어? 새로 갱신하느라 지워진듯(...)
-아오 ㅠㅠ 
+.
 <h1>프로젝트 도큐먼트</h1>
 시작: maincontroller.java or index.jsp
 <pre>
@@ -49,7 +48,7 @@ VIEW
 	js
 		...: 기존 틀에서 사용되는 JS
 	map(작업중)
-		complete1.jsp: 검
+		map.jsp: 검색 시 지도 창.
 		mapdb.jsp: 일단 보존.(미사용)
 		resultpage.jsp: 마커누르면 가는 곳.
 	message

@@ -5,7 +5,6 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title></title>
 
 	<style>
 		*{margin:0;padding:0;}

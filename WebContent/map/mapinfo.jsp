@@ -30,12 +30,10 @@
 						<div class="hero-unit" style="background-color: lightgray">
 							<form method="post" action="main?cmd=POST" id="hiddenpost"
 								name="hiddenpost">
-								<input type="hidden" value="${param.keyword }" id="keyword"
-									name="keyword"> <input type="hidden"
-									value="${param.loc_name }" id="loc_name" name="loc_name">
-								<input type="text" value="${param.gis_x }" id="gis_x"
-									name="gis_x"> <input type="hidden"
-									value="${param.gis_y }" id="gis_y" name="gis_y">
+								<input type="hidden" value="${mapDTO.loc_name }" id="loc_name"
+									name="loc_name"> <input type="text"
+									value="${mapDTO.gis_x }" id="gis_x" name="gis_x"> <input
+									type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
 								<h1>본인 글쓰기</h1>
 								<p>본인이 이 장소에 대해서 쓴 글이 없으면 글쓰기 링크로.</p>
 								<p>
@@ -51,25 +49,23 @@
 
 							<div class="span5"
 								style="text-overflow: ellipsis; overflow: hidden;">
-							<form method="post" action="main?cmd=POST" id="hiddenpost"
-								name="hiddenpost">
-								<input type="hidden" value="${param.keyword }" id="keyword"
-									name="keyword"> <input type="hidden"
-									value="${param.loc_name }" id="loc_name" name="loc_name">
-								<input type="text" value="${param.gis_x }" id="gis_x"
-									name="gis_x"> <input type="hidden"
-									value="${param.gis_y }" id="gis_y" name="gis_y">
-							
-								<img src="images/single-post-pic.jpg" class="img-rounded">
-								<h2>${listdto.title}</h2>
-								<p>
-									<nobr>${listdto.textarea} </nobr>
-								</p>
-								<p>
-									<a class="btn"
-										href="main?cmd=CONTENT&board_id=${listdto.board_id}">자세히
-										보기 &raquo;</a>
-								</p>
+								<form method="post" action="main?cmd=POST" id="hiddenpost"
+									name="hiddenpost">
+									<input type="hidden" value="${mapDTO.loc_name }" id="loc_name"
+										name="loc_name"> <input type="text"
+										value="${mapDTO.gis_x }" id="gis_x" name="gis_x"> <input
+										type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
+
+									<img src="images/single-post-pic.jpg" class="img-rounded">
+									<h2>${listdto.title}</h2>
+									<p>
+										<nobr>${listdto.textarea} </nobr>
+									</p>
+									<p>
+										<a class="btn"
+											href="main?cmd=CONTENT&board_id=${listdto.board_id}">자세히
+											보기 &raquo;</a>
+									</p>
 								</form>
 							</div>
 

@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.BoardDAO;
+import dao.ChartDAO;
 import dao.MapDAO;
 import dao.MemberDAO;
 import dto.BoardDTO;
+import dto.ChartDTO;
 import dto.MapDTO;
 import dto.MemberDTO;
 import dto.ReplyDTO;
@@ -173,18 +175,21 @@ public class MainController extends HttpServlet {
 			memboardList = boardDAO.membermapBoradList(mdto.getMember_id(),
 					mapDTO.getLoc_id());
 			req.setAttribute("memboardList", memboardList);
+			req.setAttribute("mapDTO", mapDTO);
 			url = "/map/mapinfo.jsp";
 
 		} else if (cmd.equals("POST")) {
 			url = "/board/post.jsp";
 		} else if (cmd.equals("POSTPROC")) {
-			// 글쓰기입력 전에 locid가 발급됨.
-			// 지도 정보를 바탕으로 id 불러서 dto에 넣고 인서트.
+
 			gis_x = Double.valueOf(req.getParameter("gis_x"));
 			gis_y = Double.valueOf(req.getParameter("gis_y"));
 			loc_name = req.getParameter("loc_name");
 			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);
-			// loc_id를 못가져옴. 왜지?
+			
+			
+			// 글쓰기입력 전에 locid가 발급됨.
+			// 지도 정보를 바탕으로 id 불러서 dto에 넣고 인서트.
 			boardDTO = new BoardDTO();
 			boardDTO.setTitle(req.getParameter("title"));
 			boardDTO.setTextarea(req.getParameter("textarea"));
@@ -192,6 +197,31 @@ public class MainController extends HttpServlet {
 			boardDTO.setLoc_id(mapDTO.getLoc_id());
 			boardDTO.setMember_id(mdto.getMember_id());
 			boardDAO.insertBoard(boardDTO);
+			//일단 지역+아이디 조합으로는 글이 하나만 나오니까 이렇게. 이후에 여러개 달 때를 준비할 필요.
+			Vector v = boardDAO.membermapBoradList(mdto.getMember_id(), mapDTO.getLoc_id());
+			boardDTO = (BoardDTO)v.get(0); 
+			req.setAttribute("boardDTO", boardDTO);
+			
+			//글입력 후 차트 입력.
+			ChartDAO chartDAO = new ChartDAO();
+			ChartDTO chartDTO = null;
+			String title1 = req.getParameter("title1");
+			String key1[] = req.getParameterValues("key1");
+			String value1[] = req.getParameterValues("value1");
+			
+		loc_id 를 못받음... map mapinfo proc 연결 확인!
+			if(title1 != ""){
+				for(int i =0; i<key1.length; i++){
+					chartDTO = new ChartDTO();
+					chartDTO.setEva_type(title1);
+					chartDTO.setLoc_id(mapDTO.getLoc_id());
+					chartDTO.setBoard_id(boardDTO.getBoard_id());
+					chartDTO.setEva_key(key1[i]);
+					chartDTO.setEva_value(Integer.parseInt(value1[i])*10);
+					chartDAO.insertList(chartDTO);
+				}
+			}
+					
 			url = "/index.jsp";
 		} else if (cmd.equals("pqWrite")) {
 			url = "pq_board?cmd=write";

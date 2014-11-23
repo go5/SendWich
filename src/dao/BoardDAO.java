@@ -58,10 +58,9 @@ public class BoardDAO {
 		return boardList;
 	}
 
-	public Vector membermapBoradList(int member_id, int loc_id) {// 지도아이디와
-																	// 멤버아이디를
-																	// 받아서 글 목록
-																	// 꺼내옴.
+		// 지도아이디와 멤버아이디를 받아서 글 목록 꺼내옴.
+	//현재는 지보+멤버는 글 1개분인데 확장고려해서 vector
+	public Vector membermapBoradList(int member_id, int loc_id) {
 		Vector boardList = new Vector();
 		String sql = "SELECT * FROM board WHERE member_id =" + member_id
 				+ " AND loc_id = " + loc_id;

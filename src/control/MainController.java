@@ -54,7 +54,6 @@ public class MainController extends HttpServlet {
 		BoardDAO boardDAO = new BoardDAO();
 		MapDAO mapDAO = new MapDAO();
 		ChartDAO chartDAO = new ChartDAO();
-
 		MemberDTO mdto = (MemberDTO) session.getAttribute("memberDTO");
 		BoardDTO boardDTO = null;
 		MapDTO mapDTO = null;
@@ -66,9 +65,9 @@ public class MainController extends HttpServlet {
 		Vector chartList = null;
 
 		// 글목록 불러오기
-		if (mdto != null) {
-			boardList = boardDAO.BoradList(mdto.getMember_id());
-			req.setAttribute("boardList", boardList);
+		if(mdto!=null){
+		boardList = boardDAO.BoradList(mdto.getMember_id());
+		req.setAttribute("boardList", boardList);
 		}
 		//커맨드 분기 시작점.
 		if (cmd == null || cmd.equals("INDEX")) {// 메인

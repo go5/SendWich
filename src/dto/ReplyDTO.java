@@ -1,10 +1,16 @@
 package dto;
 
 public class ReplyDTO {
-	 private int member_id, board_id;
+	 private int member_id, board_id, reply_id;
 	 private  String reply_date, reply_text, name; 
 
-	 public String getName() {
+	 public int getReply_id() {
+		return reply_id;
+	}
+	public void setReply_id(int reply_id) {
+		this.reply_id = reply_id;
+	}
+	public String getName() {
 		return name;
 	}
 	public void setName(String name) {

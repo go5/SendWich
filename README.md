@@ -73,28 +73,25 @@ CONTROLLER
 
 <h1>db</h1>
 
--pq_보드, 리플 테이블 추가.
-
 <h1>main</h1> 
--헤더 분리중. 
 
 <h1>join</h1> 
 -model 분리해야됨.
 -약관동의
 
-<h1>login</h1>  
--아이디 찾기
--비번 재설정
+친구목록 안뜸!!
 
 <h1>게시판</h1>
-차트 연결 해야함.
-map은 연결함. 
-read페이지에 올린 사진 링크해야함.
 
+글 수정 
+-보드만 수정.
+-지도 수정 안함. 
+-차트는 수정 불가. (지우고 다시 쓰도록)
 
-<h1>컨트롤러</h1>
-메인: 로그인, 회원가입
-friends: 친구 검색, 친구 추가 
-msg: 쪽지 관련.
+삭제
+-보드만 삭제. 
+-지도부분은 남김
+-차트도 남김. 
+
 
 M:\workspace\JSP\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SendWich\upload

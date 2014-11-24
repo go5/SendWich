@@ -23,8 +23,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<!---//End-header---->
 	<!---start-content---->
-	<div class="content">
-		<div class="wrap">
 			<div class="single-page">
 				<div class="single-page-artical">
 					<div class="artical-content">

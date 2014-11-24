@@ -10,45 +10,62 @@
 	<!---start-header---->
 	<jsp:include page="/Sub_Header.jsp" />
 	<!---//End-header---->
+	<!-- 지도,  보드, 차트 회원정보 종합-->
 	<!---start-content---->
 	<div class="container">
 		<!-- 지도 -->
 		<div id="staticMap" style="width: 100%; height: 300px"></div>
 
-		<!-- 사진 부분 -->
-		<img src="images/single-post-pic.jpg" align="middle">
+		<!-- 사진 부분 없으면 걍 생략.-->
+		<c:if test="${!empty boardDTO.photo}">
+			<img src="upload/${boardDTO.photo}" align="middle"
+				title="${mapDTO.loc_name}">
+		</c:if>
 		<!-- 제목 -->
-		<h3>
-			<a href="#">${boardDTO.title}</a>
-		</h3>
+		<h3>${boardDTO.title}</h3>
 		<!--  내용 -->
-		${boardDTO.textarea}
+		<div class="row">
+			<div class="span8">
+				<p>${boardDTO.textarea}</p>
+			</div>
+		</div>
+
+			<!-- 평가표 -->
+			<c:if test="${! empty chartList }">
+		<div class="row">
+			<div class="span8">
+			 	<jsp:include page="/chart/Chart_Read.jsp" />
+			</div>
+		</div>
+			</c:if>
+		<div class="clear"></div>
+		<!-- 관리버튼 -->
+		<div class="row">
+			<div class=" span3">
+				<a href="#"><img src="images/edit-icon.png">글 수정</a>
+			</div>
+			<div class="span3">
+				<a href="#"><img src="images/delete-icon.png">글 삭제</a>
+			</div>
+			<div class="span3">
+				<a href="main?cmd=INDEX"><img src="images/list-icon.png">목록으로</a>
+			</div>
+
+		</div>
+
+
+		<div class="clear"></div>
+		<!---start-comments-section--->
+		<jsp:include page="/board/Sub_Comment.jsp" />
+		<!---//End-comments-section--->
+
 	</div>
-
-	<!-- 관리버튼 -->
-	<div class="share-artical">
-		<ul>
-			<li><a href="#"><img src="images/blog-icon2.png"
-					title="Admin"><span>글 수정</span></a></li>
-			<li><a href="#reply"><img src="images/blog-icon3.png"
-					title="Comments"><span>댓글 달기</span></a></li>
-			<li><a href="#"><img src="images/blog-icon4.png"
-					title="Lables"><span>목록으로</span></a></li>
-		</ul>
-	</div>
-
-
-	<div class="clear"></div>
-	<!---start-comments-section--->
-	<jsp:include page="/board/Sub_Comment.jsp" />
-	<!---//End-comments-section--->
-
 
 	<jsp:include page="/map/mapkey.html" />
 	<script>
-	var gis_x = ${mapDTO.gis_x};
-	var gis_y = ${mapDTO.gis_y};
-	var loc_name = '${mapDTO.loc_name}';
+		var gis_x = ${mapDTO.gis_x};
+		var gis_y = ${mapDTO.gis_y};
+		var loc_name = '${mapDTO.loc_name}';
 
 		// 이미지 지도에서 마커가 표시될 위치입니다
 		var markerPosition = new daum.maps.LatLng(gis_x, gis_y);

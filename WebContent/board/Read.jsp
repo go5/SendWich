@@ -18,37 +18,38 @@
 		<!-- 사진 부분 -->
 		<img src="images/single-post-pic.jpg" align="middle">
 		<!-- 제목 -->
-		<h3>
-			<a href="#">${boardDTO.title}</a>
-		</h3>
+		<h3>${boardDTO.title}</h3>
 		<!--  내용 -->
 		${boardDTO.textarea}
+
+		<!-- 관리버튼 -->
+		<div class="row">
+			<a href="#"><img src="images/blog-icon2.png" title="Admin"><span>글
+					수정</span></a> <a href="#reply"><img src="images/blog-icon3.png"
+				title="Comments"><span>댓글 달기</span></a> <a href="main?cmd=INDEX"><img
+				src="images/blog-icon4.png" title="Lables"><span>목록으로</span></a>
+
+		</div>
+
+
+		<div class="clear"></div>
+		<!---start-comments-section--->
+		<jsp:include page="/board/Sub_Comment.jsp" />
+		<!---//End-comments-section--->
+
 	</div>
-
-	<!-- 관리버튼 -->
-	<div class="share-artical">
-		<ul>
-			<li><a href="#"><img src="images/blog-icon2.png"
-					title="Admin"><span>글 수정</span></a></li>
-			<li><a href="#reply"><img src="images/blog-icon3.png"
-					title="Comments"><span>댓글 달기</span></a></li>
-			<li><a href="#"><img src="images/blog-icon4.png"
-					title="Lables"><span>목록으로</span></a></li>
-		</ul>
-	</div>
-
-
-	<div class="clear"></div>
-	<!---start-comments-section--->
-	<jsp:include page="/board/Sub_Comment.jsp" />
-	<!---//End-comments-section--->
-
 
 	<jsp:include page="/map/mapkey.html" />
 	<script>
-	var gis_x = ${mapDTO.gis_x};
-	var gis_y = ${mapDTO.gis_y};
-	var loc_name = '${mapDTO.loc_name}';
+		var gis_x = $
+		{
+			mapDTO.gis_x
+		};
+		var gis_y = $
+		{
+			mapDTO.gis_y
+		};
+		var loc_name = '${mapDTO.loc_name}';
 
 		// 이미지 지도에서 마커가 표시될 위치입니다
 		var markerPosition = new daum.maps.LatLng(gis_x, gis_y);

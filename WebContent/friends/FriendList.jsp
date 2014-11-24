@@ -57,7 +57,7 @@
 							<c:when test="${searchfriend.name == 'null'}">
 					검색결과가 없습니다.
 					</c:when>
-							<c:when test="${searchfriend.name != memberDTO.name}">
+							<c:when test="${searchfriend.email != memberDTO.email}">
 								<!-- 본인 제외 -->
 								<form method="post" action="friends?cmd=INVITEFRIEND">
 									<div style="float: left;">${searchfriend.name}</div>

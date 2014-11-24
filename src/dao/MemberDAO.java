@@ -154,5 +154,54 @@ public class MemberDAO {
 		return flag;
 		
 	}
+	
+	//비번 변경을 위함아이디, 전화번호 체크
+	public boolean checkReset(String chkEmail, String chkPhone){
+		boolean flag=false;
+		try {
+			con = pool.getConnection();
+			String sql = "SELECT * From member WHERE email=? and phone_number=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, chkEmail);
+			pstmt.setString(2, chkPhone);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()==true){
+				flag=true;
+			}else{
+				flag=false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag;
+		
+	}
+	
+			
+	//비밀번호 변경
+	public void updatePass(String email, String password) {
+
+		try {
+			con = pool.getConnection();
+			String sql = "update member set password=? where email=?";
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, password);
+			pstmt.setString(2, email);
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+
+	}
 
 }

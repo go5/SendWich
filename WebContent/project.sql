@@ -40,7 +40,7 @@ ON DELETE RESTRICT
 ON UPDATE RESTRICT,
 CONSTRAINT `FK_board_loc`
 FOREIGN KEY (`loc_id`)
-REFERENCES `project`.`location` (`loc_name`)
+REFERENCES `project`.`location` (`loc_id`)
 ON DELETE RESTRICT
 ON UPDATE RESTRICT
 );

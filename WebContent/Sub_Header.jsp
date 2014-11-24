@@ -188,16 +188,16 @@
 				<c:when test="${empty memberDTO}">
 					<div class="nav-collapse collapse">
 						<ul class="nav">
-						
-						
-
 							<li><a href="main?cmd=JOIN">회원가입</a></li>
+							<li><a href="main?cmd=REPASS">비번찾기</a></li>
+							<!-- 
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown"> 아이디/비번 찾기 <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="#">아이디 찾기</a></li>
 									<li><a href="#">비번 찾기</a></li>
 								</ul></li>
+							 -->
 						</ul>
 						<form class="navbar-form pull-right" name="login" id="login"
 							action="main?cmd=LOGINPROC" method="post">

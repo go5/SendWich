@@ -49,12 +49,12 @@ public class MainController extends HttpServlet {
 		String loc_name = null;
 		String cmd = req.getParameter("cmd");
 		HttpSession session = req.getSession();
-		
+
 		MemberDAO memberDAO = new MemberDAO();
 		BoardDAO boardDAO = new BoardDAO();
 		MapDAO mapDAO = new MapDAO();
 		ChartDAO chartDAO = new ChartDAO();
-		
+
 		MemberDTO mdto = (MemberDTO) session.getAttribute("memberDTO");
 		BoardDTO boardDTO = null;
 		MapDTO mapDTO = null;
@@ -63,7 +63,6 @@ public class MainController extends HttpServlet {
 		Vector memboardList = null;
 		Vector boardList = null;
 		Vector chartList = null;
-
 
 		// 글목록 불러오기
 		if (mdto != null) {
@@ -80,6 +79,34 @@ public class MainController extends HttpServlet {
 		// 로그인 부분
 		else if (cmd.equals("LOGINPROC")) {// 로그인 프록시
 			url = "/Join_v1/login_Proc.jsp";
+			
+		}else if (cmd.equals("REPASS")) {// 로그인 프록시
+				url = "/Join_v1/passReset.jsp";
+		}else if (cmd.equals("PASSUPDATE")) {// 로그인 프록시
+			url = "/Join_v1/passUpdate.jsp";
+
+		} else if (cmd.equals("PASSRESETCHK")) {// 비밀번호 변경을 위해 개인정보 체크
+			String chkEmail = req.getParameter("email");
+			String chkPhone = req.getParameter("phone_number");
+			System.out.println("체크" + chkEmail + ", " + chkPhone);
+			req.setAttribute("email", chkEmail);
+
+			boolean flag = memberDAO.checkReset(chkEmail, chkPhone);
+			System.out.println("정보체크" + flag);
+
+			req.setAttribute("flag", flag);
+			url = "/Join_v1/passResetChk.jsp";
+		} else if (cmd.equals("PASSEDIT")) {// 비밀번호 변경
+			String email = req.getParameter("email");
+			String password = req.getParameter("newpassword1");
+			password = Encode.encrypt(password);
+
+			System.out.println("비밀번호 변경" + email);
+			System.out.println("비밀번호 변경" + password);
+
+			memberDAO.updatePass(email, password);
+
+			url = "/Join_v1/passEditComplete.jsp";
 		}
 		// 회원 정보 조회/ 수정
 		else if (cmd.equals("MEMINFO")) {// 회원정보 조회/수정창
@@ -172,14 +199,13 @@ public class MainController extends HttpServlet {
 			Vector replyList = boardDAO.GetReply(Integer.parseInt(req
 					.getParameter("board_id")));
 			req.setAttribute("replyList", replyList);
-			//지도정보
+			// 지도정보
 			mapDTO = mapDAO.getMap(boardDTO.getLoc_id());
 			req.setAttribute("mapDTO", mapDTO);
-			//차트정보
+			// 차트정보
 			chartList = chartDAO.getChart(boardDTO.getBoard_id());
 			req.setAttribute("chartList", chartList);
 
-			
 			url = "/board/Read.jsp";
 		} else if (cmd.equals("MAP")) {
 			url = "/map/map.jsp";
@@ -187,16 +213,16 @@ public class MainController extends HttpServlet {
 			gis_x = Double.valueOf(req.getParameter("gis_x"));
 			gis_y = Double.valueOf(req.getParameter("gis_y"));
 			loc_name = req.getParameter("loc_name");
-			
+
 			int cnt = mapDAO.chkMap(gis_x, gis_y);
 			if (cnt == 0) {
 				mapDAO.addMap(gis_x, gis_y, loc_name);
-				//System.out.println("추가됨.");
+				// System.out.println("추가됨.");
 			}
 			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);
 			req.setAttribute("mapDTO", mapDTO);
 
-			//System.out.println("꺼내온거:"+mapDTO.getLoc_id());
+			// System.out.println("꺼내온거:"+mapDTO.getLoc_id());
 			memboardList = boardDAO.membermapBoradList(mdto.getMember_id(),
 					mapDTO.getLoc_id());
 			req.setAttribute("memboardList", memboardList);
@@ -204,13 +230,13 @@ public class MainController extends HttpServlet {
 
 		} else if (cmd.equals("POST")) {
 			int loc_id = Integer.parseInt(req.getParameter("loc_id"));
-			
+
 			mapDTO = mapDAO.getMap(loc_id);
 			req.setAttribute("mapDTO", mapDTO);
 			url = "/board/post.jsp";
 		} else if (cmd.equals("POSTPROC")) {
-			
-			//파일 저장.
+
+			// 파일 저장.
 			ServletContext ctx = req.getServletContext();
 			String path = ctx.getRealPath("/upload");
 			System.out.println(path);
@@ -218,9 +244,8 @@ public class MainController extends HttpServlet {
 
 			MultipartRequest multi = new MultipartRequest(req, path, maxSize,
 					"utf-8", new DefaultFileRenamePolicy());
-			
-			
-			//입력 값을 보드에 추가.
+
+			// 입력 값을 보드에 추가.
 			int loc_id = (Integer.parseInt(multi.getParameter("loc_id")));
 			boardDTO = new BoardDTO();
 			boardDTO.setTitle(multi.getParameter("title"));
@@ -229,32 +254,29 @@ public class MainController extends HttpServlet {
 			boardDTO.setLoc_id(loc_id);
 			boardDTO.setMember_id(mdto.getMember_id());
 			boardDAO.insertBoard(boardDTO);
-		
-			
-			
-			//보드 id 가져옴
-			//일단 지역+아이디 조합으로는 글이 하나만 나오니까 이렇게. 이후에 여러개 달 때를 준비할 필요.
+
+			// 보드 id 가져옴
+			// 일단 지역+아이디 조합으로는 글이 하나만 나오니까 이렇게. 이후에 여러개 달 때를 준비할 필요.
 			Vector v = boardDAO.membermapBoradList(mdto.getMember_id(), loc_id);
-			boardDTO = (BoardDTO)v.get(0); 
+			boardDTO = (BoardDTO) v.get(0);
 			req.setAttribute("boardDTO", boardDTO);
 			System.out.println(req.getParameter("value1"));
-			//차트 입력(보드id 필요)
+			// 차트 입력(보드id 필요)
 			String title1 = multi.getParameter("title1");
 			String key1[] = multi.getParameterValues("key1");
 			String value1[] = multi.getParameterValues("value1");
-			if(title1 != ""){
-				for(int i =0; i<key1.length; i++){
+			if (title1 != "") {
+				for (int i = 0; i < key1.length; i++) {
 					chartDTO = new ChartDTO();
 					chartDTO.setEva_type(title1);
 					chartDTO.setLoc_id(loc_id);
 					chartDTO.setBoard_id(boardDTO.getBoard_id());
 					chartDTO.setEva_key(key1[i]);
-					chartDTO.setEva_value(Integer.parseInt(value1[i])*10);
+					chartDTO.setEva_value(Integer.parseInt(value1[i]) * 10);
 					chartDAO.insertChart(chartDTO);
 				}
 			}
-					
-		
+
 			url = "/main?cmd=INDEX";
 		} else if (cmd.equals("pqWrite")) {
 			url = "pq_board?cmd=write";

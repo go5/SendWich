@@ -33,7 +33,7 @@
 <label>죄송합니다. 서버측 에러로 올바른 처리가 불가능 합니다.<br/>
 혹은, 비 정상적인 경로로의 접근입니다. <br/>
 다시 로그인 후 시도해 주세요. <br/><br/></label>
-<a href="/SendWich/index.jsp"><img src="/SendWich/images/err_back.png"/></a>
+<a href="/SendWich/main?cmd=index"><img src="/SendWich/images/err_back.png"/></a>
 </div>
 </body>
 </html>

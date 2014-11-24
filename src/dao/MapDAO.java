@@ -27,7 +27,7 @@ public class MapDAO {
 	}
 
 	// 저장되있는 장소 부르기
-	public MapDTO getMap(String loc_id) {
+	public MapDTO getMap(int loc_id) {
 		MapDTO dto = new MapDTO();
 		String sql = null;
 		try {
@@ -55,8 +55,8 @@ public class MapDAO {
 		MapDTO dto = new MapDTO();
 		String sql = null;
 		try {
-			sql = "SELECT * FROM location WHERE gis_x='" + gis_x
-					+ "' AND gis_y='" + gis_y + "'";
+			sql = "SELECT * FROM location WHERE gis_x=" + gis_x
+					+ " AND gis_y=" + gis_y + "";
 			// System.out.println(sql);
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -103,14 +103,14 @@ public class MapDAO {
 		int rowcount = 0;
 		try {
 			con = pool.getConnection();
-			sql = " select count(loc_id) as cnt from location WHERE gis_x='"
-					+ gis_x + "' AND gis_y='" + gis_y + "'";
+			sql = " select count(loc_id) as cnt from location WHERE gis_x="
+					+ gis_x + " AND gis_y=" + gis_y + "";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				rowcount = rs.getInt(1);
 			}
-		//	System.out.println("Total rows : " + rowcount);
+		System.out.println("Total rows : " + rowcount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

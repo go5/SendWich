@@ -12,21 +12,6 @@
 <head>
 <jsp:include page="/HeadInfo.jsp" />
 
-<script>
-	function fnIsNull() {
-
-		var title = document.getElementById("title").value;
-		var textarea = document.getElementById("textarea").value;
-		var answer = document.getElementById("answer").value;
-		var photo = document.getElementById("photo").value;
-
-		if (title == "" || textarea == "" || answer == "" || photo == "") {
-			alert("값이 비어있습니다.");
-		} else {
-			document.post.submit();
-		}
-	}
-</script>
 <style>
 #hint {
 	width: 100%;
@@ -62,7 +47,6 @@
 	<%=member_name%>
 
 
-	<!---start-wrap---->
 	<!---start-header---->
 	<jsp:include page="/Sub_Header.jsp" />
 	<!---//End-header---->
@@ -125,6 +109,25 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	
+	
+<script>
+	function fnIsNull() {
+
+		var title = document.getElementById("title").value;
+		var textarea = document.getElementById("textarea").value;
+		var answer = document.getElementById("answer").value;
+		var photo = document.getElementById("photo").value;
+
+		if (title == "" || textarea == "" || answer == "" || photo == "") {
+			alert("값이 비어있습니다.");
+		} else {
+			document.post.submit();
+		}
+	}
+</script>
 
 </body>
 </html>

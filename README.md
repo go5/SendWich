@@ -97,3 +97,4 @@ read페이지에 올린 사진 링크해야함.
 friends: 친구 검색, 친구 추가 
 msg: 쪽지 관련.
 
+M:\workspace\JSP\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SendWich\upload

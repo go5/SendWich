@@ -5,7 +5,7 @@
 <!-- 로컬호스트 키 
 -->
 <script type="text/javascript"
-	src="//apis.daum.net/maps/maps3.js?apikey=4491cfa019e7f26639c2a14e621d321d408d3b0b&libraries=services"></script>
+	src="//apis.daum.net/maps/maps3.js?apikey=7ee83b07a3b435aea3c512117428c032b498d81c&libraries=services"></script>
 
 <!-- 192.168.10.21
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=de78da4c647327ca076e1da781a14b50348fc85b&libraries=services"></script>
@@ -225,7 +225,7 @@
 		name="hiddenpost">
 		<input type="hidden" value="${param.keyword }" id="keyword"
 			name="keyword"> <input type="hidden" value="" id="loc_name"
-			name="loc_name"> <input type="text" value="" id="gis_x"
+			name="loc_name"> <input type="hidden" value="" id="gis_x"
 			name="gis_x"> <input type="hidden" value="" id="gis_y"
 			name="gis_y">
 	</form>

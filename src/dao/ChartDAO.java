@@ -24,8 +24,8 @@ public class ChartDAO {
 		}
 	}
 
-	// DB에서 Chart하나의 정보 불러옴
-	public Vector getList(int board_id) {
+	// DB에서 Chart목록 조회
+	public Vector getChart(int board_id) {
 		ChartDTO dto = null;
 		String sql = null;
 		Vector v = new Vector();
@@ -58,7 +58,7 @@ public class ChartDAO {
 		return v;
 	}
 
-	public void insertList(ChartDTO dto){
+	public void insertChart(ChartDTO dto){
 		String sql="";
 		try{
 			pool = DBConnectionMgr.getInstance();

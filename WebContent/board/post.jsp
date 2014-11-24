@@ -11,14 +11,13 @@
 	<jsp:include page="/Sub_Header.jsp" />
 	<!---//End-header---->
 	<!---start-content---->
+	<div id="staticMap" style="width: 100%; height: 300px"></div>
 	<div class="container">
-		<div class="row" id="staticMap" style="width: 100%; height: 300px"></div>
 
 
 
-		<form method="post" action="main?cmd=POSTPROC">
-			<input type="text" value="${mapDTO.loc_id}" id="loc_id"
-				name="loc_id">
+		<form method="post" action="main?cmd=POSTPROC" enctype="multipart/form-data">
+			<input type="text" value="${mapDTO.loc_id}" id="loc_id" name="loc_id">
 			<div class="row">
 				<div class="span1">제목</div>
 				<input class="span11" type="text" class="text" name="title"
@@ -34,8 +33,6 @@
 			평가표 작성 들어갈 자리
 
 
-
-
 			<div id="field1">
 				<div>
 					<h2>평가</h2>
@@ -43,84 +40,35 @@
 						<span>주제</span> <input type="text" name="title1" id="title1" />
 					</div>
 				</div>
+				<!-- 항목은 3개 받게 일단 고정. -->
+				<c:forEach begin="1" end="3">
+					<div>
+						<div style="float: left">
+							<span>항목</span> <input type="text" name="key1" id="key1" />
+						</div>
+						<div style="float: left">
+							<span>값</span> <input type="text" name="value1" id="value1" />
+						</div>
+					</div>
+					<div style="clear: both;"></div>
+				</c:forEach>
+				<div id="addchartzone"></div>
+				<!-- 현재 기능 없음. 이후 항목추가 기능. -->
 				<div>
-					<div style="float: left">
-						<span>항목</span> <input type="text" name="key1" id="key1" />
-					</div>
-					<div style="float: left">
-						<span>값</span> <input type="text" name="value1" id="value1" />
-					</div>
-				</div>
-				<div style="clear: both;"></div>
-				<div>
-					<div style="float: left">
-						<span>항목</span> <input type="text" name="key1" id="key1" />
-					</div>
-					<div style="float: left">
-						<span>값</span> <input type="text" name="value1" id="value1" />
-					</div>
-				</div>
-				<div style="clear: both;"></div>
-				<div>
-					<div style="float: left">
-						<span>항목</span> <input type="text" name="key1" id="key1" />
-					</div>
-					<div style="float: left">
-						<span>값</span> <input type="text" name="value1" id="value1" />
-					</div>
-				</div>
-				<div style="clear: both;"></div>
-				<div>
-					<div style="float: left">
-						<span>항목</span> <input type="text" name="key1" id="key1" />
-					</div>
-					<div style="float: left">
-						<span>값</span> <input type="text" name="value1" id="value1" />
-					</div>
-				</div>
-				<div style="clear: both;"></div>
-				<div>
-					<div style="float: left">
-						<span>항목</span> <input type="text" name="key1" id="key1" />
-					</div>
-					<div style="float: left">
-						<span>값</span> <input type="text" name="value1" id="value1" />
-					</div>
-				</div>
-				<div>
-					<input type="button" class="btn" id="add1" value="+" />
+					<input type="button" class="btn" id="add1" value="+"
+						onclick="fnAddItem()" />
 				</div>
 			</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			<div>
-				사진을 올려 주세요.(일단 한장. 이후에 추가예정.)<br /> <input type="file" class="text"
-					name="photo" id="photo">
+				사진을 올려 주세요.(일단 한장. 이후에 추가예정.)<br />
+				파일은 jpg, png, gif 확장자만 가능합니다. 
+				<br/> <input type="file" class="text"
+					name="photo" id="photo" accept="image/jpeg, image/png, image/gif">
 			</div>
 
-			<input type="submit" class="btn" value="Send!" /> <input
-				type="button" class="btn" value="뒤로가기"
+			<input type="button" onclick="fnSubmit(this.form)" class="btn"
+				value="Send!" /> <input type="button" class="btn" value="뒤로가기"
 				onclick="javascript:history.back();" />
 		</form>
 
@@ -128,11 +76,45 @@
 	</div>
 
 	<jsp:include page="/map/mapkey.html" />
+	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
 	<script>
+		//전송
+		function fnSubmit(f) {
+			var file = f.photo.value; 
+			//그림파일인지 확장자 확인
+			if (uploadfile_check(file)) {
+				f.submit();
+				//업로드 파일이 그림 파일 형식에 맞으면 전송
+			} else {
+				return false;
+			}
+		}
+		//업로드파일 확장자 확인.
+		function uploadfile_check(file) {
+			var str_dotlocation, str_ext, str_low;
+			str_value = file;
+
+			str_low = str_value.toLowerCase(str_value);
+			str_dotlocation = str_low.lastIndexOf(".");
+			str_ext = str_low.substring(str_dotlocation + 1);
+
+			switch (str_ext) {
+			case "gif":
+			case "jpg":
+			case "png":
+				return true;
+				break;
+			default:
+				alert("그림 파일 입력 양식에 맞지 않는 파일입니다.")
+				return false;
+			}
+		}
+		
+		
 		//맵 부분
-		var gis_x = document.getElementById("gis_x").value;
-		var gis_y = document.getElementById("gis_y").value;
-		var loc_name = document.getElementById("loc_name").value;
+		var gis_x = ${mapDTO.gis_x};
+		var gis_y = ${mapDTO.gis_y};
+		var loc_name = '${mapDTO.loc_name}';
 
 		// 이미지 지도에서 마커가 표시될 위치입니다
 		var markerPosition = new daum.maps.LatLng(gis_x, gis_y);
@@ -159,41 +141,13 @@
 				.getElementById('staticMap'), staticMapOption);
 
 		//차트 부분
-		// 서브밋 체크
-		$("#form").submit(function() {
-			// value값 저장
-			var $value = $("input[id='value']").val().trim();
-			var $key = $("input[id='key']").val().trim();
-			var min = '1';
-			var max = '10';
-			//주제 체크
-			if ($("#title").val().trim() == "") {
-				alert("주제를 정해 주세요.");
-				$("#title").focus();
-				return false;
-			}
-			//항목 체크
-			else if ($key == "") {
-				alert("항목을 입력하지 않았습니다.")
-				$("#key").focus();
-				return false;
-			}
-			//값 체크
-			else if ($value == "") {
-				alert("항목값을 입력하지 않았습니다.")
-				$("#value").focus();
-				return false;
-			}
-			//값 범위 체크
-			else if ($value != "" && ($value > min && $value < max)) {
-				alert("입력 범위를 초과하였습니다.");
-				$("#value").focus();
-				return false;
-			}//다체크 되면 실행
-			else {
-				return true;
-			}
-		});
+		var maxcnt = 3;
+		//항목 추가.
+		function fnAddItem() {
+			var html = '<div><div style="float: left"><span>항목</span> <input type="text" name="key1" id="key1" /></div> <div style="float: left"> <span>값</span> <input type="text" name="value1" id="value1" /> </div></div><div style="clear: both;"></div>';
+			var $addZone = $("#addchartzone");
+			$addZone.before(html);
+		};
 	</script>
 </body>
 </html>

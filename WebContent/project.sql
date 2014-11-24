@@ -27,7 +27,7 @@ CREATE TABLE `project`.`board` (
 `member_id` INT NOT NULL,
 `title` VARCHAR(60) NOT NULL,
 `textarea` TEXT NOT NULL,
-`photo` BLOB NULL,
+`photo` VARCHAR(60)  NULL,
 `upload_date` DATE NOT NULL,
 `loc_id` INT NULL,
 PRIMARY KEY (`board_id`),
@@ -64,7 +64,6 @@ ON DELETE RESTRICT
 ON UPDATE RESTRICT
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
-SELECT * FROM project.board;
 CREATE TABLE project.pq_board (
 `board_id` int(11) NOT NULL AUTO_INCREMENT,
 `member_id` int(11) NOT NULL,
@@ -161,7 +160,7 @@ INSERT INTO project.member(email, name, phone_number,join_date,password) Values(
 INSERT INTO project.friends VALUES(1, 2, 0);
 INSERT INTO project.friends VALUES(2, 1, 0);
 /*지역*/
-INSERT INTO project.location(loc_name, gis_x, gis_y) VALUES("종묘",'37.5760611914452','126.99420845527109');
+INSERT INTO project.location(loc_name, gis_x, gis_y) VALUES("SendWich",0,0);
 /*글*/
 INSERT INTO project.board(member_id,title, textarea,upload_date)
 VALUES(1,"공지입니다","관리잡니다. 관리자용 공지 테스트입니다.",DATE_FORMAT("14.10.11","%y%m%d"));

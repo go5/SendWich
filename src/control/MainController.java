@@ -2,14 +2,22 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import util.fileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.BoardDAO;
 import dao.ChartDAO;
@@ -37,18 +45,25 @@ public class MainController extends HttpServlet {
 		resp.setCharacterEncoding("utf-8");
 		// System.out.println("maincont");
 		String url = "";
-		String cmd = req.getParameter("cmd");
-		HttpSession session = req.getSession();
-		MemberDTO mdto = (MemberDTO) session.getAttribute("memberDTO");
-		MemberDAO memberDAO = new MemberDAO();
-		BoardDAO boardDAO = new BoardDAO();
-		Vector boardList = null;
-		BoardDTO boardDTO = null;
-		MapDAO mapDAO = new MapDAO();
-		MapDTO mapDTO = null;
-		Vector memboardList = null;
 		double gis_x = 0.0, gis_y = 0.0;
 		String loc_name = null;
+		String cmd = req.getParameter("cmd");
+		HttpSession session = req.getSession();
+		
+		MemberDAO memberDAO = new MemberDAO();
+		BoardDAO boardDAO = new BoardDAO();
+		MapDAO mapDAO = new MapDAO();
+		ChartDAO chartDAO = new ChartDAO();
+		
+		MemberDTO mdto = (MemberDTO) session.getAttribute("memberDTO");
+		BoardDTO boardDTO = null;
+		MapDTO mapDTO = null;
+		ChartDTO chartDTO = null;
+
+		Vector memboardList = null;
+		Vector boardList = null;
+		Vector chartList = null;
+
 
 		// 글목록 불러오기
 		if (mdto != null) {
@@ -157,7 +172,14 @@ public class MainController extends HttpServlet {
 			Vector replyList = boardDAO.GetReply(Integer.parseInt(req
 					.getParameter("board_id")));
 			req.setAttribute("replyList", replyList);
+			//지도정보
+			mapDTO = mapDAO.getMap(boardDTO.getLoc_id());
+			req.setAttribute("mapDTO", mapDTO);
+			//차트정보
+			chartList = chartDAO.getChart(boardDTO.getBoard_id());
+			req.setAttribute("chartList", chartList);
 
+			
 			url = "/board/Read.jsp";
 		} else if (cmd.equals("MAP")) {
 			url = "/map/map.jsp";
@@ -165,64 +187,75 @@ public class MainController extends HttpServlet {
 			gis_x = Double.valueOf(req.getParameter("gis_x"));
 			gis_y = Double.valueOf(req.getParameter("gis_y"));
 			loc_name = req.getParameter("loc_name");
+			
 			int cnt = mapDAO.chkMap(gis_x, gis_y);
 			if (cnt == 0) {
 				mapDAO.addMap(gis_x, gis_y, loc_name);
 				//System.out.println("추가됨.");
 			}
 			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);
+			req.setAttribute("mapDTO", mapDTO);
+
 			//System.out.println("꺼내온거:"+mapDTO.getLoc_id());
 			memboardList = boardDAO.membermapBoradList(mdto.getMember_id(),
 					mapDTO.getLoc_id());
 			req.setAttribute("memboardList", memboardList);
-			req.setAttribute("mapDTO", mapDTO);
 			url = "/map/mapinfo.jsp";
 
 		} else if (cmd.equals("POST")) {
+			int loc_id = Integer.parseInt(req.getParameter("loc_id"));
+			
+			mapDTO = mapDAO.getMap(loc_id);
+			req.setAttribute("mapDTO", mapDTO);
 			url = "/board/post.jsp";
 		} else if (cmd.equals("POSTPROC")) {
+			
+			//파일 저장.
+			ServletContext ctx = req.getServletContext();
+			String path = ctx.getRealPath("/upload");
+			System.out.println(path);
+			int maxSize = 10 * 1024 * 1024;
 
-			gis_x = Double.valueOf(req.getParameter("gis_x"));
-			gis_y = Double.valueOf(req.getParameter("gis_y"));
-			loc_name = req.getParameter("loc_name");
-			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);
+			MultipartRequest multi = new MultipartRequest(req, path, maxSize,
+					"utf-8", new DefaultFileRenamePolicy());
 			
 			
-			// 글쓰기입력 전에 locid가 발급됨.
-			// 지도 정보를 바탕으로 id 불러서 dto에 넣고 인서트.
+			//입력 값을 보드에 추가.
+			int loc_id = (Integer.parseInt(multi.getParameter("loc_id")));
 			boardDTO = new BoardDTO();
-			boardDTO.setTitle(req.getParameter("title"));
-			boardDTO.setTextarea(req.getParameter("textarea"));
-			boardDTO.setPhoto(req.getParameter("photo"));
-			boardDTO.setLoc_id(mapDTO.getLoc_id());
+			boardDTO.setTitle(multi.getParameter("title"));
+			boardDTO.setTextarea(multi.getParameter("textarea"));
+			boardDTO.setPhoto(multi.getParameter("photo"));
+			boardDTO.setLoc_id(loc_id);
 			boardDTO.setMember_id(mdto.getMember_id());
 			boardDAO.insertBoard(boardDTO);
+		
+			
+			
+			//보드 id 가져옴
 			//일단 지역+아이디 조합으로는 글이 하나만 나오니까 이렇게. 이후에 여러개 달 때를 준비할 필요.
-			Vector v = boardDAO.membermapBoradList(mdto.getMember_id(), mapDTO.getLoc_id());
+			Vector v = boardDAO.membermapBoradList(mdto.getMember_id(), loc_id);
 			boardDTO = (BoardDTO)v.get(0); 
 			req.setAttribute("boardDTO", boardDTO);
-			
-			//글입력 후 차트 입력.
-			ChartDAO chartDAO = new ChartDAO();
-			ChartDTO chartDTO = null;
-			String title1 = req.getParameter("title1");
-			String key1[] = req.getParameterValues("key1");
-			String value1[] = req.getParameterValues("value1");
-			
-		loc_id 를 못받음... map mapinfo proc 연결 확인!
+			System.out.println(req.getParameter("value1"));
+			//차트 입력(보드id 필요)
+			String title1 = multi.getParameter("title1");
+			String key1[] = multi.getParameterValues("key1");
+			String value1[] = multi.getParameterValues("value1");
 			if(title1 != ""){
 				for(int i =0; i<key1.length; i++){
 					chartDTO = new ChartDTO();
 					chartDTO.setEva_type(title1);
-					chartDTO.setLoc_id(mapDTO.getLoc_id());
+					chartDTO.setLoc_id(loc_id);
 					chartDTO.setBoard_id(boardDTO.getBoard_id());
 					chartDTO.setEva_key(key1[i]);
 					chartDTO.setEva_value(Integer.parseInt(value1[i])*10);
-					chartDAO.insertList(chartDTO);
+					chartDAO.insertChart(chartDTO);
 				}
 			}
 					
-			url = "/index.jsp";
+		
+			url = "/main?cmd=INDEX";
 		} else if (cmd.equals("pqWrite")) {
 			url = "pq_board?cmd=write";
 		}

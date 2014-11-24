@@ -29,11 +29,13 @@
 					<c:when test="${empty memboardList}">
 						<div class="hero-unit" style="background-color: lightgray">
 							<form method="post" action="main?cmd=POST" id="hiddenpost"
-								name="hiddenpost">
+												name="hiddenpost">
 								<input type="hidden" value="${mapDTO.loc_name }" id="loc_name"
-									name="loc_name"> <input type="text"
-									value="${mapDTO.gis_x }" id="gis_x" name="gis_x"> <input
-									type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
+									name="loc_name"> 
+									<input type="hidden"	value="${mapDTO.gis_x }" id="gis_x" name="gis_x">
+									<input type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
+								<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"name="loc_id">
+
 								<h1>본인 글쓰기</h1>
 								<p>본인이 이 장소에 대해서 쓴 글이 없으면 글쓰기 링크로.</p>
 								<p>
@@ -52,11 +54,11 @@
 								<form method="post" action="main?cmd=POST" id="hiddenpost"
 									name="hiddenpost">
 									<input type="hidden" value="${mapDTO.loc_name }" id="loc_name"
-										name="loc_name"> <input type="text"
-										value="${mapDTO.gis_x }" id="gis_x" name="gis_x"> <input
-										type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
-
-									<img src="images/single-post-pic.jpg" class="img-rounded">
+									name="loc_name"> 
+									<input type="hidden"	value="${mapDTO.gis_x }" id="gis_x" name="gis_x">
+									<input type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
+								<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"name="loc_id">
+								<img src="images/single-post-pic.jpg" class="img-rounded">
 									<h2>${listdto.title}</h2>
 									<p>
 										<nobr>${listdto.textarea} </nobr>

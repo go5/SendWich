@@ -3,7 +3,14 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Vector;
+
+import javax.servlet.ServletContext;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dbcp.DBConnectionMgr;
 import dto.BoardDTO;
@@ -58,13 +65,13 @@ public class BoardDAO {
 		return boardList;
 	}
 
-		// 지도아이디와 멤버아이디를 받아서 글 목록 꺼내옴.
-	//현재는 지보+멤버는 글 1개분인데 확장고려해서 vector
+	// 지도아이디와 멤버아이디를 받아서 글 목록 꺼내옴.
+	// 현재는 지보+멤버는 글 1개분인데 확장고려해서 vector
 	public Vector membermapBoradList(int member_id, int loc_id) {
 		Vector boardList = new Vector();
 		String sql = "SELECT * FROM board WHERE member_id =" + member_id
 				+ " AND loc_id = " + loc_id;
-		//System.out.println(sql);
+		// System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -124,7 +131,7 @@ public class BoardDAO {
 		Vector replyList = new Vector();
 		String sql = "SELECT * FROM reply rp JOIN member mem ON(rp.member_id = mem.member_id) "
 				+ " where board_id= " + board_id + " ORDER BY reply_date desc";
-		//System.out.println(sql);
+		// System.out.println(sql);
 		try {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -146,29 +153,27 @@ public class BoardDAO {
 		}
 		return replyList;
 	}
-	
-	//글 입력.
+
+	// 글 입력.
 	public void insertBoard(BoardDTO dto) {
-		String sql="";
+		String sql = "";
 		try {
 			con = pool.getConnection();
 
-			sql ="INSERT INTO board(title, textarea, photo, upload_date, member_id, loc_id) "
+			sql = "INSERT INTO board(title, textarea, photo, upload_date, member_id, loc_id) "
 					+ "VALUES (?,?,?,now(),?,?)";
-			
-		  // System.out.println("글쓰기"+dto.getTitle());
-						
+
+			// System.out.println("글쓰기"+dto.getTitle());
+
 			pstmt = con.prepareStatement(sql);
-			
+
 			pstmt.setString(1, dto.getTitle());
 			pstmt.setString(2, dto.getTextarea());
 			pstmt.setString(3, dto.getPhoto());
 			pstmt.setInt(4, dto.getMember_id());
 			pstmt.setInt(5, dto.getLoc_id());
-			pstmt.executeUpdate();	
+			pstmt.executeUpdate();
 
-
-			
 		} catch (Exception err) {
 			err.printStackTrace();
 		} finally {
@@ -176,5 +181,6 @@ public class BoardDAO {
 		}
 
 	}
+
 
 }

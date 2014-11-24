@@ -41,7 +41,7 @@ public class ChartController extends HttpServlet {
 		
 		if(cmd.equals("chart")){
 			//dao로 서버에서 가저온 정보 저장
-			vChart = chartDAO.getList(board_id);
+			vChart = chartDAO.getChart(board_id);
 			for(int i=0; i<vChart.size(); i++){
 				chartDTO = (ChartDTO)vChart.get(i);
 				if(chartDTO.getEva_type() == "k"){
@@ -74,7 +74,7 @@ public class ChartController extends HttpServlet {
 				chartDTO.setBoard_id(board_id);
 				chartDTO.setEva_key(key1[i]);
 				chartDTO.setEva_value(Integer.parseInt(value1[i])*10);
-				chartDAO.insertList(chartDTO);
+				chartDAO.insertChart(chartDTO);
 			}
 			}
 			if(title2 != ""){
@@ -86,7 +86,7 @@ public class ChartController extends HttpServlet {
 				chartDTO.setBoard_id(board_id);
 				chartDTO.setEva_key(key2[i]);
 				chartDTO.setEva_value(Integer.parseInt(value2[i])*10);
-				chartDAO.insertList(chartDTO);
+				chartDAO.insertChart(chartDTO);
 			}
 			}
 			if(title3 != ""){
@@ -98,7 +98,7 @@ public class ChartController extends HttpServlet {
 				chartDTO.setBoard_id(board_id);
 				chartDTO.setEva_key(key3[i]);
 				chartDTO.setEva_value(Integer.parseInt(value3[i])*10);
-				chartDAO.insertList(chartDTO);
+				chartDAO.insertChart(chartDTO);
 			}
 			}
 			url="chart/Chart.jsp";

@@ -59,6 +59,7 @@ public class MainController extends HttpServlet {
 		BoardDTO boardDTO = null;
 		MapDTO mapDTO = null;
 		ChartDTO chartDTO = null;
+		ReplyDTO replyDTO = null;
 
 		Vector memboardList = null;
 		Vector boardList = null;
@@ -69,7 +70,7 @@ public class MainController extends HttpServlet {
 			boardList = boardDAO.BoradList(mdto.getMember_id());
 			req.setAttribute("boardList", boardList);
 		}
-
+		//커맨드 분기 시작점.
 		if (cmd == null || cmd.equals("INDEX")) {// 메인
 
 			url = "/index.jsp";
@@ -162,6 +163,9 @@ public class MainController extends HttpServlet {
 			req.setAttribute("flag", flag);
 			url = "/Join_v1/deletemember_Proc.jsp";
 		}
+		
+		
+		
 		// 로그아웃
 		else if (cmd.equals("LOGOUT")) {// 로그아웃
 			// model?
@@ -179,6 +183,9 @@ public class MainController extends HttpServlet {
 			// modelization 해야됨.
 			url = "/Join_v1/join_Proc.jsp";
 		}
+		
+		
+		
 		// 메세지 보드
 		else if (cmd.equals("MSGLIST")) {// 쪽지글목록 보기
 			// 보드 아이디 받아서 보내야함. .
@@ -189,11 +196,13 @@ public class MainController extends HttpServlet {
 		else if (cmd.equals("FRIENDS")) {// 친구 목록/추가
 			url = "friends?cmd=FRIENDS";
 		}
+		
+		
+		
 		// 글 보기
 		else if (cmd.equals("CONTENT")) {// 글 보기
 			// 보드 아이디 받아서 보내야함. .
-			boardDTO = boardDAO.GetBoard(Integer.parseInt(req
-					.getParameter("board_id")));
+			boardDTO = boardDAO.GetBoard(Integer.parseInt(req.getParameter("board_id").trim()));
 			req.setAttribute("boardDTO", boardDTO);
 			// 리플 정보도 보내기
 			Vector replyList = boardDAO.GetReply(Integer.parseInt(req
@@ -207,8 +216,13 @@ public class MainController extends HttpServlet {
 			req.setAttribute("chartList", chartList);
 
 			url = "/board/Read.jsp";
+			
+			
+			//지도 검색
 		} else if (cmd.equals("MAP")) {
 			url = "/map/map.jsp";
+			
+			//검색 결과
 		} else if (cmd.equals("MAPINFO")) {
 			gis_x = Double.valueOf(req.getParameter("gis_x"));
 			gis_y = Double.valueOf(req.getParameter("gis_y"));
@@ -228,12 +242,29 @@ public class MainController extends HttpServlet {
 			req.setAttribute("memboardList", memboardList);
 			url = "/map/mapinfo.jsp";
 
+//리플 작성	
+		} else if (cmd.equals("POSTREPLY")) {
+			replyDTO = new ReplyDTO();
+			replyDTO.setBoard_id(Integer.parseInt(req.getParameter("board_id"))); 
+			replyDTO.setMember_id(mdto.getMember_id());
+			replyDTO.setReply_text(req.getParameter("reply_text"));
+			boardDAO.insertReply(replyDTO);
+			url = "/main?cmd=CONTENT&board_id="+req.getParameter("board_id");
+//리플 삭제
+		} else if (cmd.equals("DELREPLY")) {
+			int reply_id = Integer.parseInt(req.getParameter("reply_id"));
+			boardDAO.delReply(reply_id);
+			url = "/main?cmd=CONTENT&board_id="+req.getParameter("board_id");
+
+//글쓰기
 		} else if (cmd.equals("POST")) {
 			int loc_id = Integer.parseInt(req.getParameter("loc_id"));
 
 			mapDTO = mapDAO.getMap(loc_id);
 			req.setAttribute("mapDTO", mapDTO);
 			url = "/board/post.jsp";
+			
+			//글 입력프로세스.
 		} else if (cmd.equals("POSTPROC")) {
 
 			// 파일 저장.
@@ -244,13 +275,12 @@ public class MainController extends HttpServlet {
 
 			MultipartRequest multi = new MultipartRequest(req, path, maxSize,
 					"utf-8", new DefaultFileRenamePolicy());
-
 			// 입력 값을 보드에 추가.
 			int loc_id = (Integer.parseInt(multi.getParameter("loc_id")));
 			boardDTO = new BoardDTO();
 			boardDTO.setTitle(multi.getParameter("title"));
 			boardDTO.setTextarea(multi.getParameter("textarea"));
-			boardDTO.setPhoto(multi.getParameter("photo"));
+			boardDTO.setPhoto(multi.getFilesystemName("photo"));
 			boardDTO.setLoc_id(loc_id);
 			boardDTO.setMember_id(mdto.getMember_id());
 			boardDAO.insertBoard(boardDTO);
@@ -260,11 +290,19 @@ public class MainController extends HttpServlet {
 			Vector v = boardDAO.membermapBoradList(mdto.getMember_id(), loc_id);
 			boardDTO = (BoardDTO) v.get(0);
 			req.setAttribute("boardDTO", boardDTO);
-			System.out.println(req.getParameter("value1"));
+			//System.out.println(req.getParameter("value1"));
 			// 차트 입력(보드id 필요)
 			String title1 = multi.getParameter("title1");
 			String key1[] = multi.getParameterValues("key1");
-			String value1[] = multi.getParameterValues("value1");
+			String value1[]=null;
+			if(multi.getParameterValues("value1")!=null){
+				value1 = multi.getParameterValues("value1");
+			}else{
+				for(int i = 0; i<key1.length;i++){
+					value1= new String[key1.length];
+					value1[i] ="0";
+				}
+			}
 			if (title1 != "") {
 				for (int i = 0; i < key1.length; i++) {
 					chartDTO = new ChartDTO();
@@ -278,9 +316,11 @@ public class MainController extends HttpServlet {
 			}
 
 			url = "/main?cmd=INDEX";
+			
+			//게임보드 글 쓰기.
 		} else if (cmd.equals("pqWrite")) {
 			url = "pq_board?cmd=write";
-		}
+	}
 		RequestDispatcher view = req.getRequestDispatcher(url);
 		view.forward(req, resp);
 	}

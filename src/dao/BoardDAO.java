@@ -107,7 +107,6 @@ public class BoardDAO {
 			con = pool.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				boardDTO.setBoard_id(rs.getInt("board_id"));
 				boardDTO.setMember_id(rs.getInt("member_id"));
@@ -125,12 +124,12 @@ public class BoardDAO {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return boardDTO;
-	}
-
+	} 
+	
 	public Vector GetReply(int board_id) {// 선택 게시물의 댓글출력
 		Vector replyList = new Vector();
 		String sql = "SELECT * FROM reply rp JOIN member mem ON(rp.member_id = mem.member_id) "
-				+ " where board_id= " + board_id + " ORDER BY reply_date desc";
+				+ " where board_id= " + board_id + " ORDER BY reply_date desc, reply_id ";
 		// System.out.println(sql);
 		try {
 			con = pool.getConnection();
@@ -144,6 +143,7 @@ public class BoardDAO {
 				replyDTO.setName(rs.getString("name"));
 				replyDTO.setReply_text(rs.getString("reply_text"));
 				replyDTO.setReply_date(rs.getString("reply_date"));
+				replyDTO.setReply_id(rs.getInt("reply_id"));
 				replyList.add(replyDTO);
 			}
 		} catch (Exception err) {
@@ -179,7 +179,45 @@ public class BoardDAO {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
+	}
 
+	// 댓글 입력.
+	public void insertReply(ReplyDTO dto) {
+		String sql = "";
+		try {
+			con = pool.getConnection();
+			
+			sql = "INSERT INTO reply(member_id, board_id, reply_text, reply_date) "
+					+ "VALUES (?,?,?,now())";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, dto.getMember_id());
+			pstmt.setInt(2, dto.getBoard_id());
+			pstmt.setString(3, dto.getReply_text());
+			pstmt.executeUpdate();
+			
+		} catch (Exception err) {
+			err.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+	}
+	
+	// 댓글 삭제
+	public void delReply(int reply_id) {
+		String sql = "";
+		try {
+			sql ="DELETE FROM reply WHERE reply_id="+reply_id; 
+			con = pool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+			
+		} catch (Exception err) {
+			err.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
 	}
 
 

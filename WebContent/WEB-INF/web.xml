@@ -74,5 +74,13 @@
 		<url-pattern>/map</url-pattern>
 	</servlet-mapping>
 
-
+<!-- error -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404_error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/500_error.jsp</location>
+	</error-page>
 </web-app>

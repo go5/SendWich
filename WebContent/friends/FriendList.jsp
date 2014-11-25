@@ -20,7 +20,7 @@
 				<div name="FrList" id="FrList">
 					<h2>친구 목록</h2>
 					<c:forEach var="frdto" items="${friendsList}">
-						<c:if test="${frdto.name != memberDTO.name}">
+						<c:if test="${frdto.email != memberDTO.email}">
 							<div style="background-color: silver;">
 								<form action="friends" method="post" id="fListItem">
 									<input type="hidden" name="cmd" id="cmd" value="DELETEFRIEND">

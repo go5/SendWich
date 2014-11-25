@@ -180,6 +180,33 @@ public class BoardDAO {
 			pool.freeConnection(con, pstmt, rs);
 		}
 	}
+	
+	// 글 삭제
+	public void delBoard(int board_id) {
+		String sql = "";
+		try {
+			con = pool.getConnection();
+			sql ="DELETE FROM board WHERE board_id="+board_id; 
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+			
+			sql ="DELETE FROM reply WHERE board_id="+board_id; 
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+			
+			
+/*일단 차트는 남기는데 쿼리는 작성.
+			sql ="DELETE FROM chart WHERE board_id="+board_id; 
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+		*/	
+		} catch (Exception err) {
+			err.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+	}
+
 
 	// 댓글 입력.
 	public void insertReply(ReplyDTO dto) {

@@ -48,7 +48,7 @@
 			},
 			'chartDiv': 'chart11',
 			'chartType': 'radar',
-			'chartSize': {width:600, height:300}
+			'chartSize': {width:300, height:270}
 		};
 		Nwagon.chart(options);
 	</script>

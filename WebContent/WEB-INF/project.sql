@@ -12,21 +12,22 @@ CREATE TABLE `project`.`member` (
 `join_date` DATE NULL,
 `password` VARCHAR(50) NULL,
 PRIMARY KEY (`member_id`),
-UNIQUE INDEX `email_UNIQUE` (`email` ASC))
-COMMENT = 'member infomation. ';
+UNIQUE INDEX `email_UNIQUE` (`email` ASC));
+
 CREATE TABLE `project`.`location` (
 `loc_id` INT NOT NULL AUTO_INCREMENT,
 `loc_name` VARCHAR(50) NOT NULL,
-gis_x INT NOT NULL,
-gis_y INT NOT NULL,
+gis_x double NOT NULL,
+gis_y double NOT NULL,
 mmsurl VARCHAR(200) ,
 PRIMARY KEY (`loc_id`));
+
 CREATE TABLE `project`.`board` (
 `board_id` INT NOT NULL AUTO_INCREMENT,
 `member_id` INT NOT NULL,
 `title` VARCHAR(60) NOT NULL,
 `textarea` TEXT NOT NULL,
-`photo` BLOB NULL,
+`photo` VARCHAR(60)  NULL,
 `upload_date` DATE NOT NULL,
 `loc_id` INT NULL,
 PRIMARY KEY (`board_id`),
@@ -39,10 +40,11 @@ ON DELETE RESTRICT
 ON UPDATE RESTRICT,
 CONSTRAINT `FK_board_loc`
 FOREIGN KEY (`loc_id`)
-REFERENCES `project`.`location` (`loc_name`)
+REFERENCES `project`.`location` (`loc_id`)
 ON DELETE RESTRICT
 ON UPDATE RESTRICT
 );
+
 CREATE TABLE project.reply (
 `reply_id` int(11) NOT NULL AUTO_INCREMENT,
 `member_id` int(11) NOT NULL,
@@ -61,7 +63,7 @@ REFERENCES `project`.`board` (`board_id`)
 ON DELETE RESTRICT
 ON UPDATE RESTRICT
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-SELECT * FROM project.board;
+
 CREATE TABLE project.pq_board (
 `board_id` int(11) NOT NULL AUTO_INCREMENT,
 `member_id` int(11) NOT NULL,
@@ -77,7 +79,7 @@ REFERENCES `project`.`member` (`member_id`)
 ON DELETE RESTRICT
 ON UPDATE RESTRICT
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-SELECT * FROM project.friends;
+
 CREATE TABLE project.pq_reply (
 `reply_id` int(11) NOT NULL AUTO_INCREMENT,
 `member_id` int(11) NOT NULL,
@@ -96,6 +98,7 @@ REFERENCES `project`.`member` (`member_id`)
 ON DELETE RESTRICT
 ON UPDATE RESTRICT
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 CREATE TABLE project.chart (
 `chart_id` int(11) NOT NULL AUTO_INCREMENT,
 `board_id` int(11) NOT NULL,
@@ -115,6 +118,7 @@ REFERENCES `project`.`location` (`loc_id`)
 ON DELETE RESTRICT
 ON UPDATE RESTRICT
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 CREATE TABLE project.friends (
 member_id INT NOT NULL,
 friend_id INT NOT NULL,
@@ -150,22 +154,22 @@ ON UPDATE RESTRICT
 );
 /*테스트용 값 삽입*/
 /*멤버*/
-INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `password`) VALUES ('keispace.kyj@gmail.com', '김영준', '01047874352', '141010', '1234');
-INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","김영준", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"1234");
+INSERT INTO `project`.`member` (`email`, `name`, `phone_number`, `join_date`, `password`) VALUES ('test', '김영준', '01047874352', '141010', 'MTIzNA==');
+INSERT INTO project.member(email, name, phone_number,join_date,password) Values("saint_kyj@naver.com","김영준", "07075911436",DATE_FORMAT("14.09.04","%y%m%d"),"MTIzNA==");
 /*친구*/
 INSERT INTO project.friends VALUES(1, 2, 0);
 INSERT INTO project.friends VALUES(2, 1, 0);
 /*지역*/
-INSERT INTO project.location(loc_name) VALUES("종묘");
+INSERT INTO project.location(loc_name, gis_x, gis_y) VALUES("SendWich",0,0);
 /*글*/
 INSERT INTO project.board(member_id,title, textarea,upload_date)
 VALUES(1,"공지입니다","관리잡니다. 관리자용 공지 테스트입니다.",DATE_FORMAT("14.10.11","%y%m%d"));
 INSERT INTO project.board(member_id,title, textarea,upload_date,loc_id)
 VALUES(1,"테스트","내용 무",DATE_FORMAT("14.10.12","%y%m%d"),1);
 /*평가*/
-INSERT INTO project.chart VALUES(2,1,"분위기","조용함",5);
-INSERT INTO project.chart VALUES(2,1,"분위기","엄숙함",3);
-INSERT INTO project.chart VALUES(2,1,"분위기","아즈넉함",7);
+INSERT INTO project.chart(board_id, loc_id, eva_type,eva_key,eva_value) VALUES(2,1,"분위기","조용함",5);
+INSERT INTO project.chart(board_id, loc_id, eva_type,eva_key,eva_value) VALUES(2,1,"분위기","엄숙함",3);
+INSERT INTO project.chart(board_id, loc_id, eva_type,eva_key,eva_value) VALUES(2,1,"분위기","아즈넉함",7);
 /*댓글*/
 INSERT INTO project.reply(member_id, board_id,reply_date,reply_text) VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"넹");
 INSERT INTO project.reply(member_id, board_id,reply_date,reply_text) VALUES(2,1,DATE_FORMAT("141012","%y%m%d"),"첫번째 댓글인가");

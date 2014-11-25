@@ -66,32 +66,24 @@ CONTROLLER
 
 </pre>
 
-
-
 <hr/>
 일단 작업 할 것들. 
-
-<h1>db</h1>
-
-<h1>main</h1> 
 
 <h1>join</h1> 
 -model 분리해야됨.
 -약관동의
 
-친구목록 안뜸!!
-
 <h1>게시판</h1>
+글쓰기
+-차트 빈칸=에러남.!
 
 글 수정 
--보드만 수정.
--지도 수정 안함. 
 -차트는 수정 불가. (지우고 다시 쓰도록)
 
-삭제
--보드만 삭제. 
--지도부분은 남김
--차트도 남김. 
+회원탈퇴시 게시글들 처리 방안
+모두 삭제-댓글삭제-차트는?
+골라서 db에서 빼자
+ 
 
 
 M:\workspace\JSP\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SendWich\upload

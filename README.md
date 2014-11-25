@@ -80,10 +80,10 @@ CONTROLLER
 -지도 수정 안함. 
 -차트는 수정 불가. (지우고 다시 쓰도록)
 
-삭제
--보드만 삭제. 
--지도부분은 남김
--차트도 남김. 
+회원탈퇴시 게시글들 처리 방안
+모두 삭제-댓글삭제-차트는?
+골라서 db에서 빼자
+ 
 
 
 M:\workspace\JSP\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SendWich\upload

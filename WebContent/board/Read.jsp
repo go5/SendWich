@@ -26,7 +26,9 @@
 		<!--  내용 -->
 		<div class="row">
 			<div class="span8">
+			<pre>
 				<p>${boardDTO.textarea}</p>
+			</pre>
 			</div>
 		</div>
 

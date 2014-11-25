@@ -191,28 +191,9 @@ public class MainController extends HttpServlet {
 		// 친구 관리
 		else if (cmd.equals("FRIENDS")) {// 친구 목록/추가
 			url = "friends?cmd=FRIENDS";
-		}
+		
 
-		// 글 보기
-		else if (cmd.equals("CONTENT")) {// 글 보기
-			// 보드 아이디 받아서 보내야함. .
-			boardDTO = boardDAO.GetBoard(Integer.parseInt(req.getParameter(
-					"board_id").trim()));
-			req.setAttribute("boardDTO", boardDTO);
-			// 리플 정보도 보내기
-			Vector replyList = boardDAO.GetReply(Integer.parseInt(req
-					.getParameter("board_id")));
-			req.setAttribute("replyList", replyList);
-			// 지도정보
-			mapDTO = mapDAO.getMap(boardDTO.getLoc_id());
-			req.setAttribute("mapDTO", mapDTO);
-			// 차트정보
-			chartList = chartDAO.getChart(boardDTO.getBoard_id());
-			req.setAttribute("chartList", chartList);
-
-			url = "/board/Read.jsp";
-
-			// 지도 검색
+				// 지도 검색
 		} else if (cmd.equals("MAP")) {
 			url = "/map/map.jsp";
 
@@ -265,7 +246,7 @@ public class MainController extends HttpServlet {
 			ServletContext ctx = req.getServletContext();
 			String path = ctx.getRealPath("/upload");
 			System.out.println(path);
-			int maxSize = 10 * 1024 * 1024;
+			int maxSize = 5 * 1024 * 1024;
 
 			MultipartRequest multi = new MultipartRequest(req, path, maxSize,
 					"utf-8", new DefaultFileRenamePolicy());
@@ -310,10 +291,63 @@ public class MainController extends HttpServlet {
 			}
 
 			url = "/main?cmd=INDEX";
+			// 글 보기
+		}else if (cmd.equals("CONTENT")) {// 글 보기
+				// 보드 아이디 받아서 보내야함. .
+				boardDTO = boardDAO.GetBoard(Integer.parseInt(req.getParameter(
+						"board_id")));
+				req.setAttribute("boardDTO", boardDTO);
+				// 리플 정보도 보내기
+				Vector replyList = boardDAO.GetReply(Integer.parseInt(req
+						.getParameter("board_id")));
+				req.setAttribute("replyList", replyList);
+				// 지도정보
+				mapDTO = mapDAO.getMap(boardDTO.getLoc_id());
+				req.setAttribute("mapDTO", mapDTO);
+				// 차트정보
+				chartList = chartDAO.getChart(boardDTO.getBoard_id());
+				req.setAttribute("chartList", chartList);
+
+				url = "/board/Read.jsp";
+
+
 //글 삭제
 		} else if (cmd.equals("DELBOARD")) {
 			boardDAO.delBoard(Integer.parseInt(req.getParameter("board_id")));
 	
+			url = "/main?cmd=INDEX";
+//글 수정
+		} else if (cmd.equals("UPDATEBOARD")) {
+			// 보드 아이디 받아서 보내야함. .
+			boardDTO = boardDAO.GetBoard(Integer.parseInt(req.getParameter(
+					"board_id")));
+			req.setAttribute("boardDTO", boardDTO);
+			// 지도정보
+			mapDTO = mapDAO.getMap(boardDTO.getLoc_id());
+			req.setAttribute("mapDTO", mapDTO);
+
+			
+			url = "/board/update.jsp";
+//글 수정프로세스			
+		} else if (cmd.equals("UPDATEPROC")) {
+			// 파일 저장.
+			ServletContext ctx = req.getServletContext();
+			String path = ctx.getRealPath("/upload");
+			System.out.println(path);
+			int maxSize = 5 * 1024 * 1024;
+
+			MultipartRequest multi = new MultipartRequest(req, path, maxSize,
+					"utf-8", new DefaultFileRenamePolicy());
+			// 입력 값을 보드에 추가.
+			int loc_id = (Integer.parseInt(multi.getParameter("loc_id")));
+			boardDTO = new BoardDTO();
+			boardDTO.setTitle(multi.getParameter("title"));
+			boardDTO.setTextarea(multi.getParameter("textarea"));
+			boardDTO.setPhoto(multi.getFilesystemName("photo"));
+			boardDTO.setLoc_id(loc_id);
+			boardDTO.setMember_id(mdto.getMember_id());
+			boardDAO.insertBoard(boardDTO);
+
 			url = "/main?cmd=INDEX";
 
 			

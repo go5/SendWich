@@ -16,7 +16,8 @@
 
 
 
-		<form method="post" action="main?cmd=POSTPROC" enctype="multipart/form-data">
+		<form method="post" action="main?cmd=POSTPROC"
+			enctype="multipart/form-data">
 			<input type="text" value="${mapDTO.loc_id}" id="loc_id" name="loc_id">
 			<div class="row">
 				<div class="span1">제목</div>
@@ -61,10 +62,9 @@
 			</div>
 
 			<div>
-				사진을 올려 주세요.(일단 한장. 이후에 추가예정.)<br />
-				파일은 jpg, png, gif 확장자만 가능합니다. 
-				<br/> <input type="file" class="text"
-					name="photo" id="photo" accept="image/jpeg, image/png, image/gif">
+				사진을 올려 주세요.(일단 한장. 이후에 추가예정.)<br /> 파일은 jpg, png, gif 확장자만
+				가능합니다.(최대 5mb) <br /> <input type="file" class="text" name="photo"
+					id="photo" accept="image/jpeg, image/png, image/gif">
 			</div>
 
 			<input type="button" onclick="fnSubmit(this.form)" class="btn"
@@ -80,14 +80,18 @@
 	<script>
 		//전송
 		function fnSubmit(f) {
-			var file = f.photo.value; 
+			var file = f.photo.value;
 			//그림파일인지 확장자 확인
-			if (uploadfile_check(file)) {
-				f.submit();
-				//업로드 파일이 그림 파일 형식에 맞으면 전송
-			} else {
-				return false;
+			if (file == "") {
+					f.submit();				
 			}
+
+				if (uploadfile_check(file)) {
+					f.submit();
+					//업로드 파일이 그림 파일 형식에 맞으면 전송
+				} else {
+					return false;
+				}
 		}
 		//업로드파일 확장자 확인.
 		function uploadfile_check(file) {
@@ -109,8 +113,7 @@
 				return false;
 			}
 		}
-		
-		
+
 		//맵 부분
 		var gis_x = ${mapDTO.gis_x};
 		var gis_y = ${mapDTO.gis_y};

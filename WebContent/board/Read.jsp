@@ -42,7 +42,7 @@
 		<!-- 관리버튼 -->
 		<div class="row">
 			<div class=" span3">
-				<a href="#"><img src="images/edit-icon.png">글 수정</a>
+				<a href="javascript:fnupdate();"><img src="images/edit-icon.png">글 수정</a>
 			</div>
 			<div class="span3">
 				<a href="javascript:fndel();"><img src="images/delete-icon.png">글 삭제</a>
@@ -67,9 +67,13 @@ function fndel(){
 	if(confirm("삭제 하시겠습니까?")){
 		alert("삭제하였습니다");
 	location.href="main?cmd=DELBOARD&board_id="+${boardDTO.board_id};		
-	}
-	
+	}	
 }
+
+function fnupdate(){
+	location.href="main?cmd=UPDATEBOARD&board_id="+${boardDTO.board_id};		
+}
+
 		var gis_x = ${mapDTO.gis_x};
 		var gis_y = ${mapDTO.gis_y};
 		var loc_name = '${mapDTO.loc_name}';

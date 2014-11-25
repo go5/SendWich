@@ -152,6 +152,7 @@ public class MainController extends HttpServlet {
 			// System.out.println("deletememproc");
 			String email = req.getParameter("email");
 			String pass = req.getParameter("password");
+			pass = Encode.encrypt(pass);
 			// 비번 검증
 			boolean flag = memberDAO.checkPass(email, pass);
 			// 검증에 따른 처리

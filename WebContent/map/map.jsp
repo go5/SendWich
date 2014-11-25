@@ -3,13 +3,13 @@
 <html>
 <head>
 <!-- 로컬호스트 키 
--->
 <script type="text/javascript"
 	src="//apis.daum.net/maps/maps3.js?apikey=7ee83b07a3b435aea3c512117428c032b498d81c&libraries=services"></script>
+-->
 
 <!-- 192.168.10.21
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=de78da4c647327ca076e1da781a14b50348fc85b&libraries=services"></script>
 -->
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=de78da4c647327ca076e1da781a14b50348fc85b&libraries=services"></script>
 
 <jsp:include page="/HeadInfo.jsp" />
 <style>

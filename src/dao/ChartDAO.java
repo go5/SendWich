@@ -61,89 +61,8 @@ public class ChartDAO {
 		return v;
 	}
 	
-	
-	
-	// 해당 지역의 차트 출력.
-	//지역에 따른 글 갯수를 찾고,
-	//글 갯수 만큼 돌려서 차트를 담고,
-	//담은 차트를 벡터에 담고.
-	public Vector locationChart(int loc_id) {
-		ChartDTO dto = null;
-		Vector<Integer> cnt = new Vector<Integer>();
-		Vector chartlist = new Vector();
-		HashMap datalist = new HashMap();
-		String sql = "select DISTINCT board_id from chart where loc_id=?";
-		String sql1 = "select * from chart where board_id=?";
-		// System.out.println(sql);
-		try {
-			con = pool.getConnection();
-			
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, loc_id);
-			rs = pstmt.executeQuery();
-			while(rs.next()){
-				cnt.add(rs.getInt("board_id"));
-			}
-			//System.out.println(cnt.size());
-	//해당 지역에 따른 글 번호와 갯수 = cnt, cnt.size()
-			//정보를 가진 데이터들을 저장.
-			for(int i =0;i<cnt.size();i++){
-				Vector chart = new Vector();
-
-				pstmt = con.prepareStatement(sql1);
-				pstmt.setInt(1, cnt.get(i));
-				rs = pstmt.executeQuery();
-				while(rs.next()){
-				dto = new ChartDTO();
-					dto.setEva_type(rs.getString("eva_type"));
-					dto.setEva_value(rs.getInt("eva_value"));
-					dto.setEva_key(rs.getString("eva_key"));
-					dto.setBoard_id(rs.getInt("board_id"));
-					dto.setChart_id(rs.getInt("chart_id"));
-					dto.setLoc_id(rs.getInt("loc_id"));
-					chart.add(dto);//그래프 하나 분량의 dto들.
-				}
-				chartlist.add(chart); //cnt만큼의 그래프들.
-				
-			}
-			
-			//그래프dto에서 배열별로 저장한 리스트를 저장.
-				for(int i=0; i<cnt.size(); i++){//그래프 수 만큼 반복.
-					Vector data=new Vector();//항목
-					Vector value=new Vector();//값
-					Vector titles=new Vector();//제목
-					
-					Vector v = (Vector)chartlist.get(i); //idx번째 그래프 꺼냄
-					for(int j=0;j<v.size();j++){		
-						dto = new ChartDTO();
-						dto = (ChartDTO)v.get(j);  //idx번째 그래프의 j번쨰 항목
-						System.out.println(dto.getBoard_id());
-						data.add(dto.getEva_key());
-						value.add(dto.getEva_value());
-						titles.add(dto.getEva_type());
-					}
-				datalist.put("data", data);
-				datalist.put("value", value);
-				datalist.put("titles", titles);
-				chartlist.add(datalist);
-				}
-		} catch (Exception err) {
-			err.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-
-		return chartlist;
-	}
-
-	
-	
-	
-	
-	
 //차트 입력
 	public void insertChart(ChartDTO dto){
-		System.out.println("dldldl");
 		String sql="";
 		try{
 			pool = DBConnectionMgr.getInstance();

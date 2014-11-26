@@ -44,7 +44,7 @@ public class MainController extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		resp.setCharacterEncoding("utf-8");
-		 System.out.println("maincont");
+	//	 System.out.println("maincont");
 		String url = "";
 		double gis_x = 0.0, gis_y = 0.0;
 		String loc_name = null;
@@ -225,9 +225,6 @@ public class MainController extends HttpServlet {
 					mapDTO.getLoc_id());
 			req.setAttribute("friboardList", friboardList);
 		//그래프 목록.
-			Vector locationChart = chartDAO.locationChart(mapDTO.getLoc_id());
-			req.setAttribute("locationChart", locationChart);
-			
 			
 			url = "/map/mapinfo.jsp";
 
@@ -253,37 +250,6 @@ public class MainController extends HttpServlet {
 			req.setAttribute("mapDTO", mapDTO);
 			url = "/board/post.jsp";
 
-			// 글 입력프로세스.
-		} else if (cmd.equals("POSTPROC")) {
-
-			// 파일 저장.
-			ServletContext ctx = req.getServletContext();
-			String path = ctx.getRealPath("/upload");
-			System.out.println(path);
-			int maxSize = 5 * 1024 * 1024;
-
-			MultipartRequest multi = new MultipartRequest(req, path, maxSize,
-					"utf-8", new DefaultFileRenamePolicy());
-			// 입력 값을 보드에 추가.
-			int loc_id = (Integer.parseInt(multi.getParameter("loc_id")));
-			boardDTO = new BoardDTO();
-			boardDTO.setTitle(multi.getParameter("title"));
-			boardDTO.setTextarea(multi.getParameter("textarea"));
-			boardDTO.setPhoto(multi.getFilesystemName("photo"));
-			boardDTO.setLoc_id(loc_id);
-			boardDTO.setMember_id(mdto.getMember_id());
-			boardDAO.insertBoard(boardDTO);
-
-			// 보드 id 가져옴
-			// 일단 지역+아이디 조합으로는 글이 하나만 나오니까 이렇게. 이후에 여러개 달 때를 준비할 필요.
-			Vector v = boardDAO.membermapBoradList(mdto.getMember_id(), loc_id);
-			boardDTO = (BoardDTO) v.get(0);
-			req.setAttribute("boardDTO", boardDTO);
-			// System.out.println(req.getParameter("value1"));
-			// 차트 입력(보드id 필요)
-			String title1 = multi.getParameter("title1");
-			String key1[] = multi.getParameterValues("key1");
-			String value1[] = null;
 			// 리플 작성
 		} else if (cmd.equals("POSTREPLY")) {
 			replyDTO = new ReplyDTO();
@@ -308,7 +274,6 @@ public class MainController extends HttpServlet {
  
 			// 글 입력프로세스.
 		} else if (cmd.equals("POSTPROC")) {
-			System.out.println("1");
 
 			// 파일 저장.
 			ServletContext ctx = req.getServletContext();
@@ -318,7 +283,6 @@ public class MainController extends HttpServlet {
 
 			MultipartRequest multi = new MultipartRequest(req, path, maxSize,
 					"utf-8", new DefaultFileRenamePolicy());
-			System.out.println("1");
 			// 입력 값을 보드에 추가.
 			int loc_id = (Integer.parseInt(multi.getParameter("loc_id")));
 			boardDTO = new BoardDTO();
@@ -333,15 +297,12 @@ public class MainController extends HttpServlet {
 			Vector v = boardDAO.membermapBoradList(mdto.getMember_id(), loc_id);
 			boardDTO = (BoardDTO) v.get(0);
 			req.setAttribute("boardDTO", boardDTO);
-			System.out.println("1");
 			// System.out.println(req.getParameter("value1"));
 			// 차트 입력(보드id 필요)
 			String title1 = multi.getParameter("title1");
 			String key1[] = multi.getParameterValues("key1");
 			String value1[] = null;
-			System.out.println("1");
 			if (!multi.getParameterValues("value1").equals("") || multi.getParameterValues("value1") !=null ) {
-				System.out.println("1");
 				value1 = multi.getParameterValues("value1");
 			} else {
 				for (int i = 0; i < key1.length; i++) {
@@ -349,9 +310,7 @@ public class MainController extends HttpServlet {
 					value1[i] = "0";
 				}
 			}
-			System.out.println("1");
 			if (title1 != "") {
-				System.out.println("1");
 				for (int i = 0; i < key1.length; i++) {
 					chartDTO = new ChartDTO();
 					chartDTO.setEva_type(title1);

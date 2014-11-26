@@ -224,7 +224,7 @@ public class MainController extends HttpServlet {
 			friboardList = boardDAO.friendmapBoradList(mdto.getMember_id(),
 					mapDTO.getLoc_id());
 			req.setAttribute("friboardList", friboardList);
-		//그래프 목록.
+		그래프 목록.
 			
 			url = "/map/mapinfo.jsp";
 

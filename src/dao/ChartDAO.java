@@ -83,4 +83,57 @@ public class ChartDAO {
 			pool.freeConnection(con, pstmt, rs);
 		}
 	}
+//해당 지역 등록된 보드번호 조회.
+	public Vector getLocalBoardList(int loc_id) {
+		ChartDTO dto = null;
+		String sql = null;
+		Vector localboardList = new Vector();
+		try {
+			pool = DBConnectionMgr.getInstance();
+			con = pool.getConnection();
+
+			sql = "select board_id from chart where loc_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, loc_id);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				localboardList.add(rs.getString("board_id"));
+			}
+
+		} catch (Exception e) {
+			System.out.println("getList(): ");
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return localboardList;
+	}
+//보드번호 목록으로 차트 호출.
+	public Vector getLocalChart(Vector localboardList) {
+		ChartDTO dto = null;
+		String sql = null;
+		Vector v = new Vector();
+		try {
+			pool = DBConnectionMgr.getInstance();
+			con = pool.getConnection();
+
+			sql = "select * from chart where board_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, loc_id);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				v.add(rs.getString("board_id"));
+			}
+
+		} catch (Exception e) {
+			System.out.println("getList(): ");
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return v;
+	}
+
 }

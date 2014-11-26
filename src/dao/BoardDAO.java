@@ -180,6 +180,30 @@ public class BoardDAO {
 			pool.freeConnection(con, pstmt, rs);
 		}
 	}
+
+	// 글 수정
+	public void updateBoard(BoardDTO dto) {
+		String sql = "";
+		try {
+			con = pool.getConnection();
+			
+			sql = "UPDATE board SET title=?, textarea=?, photo=? WHERE board_id=?";
+			
+			// System.out.println("글쓰기"+dto.getTitle());
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getTextarea());
+			pstmt.setString(3, dto.getPhoto());
+			pstmt.setInt(4, dto.getBoard_id());
+			pstmt.executeUpdate();
+			
+		} catch (Exception err) {
+			err.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+	}
 	
 	// 글 삭제
 	public void delBoard(int board_id) {

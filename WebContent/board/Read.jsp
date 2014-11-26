@@ -23,6 +23,7 @@
 		</c:if>
 		<!-- 제목 -->
 		<h3>${boardDTO.title}</h3>
+		${boardDTO.name}
 		<!--  내용 -->
 		<div class="row">
 			<div class="span8">
@@ -43,12 +44,14 @@
 		<div class="clear"></div>
 		<!-- 관리버튼 -->
 		<div class="row">
+		<c:if test="${memberDTO.member_id eq boardDTO.member_id}">
 			<div class=" span3">
 				<a href="javascript:fnupdate();"><img src="images/edit-icon.png">글 수정</a>
 			</div>
 			<div class="span3">
 				<a href="javascript:fndel();"><img src="images/delete-icon.png">글 삭제</a>
 			</div>
+		</c:if>
 			<div class="span3">
 				<a href="main?cmd=INDEX"><img src="images/list-icon.png">목록으로</a>
 			</div>

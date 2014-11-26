@@ -18,7 +18,7 @@
 							<form action="main?cmd=REGMEM" method="post" name="join" id="join">
 								<h3>Join Us</h3>
 								<div>
-									<label>Eamil<span>*</span></label> <input type="text"
+									<label>Email<span>*</span></label> <input type="text"
 										readonly="readonly" name="email" id="email" value="${email }" />
 								</div>
 								<div>
@@ -71,7 +71,7 @@
 		var pwd1 = document.getElementById("pwd1").value;
 		var pwd2 = document.getElementById("pwd2").value;
 
-		if (pwd1.length < 4 || pwd1.length < 4) {
+		if (pwd1.length < 4) {
 			alert("4글자 이상 써주세요.");
 		}
 	}

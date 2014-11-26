@@ -346,7 +346,8 @@ public class MainController extends HttpServlet {
 			boardDTO.setPhoto(multi.getFilesystemName("photo"));
 			boardDTO.setLoc_id(loc_id);
 			boardDTO.setMember_id(mdto.getMember_id());
-			boardDAO.insertBoard(boardDTO);
+			boardDTO.setBoard_id(Integer.parseInt(multi.getParameter("board_id")));
+			boardDAO.updateBoard(boardDTO);
 
 			url = "/main?cmd=INDEX";
 

@@ -96,12 +96,11 @@ CONTROLLER
 -메인페이지 기능 분리
 -회원관리 db연결 dbcp 적용
 -차트 기능 개선(수정, 삭제)
--글쓰기 기능 개선(차트 공란시 에러)
+-글쓰기 기능 개선(차트 공란시 에러, 범위(0-10)제한)
 -회원가입 약관 추가.
 -지도 검색결과에서 친구글목록과 회원 그래프 보여주기.
 -메인화면 이미지교체
  
-
 </pre>
 
 M:\workspace\JSP\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SendWich\upload

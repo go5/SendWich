@@ -31,12 +31,9 @@
 					placeholder="하고싶은 이야기가 더 있나요?"></textarea>
 			</div>
 
-			평가표 작성 들어갈 자리
-
-
 			<div id="field1">
 				<div>
-					<h2>평가</h2>
+					<h2>평가(항목은 최소3개 이상, 값은 0~10 범위입니다.)</h2>
 					<div>
 						<span>주제</span> <input type="text" name="title1" id="title1" />
 					</div>
@@ -81,9 +78,29 @@
 		//전송
 		function fnSubmit(f) {
 			var file = f.photo.value;
+			var chartKey = document.getElementById("key1");
+			var chartVal = document.getElementById("value1");
+			//주제 안쓰면 입력 안됨.
+			
+			for(var i=0;i<chartKey.length;i++){//항목-키 쌍 확인.
+				if(chartKey[i] == null){
+					continue;
+				}
+				if(chartVal[i] ==null){
+					alert("항목에 대한 값이 비어있습니다");
+					chartVal[i].focus();
+					return false;
+				}else if(chartVal[i].value >10 || chartVal[i].value >=0 ){
+					alert("값 범위를 벗어났습니다.");
+					chartVal[i].focus();
+					return false;
+				}
+			}
+			
+			
 			//그림파일인지 확장자 확인
 			if (file == "") {
-					f.submit();				
+				return true;		
 			}
 
 				if (uploadfile_check(file)) {

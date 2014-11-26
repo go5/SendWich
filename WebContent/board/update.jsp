@@ -19,6 +19,7 @@
 
 		<form method="post" action="main?cmd=UPDATEPROC" enctype="multipart/form-data">
 			<input type="hidden" value="${mapDTO.loc_id}" id="loc_id" name="loc_id">
+			<input type="hidden" value="${boardDTO.board_id}" id="board_id" name="board_id">
 			<div class="row">
 				<div class="span1">제목</div>
 				<input class="span11" type="text" class="text" name="title"

@@ -1,4 +1,4 @@
-<%@page import="encode.Encode"%>
+<%@page import="util.Encode"%>
 <%@page import="dto.MemberDTO"%>
 
 <%@ page language="java" import="java.sql.*"

@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<jsp:include page="HeadInfo.jsp"/>
+<jsp:include page="/HeadInfo.jsp"/>
 </head>
 <body>
 	<!---start-wrap---->

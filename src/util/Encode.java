@@ -1,4 +1,4 @@
-package encode;
+package util;
 
 import java.io.IOException;
 

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import util.Encode;
 import util.fileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -28,7 +29,6 @@ import dto.ChartDTO;
 import dto.MapDTO;
 import dto.MemberDTO;
 import dto.ReplyDTO;
-import encode.Encode;
 
 public class MainController extends HttpServlet {
 
@@ -350,7 +350,6 @@ public class MainController extends HttpServlet {
 
 			url = "/main?cmd=INDEX";
 
-			
 			// 게임보드 글 쓰기.
 		} else if (cmd.equals("pqWrite")) {
 			url = "pq_board?cmd=write";

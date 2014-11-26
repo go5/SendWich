@@ -9,7 +9,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<jsp:include page="HeadInfo.jsp"/>
+<jsp:include page="/HeadInfo.jsp"/>
 </head>
 <body>
 	<!---start-wrap---->

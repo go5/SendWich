@@ -80,10 +80,9 @@
 
 
 		<hr />
-		친구의 글 목록 호출 WHERE 장소가 여기 인 곳.<br />
 		<h3>내 친구들이 평가한 이 장소</h3>
 		<div class="row">
-			<c:forEach var="listdto" items="${boardList}">
+			<c:forEach var="listdto" items="${friboardList}">
 
 				<div class="span5"
 					style="text-overflow: ellipsis; overflow: hidden;">

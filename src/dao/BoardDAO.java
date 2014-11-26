@@ -65,7 +65,7 @@ public class BoardDAO {
 		return boardList;
 	}
 
-	// 지도아이디와 멤버아이디를 받아서 글 목록 꺼내옴.
+	// 현지 지역의 본인이 쓴 글.
 	// 현재는 지보+멤버는 글 1개분인데 확장고려해서 vector
 	public Vector membermapBoradList(int member_id, int loc_id) {
 		Vector boardList = new Vector();
@@ -98,6 +98,39 @@ public class BoardDAO {
 		return boardList;
 	}
 
+	// 현지 지역의 친구가 쓴 글.
+	// 현재는 지보+멤버는 글 1개분인데 확장고려해서 vector
+	public Vector friendmapBoradList(int member_id, int loc_id) {
+		Vector boardList = new Vector();
+		String sql = "SELECT * FROM board WHERE loc_id = ? AND member_id IN (SELECT friend_id FROM friends WHERE invited=1 AND member_id=?)";
+		try {
+			con = pool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, loc_id);
+			pstmt.setInt(2, member_id);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				BoardDTO boardDTO = new BoardDTO();
+				boardDTO.setBoard_id(rs.getInt("board_id"));
+				boardDTO.setMember_id(rs.getInt("member_id"));
+				boardDTO.setLoc_id(rs.getInt("loc_id"));
+				boardDTO.setTitle(rs.getString("title"));
+				boardDTO.setTextarea(rs.getString("textarea"));
+				boardDTO.setPhoto(rs.getString("photo"));
+				boardDTO.setUpload_date(rs.getString("upload_date"));
+				boardList.add(boardDTO);
+			}
+			
+		} catch (Exception err) {
+			err.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		
+		return boardList;
+	}
+	
 	public BoardDTO GetBoard(int board_id) {// 선택 게시물 출력
 		BoardDTO boardDTO = new BoardDTO();
 		String sql = "SELECT * FROM board br JOIN location loc1 ON(br.loc_id=loc1.loc_id) "

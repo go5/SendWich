@@ -61,6 +61,7 @@ public class MainController extends HttpServlet {
 		ReplyDTO replyDTO = null;
 
 		Vector memboardList = null;
+		Vector friboardList = null;
 		Vector boardList = null;
 		Vector chartList = null;
 
@@ -211,10 +212,16 @@ public class MainController extends HttpServlet {
 			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);
 			req.setAttribute("mapDTO", mapDTO);
 
-			// System.out.println("꺼내온거:"+mapDTO.getLoc_id());
+			//본인글
 			memboardList = boardDAO.membermapBoradList(mdto.getMember_id(),
 					mapDTO.getLoc_id());
 			req.setAttribute("memboardList", memboardList);
+			//친구글
+			friboardList = boardDAO.friendmapBoradList(mdto.getMember_id(),
+					mapDTO.getLoc_id());
+			req.setAttribute("friboardList", friboardList);
+			
+			
 			url = "/map/mapinfo.jsp";
 
 			// 리플 작성
@@ -270,7 +277,60 @@ public class MainController extends HttpServlet {
 			String title1 = multi.getParameter("title1");
 			String key1[] = multi.getParameterValues("key1");
 			String value1[] = null;
-			if (multi.getParameterValues("value1") != null) {
+			// 리플 작성
+		} else if (cmd.equals("POSTREPLY")) {
+			replyDTO = new ReplyDTO();
+			replyDTO.setBoard_id(Integer.parseInt(req.getParameter("board_id")));
+			replyDTO.setMember_id(mdto.getMember_id());
+			replyDTO.setReply_text(req.getParameter("reply_text"));
+			boardDAO.insertReply(replyDTO);
+			url = "/main?cmd=CONTENT&board_id=" + req.getParameter("board_id");
+			// 리플 삭제
+		} else if (cmd.equals("DELREPLY")) {
+			int reply_id = Integer.parseInt(req.getParameter("reply_id"));
+			boardDAO.delReply(reply_id);
+			url = "/main?cmd=CONTENT&board_id=" + req.getParameter("board_id");
+
+			// 글쓰기
+		} else if (cmd.equals("POST")) {
+			int loc_id = Integer.parseInt(req.getParameter("loc_id"));
+
+			mapDTO = mapDAO.getMap(loc_id);
+			req.setAttribute("mapDTO", mapDTO);
+			url = "/board/post.jsp";
+
+			// 글 입력프로세스.
+		} else if (cmd.equals("POSTPROC")) {
+
+			// 파일 저장.
+			ServletContext ctx = req.getServletContext();
+			String path = ctx.getRealPath("/upload");
+			System.out.println(path);
+			int maxSize = 5 * 1024 * 1024;
+
+			MultipartRequest multi = new MultipartRequest(req, path, maxSize,
+					"utf-8", new DefaultFileRenamePolicy());
+			// 입력 값을 보드에 추가.
+			int loc_id = (Integer.parseInt(multi.getParameter("loc_id")));
+			boardDTO = new BoardDTO();
+			boardDTO.setTitle(multi.getParameter("title"));
+			boardDTO.setTextarea(multi.getParameter("textarea"));
+			boardDTO.setPhoto(multi.getFilesystemName("photo"));
+			boardDTO.setLoc_id(loc_id);
+			boardDTO.setMember_id(mdto.getMember_id());
+			boardDAO.insertBoard(boardDTO);
+
+			// 보드 id 가져옴
+			// 일단 지역+아이디 조합으로는 글이 하나만 나오니까 이렇게. 이후에 여러개 달 때를 준비할 필요.
+			Vector v = boardDAO.membermapBoradList(mdto.getMember_id(), loc_id);
+			boardDTO = (BoardDTO) v.get(0);
+			req.setAttribute("boardDTO", boardDTO);
+			// System.out.println(req.getParameter("value1"));
+			// 차트 입력(보드id 필요)
+			String title1 = multi.getParameter("title1");
+			String key1[] = multi.getParameterValues("key1");
+			String value1[] = null;
+			if (!multi.getParameterValues("value1").equals("") || multi.getParameterValues("value1") !=null ) {
 				value1 = multi.getParameterValues("value1");
 			} else {
 				for (int i = 0; i < key1.length; i++) {

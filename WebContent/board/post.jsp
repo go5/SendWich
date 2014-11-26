@@ -17,8 +17,9 @@
 
 
 		<form method="post" action="main?cmd=POSTPROC"
-			enctype="multipart/form-data">
-			<input type="text" value="${mapDTO.loc_id}" id="loc_id" name="loc_id">
+			enctype="multipart/form-data" onsubmit="return fnSubmit(this)" >
+			<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"
+				name="loc_id">
 			<div class="row">
 				<div class="span1">제목</div>
 				<input class="span11" type="text" class="text" name="title"
@@ -33,9 +34,11 @@
 
 			<div id="field1">
 				<div>
-					<h2>평가(항목은 최소3개 이상, 값은 0~10 범위입니다.)</h2>
+					<h2>평가</h2>
+					항목은 최소3개 이상, 값은 0~10 범위입니다. 빈칸으로 둘 수 없습니다.<br/>
+					제목을 비우면 그래프가 작성되지 않습니다.
 					<div>
-						<span>주제</span> <input type="text" name="title1" id="title1" />
+						<span>제목</span> <input type="text" name="title1" id="title1" />
 					</div>
 				</div>
 				<!-- 항목은 3개 받게 일단 고정. -->
@@ -51,7 +54,7 @@
 					<div style="clear: both;"></div>
 				</c:forEach>
 				<div id="addchartzone"></div>
-				<!-- 현재 기능 없음. 이후 항목추가 기능. -->
+				<!-- 항목추가 구역. -->
 				<div>
 					<input type="button" class="btn" id="add1" value="+"
 						onclick="fnAddItem()" />
@@ -64,8 +67,8 @@
 					id="photo" accept="image/jpeg, image/png, image/gif">
 			</div>
 
-			<input type="button" onclick="fnSubmit(this.form)" class="btn"
-				value="Send!" /> <input type="button" class="btn" value="뒤로가기"
+			<input type="submit" class="btn" value="Send!" /> <input
+				type="button" class="btn" value="뒤로가기"
 				onclick="javascript:history.back();" />
 		</form>
 
@@ -78,38 +81,39 @@
 		//전송
 		function fnSubmit(f) {
 			var file = f.photo.value;
-			var chartKey = document.getElementById("key1");
-			var chartVal = document.getElementById("value1");
-			//주제 안쓰면 입력 안됨.
-			
-			for(var i=0;i<chartKey.length;i++){//항목-키 쌍 확인.
-				if(chartKey[i] == null){
-					continue;
+			var chartKey = document.getElementsByName("key1");
+			var chartVal = document.getElementsByName("value1");
+
+			//주제 안쓰면 입력 안됨(패스), 
+			if (document.getElementById("title1").value != "") {
+				
+				for (var i = 0; i < chartKey.length; i++) {
+
+					//항목-값 쌍이 있어야함(안맞으면 스톱). 
+					if (chartKey[i].value == "" && chartVal[i].value == "") {
+						alert("항목과 값은 빌 수 없습니다.");
+						return false;
+					}
+
+					//값은 1~10까지(안맞으면 스톱).
+					if (chartVal[i].value > 10 || chartVal[i].value < 0) {
+						alert("값 범위를 벗어났습니다.");
+						return false;
+					}
 				}
-				if(chartVal[i] ==null){
-					alert("항목에 대한 값이 비어있습니다");
-					chartVal[i].focus();
-					return false;
-				}else if(chartVal[i].value >10 || chartVal[i].value >=0 ){
-					alert("값 범위를 벗어났습니다.");
-					chartVal[i].focus();
-					return false;
-				}
-			}
-			
-			
-			//그림파일인지 확장자 확인
-			if (file == "") {
-				return true;		
 			}
 
-				if (uploadfile_check(file)) {
-					f.submit();
-					//업로드 파일이 그림 파일 형식에 맞으면 전송
-				} else {
-					return false;
-				}
+			//그림파일인지 확장자 확인
+			if (file == "") {
+				return true;
+			}else if (uploadfile_check(file)) {
+				f.submit();
+				//업로드 파일이 그림 파일 형식에 맞으면 전송
+			} else {
+				return false;
+			}
 		}
+
 		//업로드파일 확장자 확인.
 		function uploadfile_check(file) {
 			var str_dotlocation, str_ext, str_low;

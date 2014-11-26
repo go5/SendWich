@@ -44,7 +44,7 @@ public class MainController extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		resp.setCharacterEncoding("utf-8");
-		// System.out.println("maincont");
+		 System.out.println("maincont");
 		String url = "";
 		double gis_x = 0.0, gis_y = 0.0;
 		String loc_name = null;
@@ -71,6 +71,8 @@ public class MainController extends HttpServlet {
 			boardList = boardDAO.BoradList(mdto.getMember_id());
 			req.setAttribute("boardList", boardList);
 		}
+		
+		
 		// 커맨드 분기 시작점.
 		if (cmd == null || cmd.equals("INDEX")) {// 메인
 
@@ -303,7 +305,7 @@ public class MainController extends HttpServlet {
 			mapDTO = mapDAO.getMap(loc_id);
 			req.setAttribute("mapDTO", mapDTO);
 			url = "/board/post.jsp";
-
+ 
 			// 글 입력프로세스.
 		} else if (cmd.equals("POSTPROC")) {
 			System.out.println("1");

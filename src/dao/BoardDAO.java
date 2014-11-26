@@ -131,6 +131,8 @@ public class BoardDAO {
 		return boardList;
 	}
 	
+
+	
 	public BoardDTO GetBoard(int board_id) {// 선택 게시물 출력
 		BoardDTO boardDTO = new BoardDTO();
 		String sql = "SELECT * FROM board br JOIN location loc1 ON(br.loc_id=loc1.loc_id) "

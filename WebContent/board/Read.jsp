@@ -34,9 +34,9 @@
 		</div>
 
 			<!-- 평가표 -->
-			<c:if test="${! empty chartList }">
+			<c:if test="${! empty chartList }" >
 		<div class="row">
-			<div class="span5" style="border: 1px solid #000000">
+			<div class="span5" >
 			 	<jsp:include page="/chart/Chart_Read.jsp" />
 			</div>
 		</div>

@@ -9,13 +9,15 @@
 		${localChart}
 	<%
 	Vector ChartDto;
-		ChartDto = (Vector)request.getAttribute("chartList");//리드에서 오는 녀석
+	//그래프 1개 분량의 벡터를 받음.
+	
 	
 	
 		int val[]= new int[36];
 		String key[] = new String[36];
 		String title[] = new String[36];
 		
+		//각 항목(dto)를 추출해서 키, 값, 주제 별로 배열로 담음.
 		for(int i=0; i<ChartDto.size() ; i++){
 			ChartDTO dto = (ChartDTO)ChartDto.get(i);
 			val[i] = dto.getEva_value();
@@ -23,7 +25,6 @@
 			title[i] = dto.getEva_type();
 		}
 		
-// 		불러온 값을 차트에 뿌려질 ArrayList로 변경
 		ArrayList data=new ArrayList();//항목
 		ArrayList value=new ArrayList();//값
 		ArrayList titles=new ArrayList();//값
@@ -42,7 +43,7 @@
 	<script>
 		var options = {
 			'legend':{
-				names: <%=data%>,
+				names: <%=data%>
 					},
 			'dataset': {
 				title: 'Web accessibility status',

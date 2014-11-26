@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel='stylesheet' href='chart/Nwagon.css' type='text/css'>
 
 <jsp:include page="/HeadInfo.jsp" />
 </head>
@@ -29,12 +30,13 @@
 					<c:when test="${empty memboardList}">
 						<div class="hero-unit" style="background-color: lightgray">
 							<form method="post" action="main?cmd=POST" id="hiddenpost"
-												name="hiddenpost">
+								name="hiddenpost">
 								<input type="hidden" value="${mapDTO.loc_name }" id="loc_name"
-									name="loc_name"> 
-									<input type="hidden"	value="${mapDTO.gis_x }" id="gis_x" name="gis_x">
-									<input type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
-								<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"name="loc_id">
+									name="loc_name"> <input type="hidden"
+									value="${mapDTO.gis_x }" id="gis_x" name="gis_x"> <input
+									type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
+								<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"
+									name="loc_id">
 
 								<h1>본인 글쓰기</h1>
 								<p>본인이 이 장소에 대해서 쓴 글이 없으면 글쓰기 링크로.</p>
@@ -54,11 +56,12 @@
 								<form method="post" action="main?cmd=POST" id="hiddenpost"
 									name="hiddenpost">
 									<input type="hidden" value="${mapDTO.loc_name }" id="loc_name"
-									name="loc_name"> 
-									<input type="hidden"	value="${mapDTO.gis_x }" id="gis_x" name="gis_x">
-									<input type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
-								<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"name="loc_id">
-								<img src="images/single-post-pic.jpg" class="img-rounded">
+										name="loc_name"> <input type="hidden"
+										value="${mapDTO.gis_x }" id="gis_x" name="gis_x"> <input
+										type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
+									<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"
+										name="loc_id"> <img src="images/single-post-pic.jpg"
+										class="img-rounded">
 									<h2>${listdto.title}</h2>
 									<p>
 										<nobr>${listdto.textarea} </nobr>
@@ -102,15 +105,40 @@
 
 		<hr />
 		<h3>회원님들이 평가한 이 장소</h3>
-		<div class="row">그래프들 호출</div>
+
+	<script src='chart/Nwagon.js'></script>
+		<div class="row">
+			<c:forEach var="localChart" items="${locationChart}">
+					<div class="span4"  >
+				${locationChart}
+					</div>
+						<script>
+							// 차트 변수
+							var options = {
+								'legend' : {
+									names : ['일','이','삼'],
+								},
+								'dataset' : {
+									title : 'Web accessibility status',
+									values : [ [10,20,30 ]],
+									bgColor : '#f9f9f9',
+									fgColor : '#cc79a7'
+								},
+								'chartDiv' : 'chart11',
+								'chartType' : 'radar',
+								'chartSize' : {
+									width : 300,
+									height : 270
+								}
+							};
+							Nwagon.chart(options);
+						</script>
+			</c:forEach>
+		</div>
+		<div class="clear"></div>
+
 
 	</div>
-
-
-
-
-
-
 
 
 	<jsp:include page="mapkey.html" />

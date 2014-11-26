@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
@@ -77,7 +78,7 @@ public class MainController extends HttpServlet {
 		} else if (cmd.equals("ABOUTUS")) {// 메인의 소개글.
 			url = "/board/aboutus.jsp";
 		}
-		// 로그인 부분
+// 로그인 부분
 		else if (cmd.equals("LOGINPROC")) {// 로그인 프록시
 			url = "/Join_v1/login_Proc.jsp";
 
@@ -109,11 +110,12 @@ public class MainController extends HttpServlet {
 
 			url = "/Join_v1/passEditComplete.jsp";
 		}
-		// 회원 정보 조회/ 수정
+// 회원 정보 조회/ 수정
 		else if (cmd.equals("MEMINFO")) {// 회원정보 조회/수정창
 			// System.out.println("meminfo");
 			url = "/Join_v1/EditMember.jsp";
-		} else if (cmd.equals("EDITINFO")) {// 정보 수정
+// 정보 수정
+		} else if (cmd.equals("EDITINFO")) {
 			// System.out.println("editinfo");
 			// model이동해야함.
 
@@ -143,7 +145,7 @@ public class MainController extends HttpServlet {
 			req.setAttribute("flag", flag);
 			url = "/Join_v1/editmember_Proc.jsp";
 		}
-		// 회원 탈퇴
+// 회원 탈퇴
 		else if (cmd.equals("DELETEMEM")) {// 삭제확인창
 			// System.out.println("deletemem");
 			String email = req.getParameter("email");
@@ -165,12 +167,12 @@ public class MainController extends HttpServlet {
 			url = "/Join_v1/deletemember_Proc.jsp";
 		}
 
-		// 로그아웃
+// 로그아웃
 		else if (cmd.equals("LOGOUT")) {// 로그아웃
 			// model?
 			url = "/Join_v1/logout_Proc.jsp";
 		}
-		// 회원 가입
+// 회원 가입
 		else if (cmd.equals("JOIN")) {// 회원가입:메일중복검사
 			url = "/Join_v1/Emaildup.jsp";
 		} else if (cmd.equals("VALIDEMAIL")) {// 메일 중복 검사
@@ -183,18 +185,18 @@ public class MainController extends HttpServlet {
 			url = "/Join_v1/join_Proc.jsp";
 		}
 
-		// 메세지 보드
+// 메세지 보드
 		else if (cmd.equals("MSGLIST")) {// 쪽지글목록 보기
 			// 보드 아이디 받아서 보내야함. .
 			url = "msg?cmd=MSGLIST";
 		}
 
-		// 친구 관리
+// 친구 관리
 		else if (cmd.equals("FRIENDS")) {// 친구 목록/추가
 			url = "friends?cmd=FRIENDS";
 		
 
-				// 지도 검색
+// 지도 검색
 		} else if (cmd.equals("MAP")) {
 			url = "/map/map.jsp";
 
@@ -220,6 +222,9 @@ public class MainController extends HttpServlet {
 			friboardList = boardDAO.friendmapBoradList(mdto.getMember_id(),
 					mapDTO.getLoc_id());
 			req.setAttribute("friboardList", friboardList);
+		//그래프 목록.
+			Vector locationChart = chartDAO.locationChart(mapDTO.getLoc_id());
+			req.setAttribute("locationChart", locationChart);
 			
 			
 			url = "/map/mapinfo.jsp";
@@ -301,6 +306,7 @@ public class MainController extends HttpServlet {
 
 			// 글 입력프로세스.
 		} else if (cmd.equals("POSTPROC")) {
+			System.out.println("1");
 
 			// 파일 저장.
 			ServletContext ctx = req.getServletContext();
@@ -310,6 +316,7 @@ public class MainController extends HttpServlet {
 
 			MultipartRequest multi = new MultipartRequest(req, path, maxSize,
 					"utf-8", new DefaultFileRenamePolicy());
+			System.out.println("1");
 			// 입력 값을 보드에 추가.
 			int loc_id = (Integer.parseInt(multi.getParameter("loc_id")));
 			boardDTO = new BoardDTO();
@@ -319,18 +326,20 @@ public class MainController extends HttpServlet {
 			boardDTO.setLoc_id(loc_id);
 			boardDTO.setMember_id(mdto.getMember_id());
 			boardDAO.insertBoard(boardDTO);
-
 			// 보드 id 가져옴
 			// 일단 지역+아이디 조합으로는 글이 하나만 나오니까 이렇게. 이후에 여러개 달 때를 준비할 필요.
 			Vector v = boardDAO.membermapBoradList(mdto.getMember_id(), loc_id);
 			boardDTO = (BoardDTO) v.get(0);
 			req.setAttribute("boardDTO", boardDTO);
+			System.out.println("1");
 			// System.out.println(req.getParameter("value1"));
 			// 차트 입력(보드id 필요)
 			String title1 = multi.getParameter("title1");
 			String key1[] = multi.getParameterValues("key1");
 			String value1[] = null;
+			System.out.println("1");
 			if (!multi.getParameterValues("value1").equals("") || multi.getParameterValues("value1") !=null ) {
+				System.out.println("1");
 				value1 = multi.getParameterValues("value1");
 			} else {
 				for (int i = 0; i < key1.length; i++) {
@@ -338,7 +347,9 @@ public class MainController extends HttpServlet {
 					value1[i] = "0";
 				}
 			}
+			System.out.println("1");
 			if (title1 != "") {
+				System.out.println("1");
 				for (int i = 0; i < key1.length; i++) {
 					chartDTO = new ChartDTO();
 					chartDTO.setEva_type(title1);

@@ -16,11 +16,14 @@
 		<!-- 지도 -->
 		<div id="staticMap" style="width: 100%; height: 300px"></div>
 
-		<!-- 사진 부분 없으면 걍 생략.-->
-		<c:if test="${!empty boardDTO.photo}">
-			<img src="upload/${boardDTO.photo}" align="middle" class="img-rounded"
-				title="${mapDTO.loc_name}">
-		</c:if>
+		<!-- 사진 부분 없으면 기본 이미지-->
+						<c:if test="${!empty boardDTO.photo}">
+							<img src="upload/${boardDTO.photo}" class="img-rounded" align="middle"
+								>
+						</c:if>
+						<c:if test="${empty boardDTO.photo}">
+						<img src="images/single-post-pic.jpg" class="img-rounded">
+						</c:if>
 		<!-- 제목 -->
 		<h3>${boardDTO.title}</h3>
 		${boardDTO.name}

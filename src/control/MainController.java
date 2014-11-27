@@ -223,29 +223,7 @@ public class MainController extends HttpServlet {
 			mapDTO.getLoc_id());
 			req.setAttribute("friboardList", friboardList);
 			url = "/map/mapinfo.jsp";
-
-			// 리플 작성
-		} else if (cmd.equals("POSTREPLY")) {
-			replyDTO = new ReplyDTO();
-			replyDTO.setBoard_id(Integer.parseInt(req.getParameter("board_id")));
-			replyDTO.setMember_id(mdto.getMember_id());
-			replyDTO.setReply_text(req.getParameter("reply_text"));
-			boardDAO.insertReply(replyDTO);
-			url = "/main?cmd=CONTENT&board_id=" + req.getParameter("board_id");
-			// 리플 삭제
-		} else if (cmd.equals("DELREPLY")) {
-			int reply_id = Integer.parseInt(req.getParameter("reply_id"));
-			boardDAO.delReply(reply_id);
-			url = "/main?cmd=CONTENT&board_id=" + req.getParameter("board_id");
-
-			// 글쓰기
-		} else if (cmd.equals("POST")) {
-			int loc_id = Integer.parseInt(req.getParameter("loc_id"));
-
-			mapDTO = mapDAO.getMap(loc_id);
-			req.setAttribute("mapDTO", mapDTO);
-			url = "/board/post.jsp";
-
+			
 			// 리플 작성
 		} else if (cmd.equals("POSTREPLY")) {
 			replyDTO = new ReplyDTO();
@@ -363,7 +341,6 @@ public class MainController extends HttpServlet {
 			String path = ctx.getRealPath("/upload");
 			System.out.println(path);
 			int maxSize = 5 * 1024 * 1024;
-
 			MultipartRequest multi = new MultipartRequest(req, path, maxSize,
 					"utf-8", new DefaultFileRenamePolicy());
 			// 입력 값을 보드에 추가.
@@ -376,7 +353,6 @@ public class MainController extends HttpServlet {
 			boardDTO.setMember_id(mdto.getMember_id());
 			boardDTO.setBoard_id(Integer.parseInt(multi.getParameter("board_id")));
 			boardDAO.updateBoard(boardDTO);
-
 			url = "/main?cmd=INDEX";
 
 			// 게임보드 글 쓰기.

@@ -63,8 +63,16 @@
 										value="${mapDTO.gis_x }" id="gis_x" name="gis_x"> <input
 										type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
 									<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"
-										name="loc_id"> <img src="images/single-post-pic.jpg"
-										class="img-rounded">
+										name="loc_id">
+
+									<c:if test="${!empty listdto.photo}">
+										<img src="upload/${listdto.photo}" class="img-rounded"
+											align="middle">
+									</c:if>
+									<c:if test="${empty listdto.photo}">
+										<img src="images/single-post-pic.jpg" class="img-rounded">
+									</c:if>
+									<img src="images/single-post-pic.jpg" class="img-rounded">
 									<h2>${listdto.title}</h2>
 									<p>
 										<nobr>${listdto.textarea} </nobr>
@@ -89,28 +97,35 @@
 		<h3>내 친구들이 평가한 이 장소</h3>
 		<div class="row">
 			<c:if test="${!empty friboardList}">
-			<c:forEach var="flistdto" items="${friboardList}">
-				<div class="span5"
-					style="text-overflow: ellipsis; overflow: hidden;">
-					<img src="images/single-post-pic.jpg" class="img-rounded">
-					<h2>${flistdto.title}</h2> 
-					<p>
-						<nobr>${flistdto.textarea} </nobr>
-					</p>
-					<p>
-						<a class="btn"
-							href="main?cmd=CONTENT&board_id=${flistdto.board_id}">자세히 보기
-							&raquo;</a>
-					</p>
-				</div>
-			</c:forEach>
+				<c:forEach var="flistdto" items="${friboardList}">
+					<div class="span5"
+						style="text-overflow: ellipsis; overflow: hidden;">
+												<c:if test="${!empty flistdto.photo}">
+							<img src="upload/${flistdto.photo}" class="img-rounded" align="middle"
+								>
+						</c:if>
+						<c:if test="${empty flistdto.photo}">
+						<img src="images/single-post-pic.jpg" class="img-rounded">
+						</c:if>
+
+						<h2>${flistdto.title}</h2>
+						<p>
+							<nobr>${flistdto.textarea} </nobr>
+						</p>
+						<p>
+							<a class="btn"
+								href="main?cmd=CONTENT&board_id=${flistdto.board_id}">자세히 보기
+								&raquo;</a>
+						</p>
+					</div>
+				</c:forEach>
 			</c:if>
 		</div>
 
 		<hr />
 		<h3>회원님들이 평가한 이 장소</h3>
- 추후 구현 예정.
- <%--
+		추후 구현 예정.
+		<%--
 	<script src='chart/Nwagon.js'></script>
 		<div class="row">
 			<c:forEach var="localChart" items="${localchartList}">

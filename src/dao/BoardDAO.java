@@ -221,16 +221,27 @@ public class BoardDAO {
 		String sql = "";
 		try {
 			con = pool.getConnection();
-			
-			sql = "UPDATE board SET title=?, textarea=?, photo=? WHERE board_id=?";
+			System.out.println(dto.getPhoto());
+			if(dto.getPhoto()==null){
+			sql = "UPDATE board SET title=?, textarea=? WHERE board_id=?";
 			
 			// System.out.println("글쓰기"+dto.getTitle());
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getTitle());
 			pstmt.setString(2, dto.getTextarea());
-			pstmt.setString(3, dto.getPhoto());
 			pstmt.setInt(4, dto.getBoard_id());
+			}else{
+				sql = "UPDATE board SET title=?, textarea=?, photo=? WHERE board_id=?";
+				
+				// System.out.println("글쓰기"+dto.getTitle());
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, dto.getTitle());
+				pstmt.setString(2, dto.getTextarea());
+				pstmt.setString(3, dto.getPhoto());
+				pstmt.setInt(4, dto.getBoard_id());
+			}
 			pstmt.executeUpdate();
 			
 		} catch (Exception err) {

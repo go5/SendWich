@@ -8,7 +8,7 @@
 <!DOCTYPE html >
 <html>
 <head>
-<jsp:include page="/HeadInfo.jsp"/>
+<jsp:include page="/HeadInfo.jsp" />
 </head>
 <body>
 	<jsp:include page="/Sub_Header.jsp" />
@@ -20,72 +20,55 @@
 		MemberDAO memberDAO = new MemberDAO();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memberDTO");
 	%>
-	<div class="content">
-		<div class="wrap">
-			<div class="single-page">
-				<form name="body" style="width: 650px">
-					<div style="width: 90%;">
-						<!-- 머릿말 부분.  -->
-						<h1>${memberDTO.name}님의MSGboard입니다.</h1>
+	<div class="container">
+		<div class="row">
+			<div class="span12" >
+			<form name="body" >
+				<!-- 머릿말 부분.  -->
+				<div style="width: 90%;" name="msgList" id="msgList" class="span12">
+					<h2>${memberDTO.name}님의MSGboard입니다.</h2>
+					<table class="table">
+						<!-- 제목 부분.  -->
+						<tr>
+							<td><input type="checkbox" id="msg_chk_all"
+								name="msg_chk_all" value=" " onchange="fnchkall(this.form)" /></td>
+							<td>메세지</td>
+							<td>보낸 친구</td>
+							<td>보낸 날짜</td>
+						</tr>
+
+						<!--  메시지 목록.  -->
+						<%
+							//받은 쪽지 정보 조회
+							Vector msgList = (Vector) session.getAttribute("msgList");
+
+							//받은 글 게시판으로 출력.
+							for (int i = 0; i < msgList.size(); i++) {
+								MessageDTO dto = (MessageDTO) msgList.get(i);
+								MemberDTO friends = memberDAO.getInfo(dto.getSender_id());
+						%>
+						<tr>
+							<td><input type="checkbox" id="msg_chk" name="msg_chk" value="<%=dto.getMsg_id()%>" /></td>
+							<td><div><%=dto.getTextarea()%></div></td>
+							<td><%=friends.getName()%></td>
+							<td><%=dto.getSend_date()%></td>
+						</tr>
+						<%
+							}
+						%>
+					</table>
+				</div>
+				<div class="span12">
+					<div style="float: left;">
+						<input type="button" id="msgdel" name="msgdel" value="선택항목 삭제"
+							onclick="fndelmsg(this.form)" class="btn" />
 					</div>
-
-					<div style="width: 90%;" name="msgList" id="msgList">
-						<table style="border: 1px solid #559955; padding: 1px;">
-							<!-- 제목 부분.  -->
-							<tr>
-								<td bgcolor=#CCCCCC width="5%"><input type="checkbox"
-									id="msg_chk_all" name="msg_chk_all" value=" "
-									onchange="fnchkall(this.form)" /></td>
-								<td bgcolor=#CCCCCC width="45%">
-									<p align=center>메세지</p>
-								</td>
-								<td width="20%" bgcolor=#CCCCCC>
-									<p align=center>보낸 친구</p>
-								</td>
-								<td width="30%" bgcolor=#CCCCCC>
-									<p align=center>보낸 날짜</p>
-								</td>
-							</tr>
-
-							<!--  메시지 목록.  -->
-							<%
-								//받은 쪽지 정보 조회
-								Vector msgList = (Vector) session.getAttribute("msgList");
-
-								//받은 글 게시판으로 출력.
-								for (int i = 0; i < msgList.size(); i++) {
-									MessageDTO dto = (MessageDTO) msgList.get(i);
-									MemberDTO friends = memberDAO.getInfo(dto.getSender_id());
-							%>
-							<tr>
-								<td width="5%"><input type="checkbox" id="msg_chk"
-									name="msg_chk" value="<%=dto.getMsg_id()%>" /></td>
-								<td width="45%"><div><%=dto.getTextarea()%></div></td>
-
-								<td width="20%">
-									<p align=center><%=friends.getName()%></p>
-								</td>
-
-								<td width="30%">
-									<p align=center><%=dto.getSend_date()%></p>
-								</td>
-							</tr>
-							<%
-								}
-							%>
-						</table>
+					<div style="float: left">
+						<input type="button" value="친구에게 메세지 보내기" onclick="fnWrite()"
+							class="btn" />
 					</div>
-					<br />
-					<div style="width: 90%;">
-						<div style="float: left;">
-							<input type="button" id="msgdel" name="msgdel" value="선택항목 삭제"
-								onclick="fndelmsg(this.form)" />
-						</div>
-						<div align="right">
-							<input type="button" value="친구에게 메세지 보내기" onclick="fnWrite()" />
-						</div>
-					</div>
-				</form>
+				</div>
+			</form>
 			</div>
 		</div>
 	</div>

@@ -24,6 +24,13 @@
 		}
 	}
 </script>
+<style >
+	#Info{
+		margin-top:1%;
+		margin-left:1em;
+		margin-right: 1em;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="/Sub_Header.jsp" />
@@ -32,77 +39,81 @@
 		response.setCharacterEncoding("utf-8");
 		MemberDTO memberdto = (MemberDTO) session.getAttribute("memberDTO");
 	%>
-	<div class="content">
-		<div class="wrap">
-			<div class="single-page">
-				<div class="single-page-artical">
-					<div class="artical-content">
-						<form name="editf" method="post" action="main?cmd=EDITINFO">
-							<div>
-								<div>이메일:</div>
-								<div>
-									<input type="hidden" name="member_id" id="member_id"
-										value="${memberDTO.member_id }"> <input type="text"
-										name="email" id="email" readonly="readonly"
-										value="${memberDTO.email}" />
-								</div>
-							</div>
-
-							<div>
-								<div>이름:</div>
-								<div>
-									<input type="text" name="name" id="name"
-										value="${memberDTO.name}" />
-								</div>
-							</div>
-
-							<div>
-								<div>패스워드확인 :</div>
-								<div>
-									<input type="password" name="password" id="password" />
-								</div>
-							</div>
-
-							<div>
-								<div>변경패스워드 :</div>
-								<div>
-									<input type="password" name="newpassword1" id="newpassword1" />
-								</div>
-							</div>
-
-							<div>
-								<div>변경패스워드확인 :</div>
-								<div>
-									<input type="password" name="newpassword2" id="newpassword2" />
-								</div>
-							</div>
-
-							<div>
-								<div>전화번호 :</div>
-								<div>
-									<input type="text" name="phone_number" id="phone_number"
-										value="${memberDTO.phone_number}" />
-								</div>
-							</div>
-
-							<div>
-								<div>가입일 :</div>
-								<div>${memberDTO.join_date}</div>
-							</div>
-
-							<div align="center">
-								<input type="button" value="정보수정" onclick="fnIsNull()" /> <a
-									href="main?cmd=INDEX"><input type="button" value="돌아가기" /></a>
-								<div style="font-size: 12px;">
-									<a href="javascript:fndel(this.form)"><span>회원 탈퇴하기</span></a>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
+	<div class="container">
+	<div class="row">
+	<div class="span1">
+	</div>
+	<div class="span10">
+	<form name="editf" method="post" action="main?cmd=EDITINFO" class="form-horizontal" >
+		<div class='control-group' >
+			<label class="control-label">이메일:</label>
+			<div class="controls">
+				<input type="hidden" name="member_id" id="member_id"
+					value="${memberDTO.member_id }"> <input type="text"
+					name="email" id="email" readonly="readonly"
+					value="${memberDTO.email}" class="input-large"/>
 			</div>
 		</div>
+
+		<div class='control-group'>
+			<label class="control-label">이름:</label>
+			<div class="controls">
+				<input type="text" name="name" id="name" value="${memberDTO.name}" class="input-large"/>
+			</div>
+		</div>
+
+		<div class='control-group'>
+			<label class="control-label">패스워드확인 :</label>
+			<div class="controls">
+				<input type="password" name="password" id="password" class="input-large"/>
+			</div>
+		</div>
+
+		<div class='control-group'>
+			<label class="control-label">변경패스워드 :</label>
+			<div class="controls">
+				<input type="password" name="newpassword1" id="newpassword1" class="input-large"/>
+			</div>
+		</div>
+
+		<div class='control-group'>
+			<label class="control-label">변경패스워드확인 :</label>
+			<div class="controls">
+				<input type="password" name="newpassword2" id="newpassword2" class="input-large"/>
+			</div>
+		</div>
+
+		<div class='control-group'>
+			<label class="control-label">전화번호 :</label>
+			<div class="controls">
+				<input type="text" name="phone_number" id="phone_number"
+					value="${memberDTO.phone_number}" class="input-large"/>
+			</div>
+		</div>
+
+		<div class='control-group'>
+			<div class="control-label">가입일 :</div>
+			<div class="controls">
+			<input type="text" readonly="readonly" value="${memberDTO.join_date}" class="input-large"/>
+			</div>
+		</div>
+		
+		<div class='control-group'>
+			<div class="controls">
+			<input type="button" value="정보수정" onclick="fnIsNull()" class="btn"/> <a
+				href="main?cmd=INDEX"><input type="button" value="돌아가기" class="btn" /></a>
+			<div style="font-size: 12px;">
+				<a href="javascript:fndel(this.form)"><span>회원 탈퇴하기</span></a>
+			</div>
+			</div>
+		</div>
+	</form>
 	</div>
+	<div class="span1">
+	</div>
+	</div>
+	</div>
+
 	<script>
 		function fndel(f) {
 			cw = screen.availWidth; //화면 넓이

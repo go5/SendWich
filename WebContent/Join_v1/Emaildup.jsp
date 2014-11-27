@@ -3,18 +3,20 @@
 <html>
 <head>
 <jsp:include page="/HeadInfo.jsp"></jsp:include>
+<style>
+	.row{
+		margin-top:20%;
+	}
+</style>
 </head>
 <jsp:include page="/Sub_Header.jsp" />
 <body class="container">
-	
 	<div class="row">
 		<div class="span12">
 			<div class="dropdown">
-				<form action="main?cmd=VALIDEMAIL" method="post" name="emaidup">
-					<div align="center" >
-						이메일을 입력해주세요.<br /> <br /> <input type="email" name="email"
-							id="email" onblur="fnEmail()" />&nbsp;&nbsp; <input
-							type="button" value="중복확인" onclick="fnIsNull()">
+				<form action="main?cmd=VALIDEMAIL" method="post" name="emaidup" class="form-inline">
+					<div align="center">
+						이메일을 입력 : &nbsp;&nbsp;<input type="email" name="email" id="email" onblur="fnEmail()" class="input"/>&nbsp;&nbsp; <input type="button" value="중복확인" onclick="fnIsNull()" class="btn">
 					</div>
 				</form>
 			</div>

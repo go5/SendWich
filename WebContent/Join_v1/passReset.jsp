@@ -3,6 +3,11 @@
 <html>
 <head>
 <jsp:include page="/HeadInfo.jsp"></jsp:include>
+<style>
+	.row{
+		margin-top:10%;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="/Sub_Header.jsp" />
@@ -11,15 +16,13 @@
 			<div class="span12">
 				<div class="dropdown">
 					<form action="main?cmd=PASSRESETCHK" method="post"
-						name="passresetChk">
+						name="passresetChk" class='form-inline'>
 						<div align="center">
-							<br />
-							<br />
-							<br />이메일을 입력해주세요.<br /> <input type="email" name="email"
-								id="email" />&nbsp;&nbsp; <br />
+							이메일을 입력해주세요.<br /> <input type="email" name="email"
+								id="email" class="input"/>&nbsp;&nbsp; <br />
 							<br /> 전화번호를 입력하세요(-제외)<br /> <input type="text"
-								name="phone_number" id="phone_number" />&nbsp;&nbsp; <br />
-							<br /> <input type="button" value="비밀번호 재설정" onclick="fnIsNull()">
+								name="phone_number" id="phone_number" class="input" />&nbsp;&nbsp; <br />
+							<br /> <input type="button" value="비밀번호 재설정" onclick="fnIsNull()" class="btn" />
 						</div>
 					</form>
 				</div>

@@ -1,5 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+	img{
+		size:20%;
+	}
+</style>
 <div class="navbar  navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
@@ -16,13 +21,12 @@
 					<div class="nav-collapse collapse">
 						<ul class="nav">
 							<!-- 검색창 부분. -->
-	<li>
-								<form class="form-search" action="main?cmd=MAP" method="post">
+							<li>
+								<form class="form form-search navbar-search" action="main?cmd=MAP" method="post">
 									<div class="input-append">
-										<input type="text" class="span4 input-medium" id="keyword"
+										<input type="text" class="span4 search-query" id="keyword"
 											name="keyword" value="${param.keyword }"
-											placeholder="위치?!"> <a href="#"><span
-											class="add-on"><i class="icon-search"></i></span></a>
+											placeholder="위치?!"><a href="#"><span	class="btn btn-inverse"><i class="icon-search icon-white"></i></span></a>
 									</div>
 								</form>
 							</li>
@@ -50,8 +54,7 @@
 								</ul></li>
 							 -->
 						</ul>
-						<form class="navbar-form pull-right" name="login" id="login"
-							action="main?cmd=LOGINPROC" method="post">
+						<form class="navbar-form pull-right" name="login" id="login" action="main?cmd=LOGINPROC" method="post">
 
 							<input name="logemail" id="logemail" class="span3" type="email"
 								placeholder="Email"> <input name="logpassword"

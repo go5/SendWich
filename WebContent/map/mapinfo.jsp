@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="dto.ChartDTO"%>
+<%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -31,10 +34,10 @@
 						<div class="hero-unit" style="background-color: lightgray">
 							<form method="post" action="main?cmd=POST" id="hiddenpost"
 								name="hiddenpost">
-								<input type="hidden" value="${mapDTO.loc_name }" id="loc_name"
+								<input type="hidden" value="${mapDTO.loc_name}" id="loc_name"
 									name="loc_name"> <input type="hidden"
-									value="${mapDTO.gis_x }" id="gis_x" name="gis_x"> <input
-									type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
+									value="${mapDTO.gis_x}" id="gis_x" name="gis_x"> <input
+									type="hidden" value="${mapDTO.gis_y}" id="gis_y" name="gis_y">
 								<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"
 									name="loc_id">
 
@@ -55,7 +58,7 @@
 								style="text-overflow: ellipsis; overflow: hidden;">
 								<form method="post" action="main?cmd=POST" id="hiddenpost"
 									name="hiddenpost">
-									<input type="hidden" value="${mapDTO.loc_name }" id="loc_name"
+									<input type="hidden" value="${mapDTO.loc_name}" id="loc_name"
 										name="loc_name"> <input type="hidden"
 										value="${mapDTO.gis_x }" id="gis_x" name="gis_x"> <input
 										type="hidden" value="${mapDTO.gis_y }" id="gis_y" name="gis_y">
@@ -85,33 +88,33 @@
 		<hr />
 		<h3>내 친구들이 평가한 이 장소</h3>
 		<div class="row">
-			<c:forEach var="listdto" items="${friboardList}">
-
+			<c:if test="${!empty friboardList}">
+			<c:forEach var="flistdto" items="${friboardList}">
 				<div class="span5"
 					style="text-overflow: ellipsis; overflow: hidden;">
 					<img src="images/single-post-pic.jpg" class="img-rounded">
-					<h2>${listdto.title}</h2>
+					<h2>${flistdto.title}</h2> 
 					<p>
-						<nobr>${listdto.textarea} </nobr>
+						<nobr>${flistdto.textarea} </nobr>
 					</p>
 					<p>
 						<a class="btn"
-							href="main?cmd=CONTENT&board_id=${listdto.board_id}">자세히 보기
+							href="main?cmd=CONTENT&board_id=${flistdto.board_id}">자세히 보기
 							&raquo;</a>
 					</p>
 				</div>
 			</c:forEach>
+			</c:if>
 		</div>
 
 		<hr />
 		<h3>회원님들이 평가한 이 장소</h3>
-
+ 추후 구현 예정.
+ <%--
 	<script src='chart/Nwagon.js'></script>
 		<div class="row">
-			<c:forEach var="localChart" items="${locationChart}">
-					<div class="span4"  >
-				${locationChart}
-					</div>
+			<c:forEach var="localChart" items="${localchartList}">
+					<div class="span4" id="chart11">	</div>
 						<script>
 							// 차트 변수
 							var options = {
@@ -135,6 +138,7 @@
 						</script>
 			</c:forEach>
 		</div>
+  --%>
 		<div class="clear"></div>
 
 

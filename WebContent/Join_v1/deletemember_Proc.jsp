@@ -12,6 +12,9 @@
 					<div>
 						회원 탈퇴가 정상적으로 이루어졌습니다.<br /> 감사합니다.
 					</div>
+					<%
+	session.removeAttribute("memberDTO");
+%>	
 					<div>
 						<a href="javascript:fnclose()"><button>닫기</button></a>
 					</div>
@@ -28,6 +31,7 @@
 	</div>
 	<script>
 		function fnclose() {
+			
 			window.opener.location.href = "main?cmd=INDEX";
 			window.close();
 		}

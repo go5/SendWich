@@ -18,7 +18,7 @@
 
 		<!-- 사진 부분 없으면 걍 생략.-->
 		<c:if test="${!empty boardDTO.photo}">
-			<img src="upload/${boardDTO.photo}" align="middle"
+			<img src="upload/${boardDTO.photo}" align="middle" class="img-rounded"
 				title="${mapDTO.loc_name}">
 		</c:if>
 		<!-- 제목 -->

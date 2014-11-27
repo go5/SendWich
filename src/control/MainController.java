@@ -207,25 +207,21 @@ public class MainController extends HttpServlet {
 			gis_x = Double.valueOf(req.getParameter("gis_x"));
 			gis_y = Double.valueOf(req.getParameter("gis_y"));
 			loc_name = req.getParameter("loc_name");
-
 			int cnt = mapDAO.chkMap(gis_x, gis_y);
 			if (cnt == 0) {
-				mapDAO.addMap(gis_x, gis_y, loc_name);
-				// System.out.println("추가됨.");
+			mapDAO.addMap(gis_x, gis_y, loc_name);
+			// System.out.println("추가됨.");
 			}
 			mapDTO = mapDAO.getMap(gis_x, gis_y, loc_name);
 			req.setAttribute("mapDTO", mapDTO);
-
 			//본인글
 			memboardList = boardDAO.membermapBoradList(mdto.getMember_id(),
-					mapDTO.getLoc_id());
+			mapDTO.getLoc_id());
 			req.setAttribute("memboardList", memboardList);
 			//친구글
 			friboardList = boardDAO.friendmapBoradList(mdto.getMember_id(),
-					mapDTO.getLoc_id());
+			mapDTO.getLoc_id());
 			req.setAttribute("friboardList", friboardList);
-		그래프 목록.
-			
 			url = "/map/mapinfo.jsp";
 
 			// 리플 작성

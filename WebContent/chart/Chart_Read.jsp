@@ -6,7 +6,6 @@
 
 	<link rel='stylesheet' href='chart/Nwagon.css' type='text/css'>
 	<script src='chart/Nwagon.js'></script>
-		${localChart}
 	<%
 	Vector ChartDto;
 		ChartDto = (Vector)request.getAttribute("chartList");//리드에서 오는 녀석

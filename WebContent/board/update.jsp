@@ -15,15 +15,21 @@
 	<div class="container">
 		<!-- 사진 부분 없으면 걍 생략.-->
 		<c:if test="${!empty boardDTO.photo}">
-			<img src="upload/${boardDTO.photo}" align="middle"
-				title="${mapDTO.loc_name}">
+			<img src="upload/${boardDTO.photo}" class="img-rounded"
+				align="middle">
+		</c:if>
+		<c:if test="${empty boardDTO.photo}">
+			<img src="images/single-post-pic.jpg" class="img-rounded">
 		</c:if>
 
 
 
-		<form method="post" action="main?cmd=UPDATEPROC" enctype="multipart/form-data" onsubmit="return fnSubmit(this)">
-			<input type="hidden" value="${mapDTO.loc_id}" id="loc_id" name="loc_id">
-			<input type="hidden" value="${boardDTO.board_id}" id="board_id" name="board_id">
+
+		<form method="post" action="main?cmd=UPDATEPROC"
+			enctype="multipart/form-data" onsubmit="return fnSubmit(this)">
+			<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"
+				name="loc_id"> <input type="hidden"
+				value="${boardDTO.board_id}" id="board_id" name="board_id">
 			<div class="row">
 				<div class="span1">제목</div>
 				<input class="span11" type="text" class="text" name="title"
@@ -33,22 +39,21 @@
 			<div class="row">
 				<div class="span1">&nbsp;</div>
 				<textarea class="span11" rows="12" name="textarea" id="textarea"
-					placeholder="하고싶은 이야기가 더 있나요?" >${boardDTO.textarea}</textarea>
+					placeholder="하고싶은 이야기가 더 있나요?">${boardDTO.textarea}</textarea>
 			</div>
 
-			평가표 는 아직 수정이 되지 않습니다. ㅠㅠ 
+			평가표 는 아직 수정이 되지 않습니다. ㅠㅠ
 
 
 			<div>
-				사진을 올려 주세요.(일단 한장. 이후에 추가예정.)<br />
-				파일은 jpg, png, gif 확장자만 가능합니다.(최대 5mb) <br/>
-					지금 등록된 사진파일: ${boardDTO.photo}<br/>
-				 <input type="file" class="text"
-					name="photo" id="photo" accept="image/jpeg, image/png, image/gif" >
+				사진을 올려 주세요.(일단 한장. 이후에 추가예정.)<br /> 파일은 jpg, png, gif 확장자만
+				가능합니다.(최대 5mb) <br /> 지금 등록된 사진파일: ${boardDTO.photo}<br /> <input
+					type="file" class="text" name="photo" id="photo"
+					accept="image/jpeg, image/png, image/gif" value="${boardDTO.photo}">
 			</div>
-
-			<input type="submit"class="btn"
-				value="수정하기" /> <input type="button" class="btn" value="뒤로가기"
+ 
+			<input type="submit" class="btn" value="수정하기" /> <input
+				type="button" class="btn" value="뒤로가기"
 				onclick="javascript:history.back();" />
 		</form>
 
@@ -66,36 +71,37 @@
 			var chartVal = document.getElementsByName("value1");
 			//주제 안쓰면 입력 안됨.
 			if(chartKey.length !=0){
-			if (chartKey.length >3) {
-				for (var i = 0; i < chartKey.length; i++) {//항목-키 쌍 확인.
-					if (chartKey[i].value == "") {
-						continue;
+				if (chartKey.length >3) {
+					for (var i = 0; i < chartKey.length; i++) {//항목-키 쌍 확인.
+						if (chartKey[i].value == "") {
+							continue;
+						}
+						if (chartVal[i].value == "") {
+							alert("항목에 대한 값이 비어있습니다");
+							chartVal[i].focus();
+							return false;
+						} else if (chartVal[i].value > 10 || chartVal[i].value < 0) {
+							alert("값 범위를 벗어났습니다.");
+							chartVal[i].focus();
+							return false;
+						}
 					}
-					if (chartVal[i].value == "") {
-						alert("항목에 대한 값이 비어있습니다");
-						chartVal[i].focus();
-						return false;
-					} else if (chartVal[i].value > 10 || chartVal[i].value < 0) {
-						alert("값 범위를 벗어났습니다.");
-						chartVal[i].focus();
-						return false;
-					}
-				}
-			}else{
-				alert("항목은 최소 3개이상이어야 합니다");
-			}
+				}else{
+					alert("항목은 최소 3개이상이어야 합니다");
+				}	
 			}
 
 			//그림파일인지 확장자 확인
 			if (file =="") {
-					f.submit();
+					alert("수정되었습니다")
+				f.submit();
 			}else if (uploadfile_check(file)) {
 					alert("수정되었습니다")
 					f.submit();
 					//업로드 파일이 그림 파일 형식에 맞으면 전송
-				} else {
-					return false;
-				}
+			} else {
+				return false;
+			}
 		}
 		//업로드파일 확장자 확인.
 		function uploadfile_check(file) {
@@ -107,16 +113,17 @@
 			str_ext = str_low.substring(str_dotlocation + 1);
 
 			switch (str_ext) {
-			case "gif":
-			case "jpg":
-			case "png":
-				return true;
-				break;
-			default:
-				alert("그림 파일 입력 양식에 맞지 않는 파일입니다.")
-				return false;
+				case "gif":
+				case "jpg":
+				case "png":
+					return true;
+					break;
+				default:
+					alert("그림 파일 입력 양식에 맞지 않는 파일입니다.")
+					return false;
 			}
 		}
+		
 
 		//맵 부분
 		var gis_x = ${mapDTO.gis_x};

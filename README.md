@@ -99,7 +99,11 @@ CONTROLLER
 -글쓰기 기능 개선()
 -회원가입 약관 추가.
 -지도 검색결과에서 친구글목록과 회원 그래프 보여주기.
- 
+
+확인된 문제(1128)
+-글 작성시 차트기능.
+	- 작성시 값을 아예 넣지 않으면 에러남
+	- 주제가 비어도 값이 입력됨.(주제를 비우면 입력이 됮 ㅣ않아야함) 
 </pre>
 
 M:\workspace\JSP\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SendWich\upload

@@ -23,7 +23,6 @@
 
 
 	<div class="container">
-		foreach의 아이템 변경해야함. 장소 기준으로 글 뽑기.
 		<h3>내가 평가한 이 장소</h3>
 		<div class="row">
 			<!-- 로그인이 아니라 글 목록 기준. -->
@@ -41,8 +40,8 @@
 								<input type="hidden" value="${mapDTO.loc_id}" id="loc_id"
 									name="loc_id">
 
-								<h1>본인 글쓰기</h1>
-								<p>본인이 이 장소에 대해서 쓴 글이 없으면 글쓰기 링크로.</p>
+								<h1>글쓰기</h1>
+								<p>작성된 글이 없습니다! 새 글을 작성해 보세요</p>
 								<p>
 									<button type="submit" class="btn btn-danger btn-large">글쓰기
 										&raquo;</button>
@@ -72,7 +71,6 @@
 									<c:if test="${empty listdto.photo}">
 										<img src="images/single-post-pic.jpg" class="img-rounded">
 									</c:if>
-									<img src="images/single-post-pic.jpg" class="img-rounded">
 									<h2>${listdto.title}</h2>
 									<p>
 										<nobr>${listdto.textarea} </nobr>
@@ -119,6 +117,11 @@
 						</p>
 					</div>
 				</c:forEach>
+			</c:if>
+			<c:if test="${empty friboardList}">
+					<div class="span5">
+	친구들이 작성한 글이 없습니다. 
+			</div>
 			</c:if>
 		</div>
 

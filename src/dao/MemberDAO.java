@@ -111,6 +111,7 @@ public class MemberDAO {
 	}
 	
 //회원정보 삭제
+	//친구목록, 글, 댓글, 메세지 삭제 해야함.
 	public void deleteMember(String email) {
 		try {
 			con = pool.getConnection();

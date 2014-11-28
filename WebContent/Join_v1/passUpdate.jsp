@@ -10,14 +10,14 @@
 		var newpassword1 = document.getElementById("newpassword1").value;
 		var newpassword2 = document.getElementById("newpassword2").value;
 
-		 if(newpassword1===newpassword2){
-				document.editf.submit();
-		}else if((newpassword1 == "" && newpassword2 == "")) {
+		if(newpassword1 == "") {
 			alert("비밀번호를 넣어주세요.")
-		} else if (newpassword1 != newpassword2) {
-			alert("변경될 비밀번호가 다릅니다. 확인해주세요");
-		} else if (password.length < 4 || newpassword1.length < 4) {
+		}else if (newpassword1.length < 4) {
 			alert("비밀번호는 4글자 이상이어야 합니다.");
+		}else if (newpassword1 != newpassword2) {
+			alert("변경될 비밀번호가 다릅니다. 확인해주세요");
+		} else{
+			document.editf.submit();
 		} 
 	}
 </script>
@@ -27,7 +27,6 @@
 	<%
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		//MemberDTO memberdto = (MemberDTO) session.getAttribute("memberDTO");
 		String passResetEmail = (String)session.getAttribute("passResetEmail");
 		System.out.println("passUpdate.jsp: "+passResetEmail);
 	%>
@@ -40,18 +39,10 @@
 							<div>
 								<div>이메일:</div>
 								<div>
-							<!--  
-									<input type="hidden" name="member_id" id="member_id"
-										value="${memberDTO.member_id }"> 
-										-->
 										 <input type="text"
 										name="email" id="email" readonly="readonly"
 										value=<%=passResetEmail %> /> 
-										<!-- 
-										<input type="text"
-										name="email" id="email" readonly="readonly"
-										value="mykokoko@naver.com" />
-								 -->
+
 								</div>
 							</div>
 

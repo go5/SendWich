@@ -105,8 +105,8 @@ public class MainController extends HttpServlet {
 			String password = req.getParameter("newpassword1");
 			password = Encode.encrypt(password);
 
-			System.out.println("비밀번호 변경" + email);
-			System.out.println("비밀번호 변경" + password);
+			//System.out.println("비밀번호 변경" + email);
+			//System.out.println("비밀번호 변경" + password);
 
 			memberDAO.updatePass(email, password);
 
@@ -122,12 +122,7 @@ public class MainController extends HttpServlet {
 			// model이동해야함.
 
 			String pass = req.getParameter("password");
-			pass = Encode.encrypt(pass);
-			// 기존 비밀번호 암호화
-
 			String npass = req.getParameter("newpassword1");
-			npass = Encode.encrypt(npass);
-			// 새로운 비밀번호 암호화
 
 			String email = req.getParameter("email");
 			// 비번 검증
@@ -136,6 +131,7 @@ public class MainController extends HttpServlet {
 			if (npass != null && npass.length() >= 4) {
 				pass = npass;
 			}
+			pass = Encode.encrypt(pass);
 			// 검증에 따른 처리
 			if (flag) {// 비번이 맞으면 수정을 진행.
 				mdto.setName(req.getParameter("name"));
@@ -273,28 +269,25 @@ public class MainController extends HttpServlet {
 			req.setAttribute("boardDTO", boardDTO);
 			// System.out.println(req.getParameter("value1"));
 			// 차트 입력(보드id 필요)
-			String title1 = multi.getParameter("title1");
+			String title1= multi.getParameter("title1");
 			String key1[] = multi.getParameterValues("key1");
 			String value1[] = null;
-			if (!multi.getParameterValues("value1").equals("") || multi.getParameterValues("value1") !=null ) {
+			if (!multi.getParameter("value1").equals("") || multi.getParameterValues("value1") !=null ) {
 				value1 = multi.getParameterValues("value1");
-			} else {
-				for (int i = 0; i < key1.length; i++) {
-					value1 = new String[key1.length];
-					value1[i] = "0";
+				if (title1 != "") {
+					for (int i = 0; i < key1.length; i++) {
+						System.out.println(value1[i]);
+						chartDTO = new ChartDTO();
+						chartDTO.setEva_type(title1);
+						chartDTO.setLoc_id(loc_id);
+						chartDTO.setBoard_id(boardDTO.getBoard_id());
+						chartDTO.setEva_key(key1[i]);
+						chartDTO.setEva_value(Integer.parseInt(value1[i]) * 10);
+						chartDAO.insertChart(chartDTO);
+					}
 				}
-			}
-			if (title1 != "") {
-				for (int i = 0; i < key1.length; i++) {
-					chartDTO = new ChartDTO();
-					chartDTO.setEva_type(title1);
-					chartDTO.setLoc_id(loc_id);
-					chartDTO.setBoard_id(boardDTO.getBoard_id());
-					chartDTO.setEva_key(key1[i]);
-					chartDTO.setEva_value(Integer.parseInt(value1[i]) * 10);
-					chartDAO.insertChart(chartDTO);
-				}
-			}
+
+			} 
 
 			url = "/main?cmd=INDEX";
 			// 글 보기
